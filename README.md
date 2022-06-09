@@ -1,6 +1,15 @@
-![Sonix](Sonix/Assets.xcassets/AppIcon.appiconset/80.png)
+![Sonix](Assets/Icon.png)
 
 # Sonix
 A [Put.io](https://put.io/) client which allows torrent trasnfers & browsing of content from the [YTS](https://yts.torrentbay.to/) API. 
 
-Swift + SwiftUI
+# Want to contribute?
+Sonix is built using Swift + SwiftUI, all contributions are welcome!
+
+[Get Started](ontributions.md)
+
+# Screenshots
+
+![Movies](Assets/Movies.png)
+![Movie Details](Assets/Movies_Details.png)
+![Sonix](Assets/Downloads.png)
