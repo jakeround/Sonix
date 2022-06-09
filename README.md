@@ -6,7 +6,7 @@ A [Put.io](https://put.io/) client which allows torrent trasnfers & browsing of 
 # Want to contribute?
 Sonix is built using Swift + SwiftUI, all contributions are welcome!
 
-[Get Started](ontributions.md)
+[Get Started](CONTRIBUTING.md)
 
 # Screenshots
 
