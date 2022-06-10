@@ -1,5 +1,5 @@
 //
-//  youtubeTrailer.swift
+//  YouTubeTrailer.swift
 //  Sonix
 //
 //  Created by Jake Round on 08/06/2022.

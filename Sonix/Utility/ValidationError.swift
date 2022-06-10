@@ -1,4 +1,9 @@
-//Copyright © 2022 and Confidential to ___ORGANIZATIONNAME___ All rights reserved.
+//
+//  ValidationError.swift
+//  Sonix
+//
+//  Created by Jake Round on 10/06/2022.
+//
    
 
 import Foundation
