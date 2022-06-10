@@ -192,7 +192,7 @@ struct Dashboard: View {
                NavigationLink(destination: DetailsView.init( title: substring2 + "", fileType: data.file.fileExtension, videoURL: viewModel.getStreamURL(file: data.file)!, shareURL: viewModel.getStreamURL(file: data.file) )) {
                    VStack {
                        
-                    Image("poster")
+                    Image("Poster_Image")
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(10)

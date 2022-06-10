@@ -71,7 +71,7 @@ struct Movies : Decodable, Identifiable {
            guard let runtime = self.runtime, runtime > 0 else {
                return ""
            }
-        return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
+        return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? ""
        }
 
     enum CodingKeys: String, CodingKey {

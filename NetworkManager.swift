@@ -12,7 +12,7 @@ import SwiftUI
 class NetworkManager: ObservableObject {
     @Published var movies: [Movies] = []
     var currentPage: Int = 1
-    var sortby = "rating"
+    var sortby = "year"
     
     init() {
         loadData()
@@ -24,11 +24,6 @@ class NetworkManager: ObservableObject {
             loadData()
     }
     
-    //MARK: - GENRE
-     func loadGENRE(currentGenre item: Movies) {
-             sortby = "year"
-             loadData()
-     }
     
     
     //MARK: - API CALL

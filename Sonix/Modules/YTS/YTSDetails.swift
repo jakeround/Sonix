@@ -13,59 +13,49 @@ struct YTSDetails: View {
 
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
-                VStack {
-                    
+                Spacer()
+                Spacer()
                 AsyncImage(
-                            url: URL(string: movie.backgroundImageOriginal!)
-                        ) { phase in
-                            switch phase {
-                            case .empty:
-                                ProgressView()
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            case .failure:
-                                Image(systemName: "wifi.slash")
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
-                        .frame(width: .infinity, height: 300)
-                        .background(Color(.systemGray))
-                        .clipped()
-                        .overlay (HStack(alignment: .bottom) {
+                                url: URL(string: movie.mediumCoverImage!),
+                                content: { image in
+                                    image.resizable()
+                                         .aspectRatio(contentMode: .fit)
+                                         //.resizable()
+                                         .scaledToFit()
+                                         .cornerRadius(16)
+                                         .frame(width: 165)
+                                },
+                                placeholder: {
+                                    Image("poster")
+                                        .aspectRatio(contentMode: .fit)
+                                        //.resizable()
+                                        .scaledToFit()
+                                        .cornerRadius(16)
+                                        .frame(width: 165)
+                                }
+                            )
+                
                             VStack (alignment: .leading){
-                                Spacer()
                                         Text(movie.title!)
                                             .font(.title)
                                             .fontWeight(.bold)
                                             .foregroundColor(Color(.label))
                                             .multilineTextAlignment(.center)
-                                        Text(movie.synopsis!)
-                                            .font(.subheadline)
-                                            .foregroundColor(Color(.secondaryLabel))
-                                            .lineLimit(2)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: 600)
                             }
-                            .padding()
-                            Spacer()
-                            VStack {
-                                Spacer()
+                            HStack {
                                 Text(movie.duration)
+                                    .padding()
                                 Text(movie.language!)
                             }
-                            .padding()
-                                    })
+                                  
                     
-                } // zstack
+                
                 
                 VStack {
                     
                     HStack {
                         Text("Description")
-                            .font(.title)
+                            .font(.subheadline)
                             .fontWeight(.bold)
                             .frame(width: .infinity)
                             .multilineTextAlignment(.leading)
@@ -83,7 +73,7 @@ struct YTSDetails: View {
                     
                     HStack {
                     Text("Torrents")
-                        .font(.title)
+                        .font(.subheadline)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.leading)
                         Spacer()
