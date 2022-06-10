@@ -53,7 +53,7 @@ struct TorrentView: View {
             
         }
         .padding()
-        .background(Color(.gray))
+        .background(Color(.systemGray))
         .cornerRadius(10)
     }
     

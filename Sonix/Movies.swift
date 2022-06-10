@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUI
-
 //MARK: - BASE MODEL
 
 struct ApiResponse : Decodable {
@@ -49,7 +47,7 @@ struct Movies : Decodable, Identifiable {
     let titleEnglish : String?
     let titleLong : String?
     let slug : String?
-    let year : Int?
+    let year : Int
     let rating : Float?
     let runtime : Int?
     let genres : [String]?
@@ -68,6 +66,13 @@ struct Movies : Decodable, Identifiable {
     let torrents : [Torrents]?
     let dateUploaded : String?
     let dateUploadedUnix : Int?
+    
+    var duration: String {
+           guard let runtime = self.runtime, runtime > 0 else {
+               return "n/a"
+           }
+        return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
+       }
 
     enum CodingKeys: String, CodingKey {
 
@@ -98,7 +103,20 @@ struct Movies : Decodable, Identifiable {
         case dateUploaded = "date_uploaded"
         case dateUploadedUnix = "date_uploaded_unix"
     }
+    
+    
+    static private let durationFormatter: DateComponentsFormatter = {
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .full
+            formatter.allowedUnits = [.hour, .minute]
+            formatter.unitsStyle = .abbreviated
+            formatter.zeroFormattingBehavior = .pad
+            return formatter
+        }()
 }
+
+
+
 
 //MARK: - TORRENTS
 
@@ -128,6 +146,8 @@ struct Torrents : Decodable, Hashable, Identifiable {
         case dateUploaded = "date_uploaded"
         case dateUploadedUnix = "date_uploaded_unix"
     }
+    
+    
 }
 
 

@@ -37,17 +37,10 @@ struct YTS: View {
                     
                     
                     LazyVGrid(columns: columns, spacing: 30) {
-                ForEach(networkingManager.movies) { movie in
-                        //LazyVStack(alignment: .leading) {
-                    
-                    
-                 
-                    
-                    
-                    
-                    
-                    NavigationLink(destination: YTSDetails(movie: movie)) {
-                    
+                        ForEach(networkingManager.movies) { movie in
+                        
+                            NavigationLink(destination: YTSDetails(movie: movie)) {
+                               // Text(movie.title!)
                             MovieListView(movie: movie)
                     }.onAppear() {
                         if networkingManager.movies.last?.id == movie.id {
@@ -57,7 +50,9 @@ struct YTS: View {
                     }
                     
                     
-                }
+                    }// Close LazyVGrid
+                        
+                        
                     }
                     
                     .padding()
@@ -88,6 +83,16 @@ struct YTS: View {
     
     
     
+}
+
+struct NavigationLazyView<Content: View>: View {
+    let build: () -> Content
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+    var body: Content {
+        build()
+    }
 }
 
 struct YTS_Previews: PreviewProvider {
