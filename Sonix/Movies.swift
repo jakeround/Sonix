@@ -69,7 +69,7 @@ struct Movies : Decodable, Identifiable {
     
     var duration: String {
            guard let runtime = self.runtime, runtime > 0 else {
-               return "n/a"
+               return ""
            }
         return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
        }

@@ -10,12 +10,7 @@ import SwiftUI
 struct YTSDetails: View {
     
     let movie: Movies
-    let imageLoader = ImageLoader()
-    
 
-    
-    
-    
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
                 VStack {
@@ -72,16 +67,19 @@ struct YTSDetails: View {
                         Text("Description")
                             .font(.title)
                             .fontWeight(.bold)
+                            .frame(width: .infinity)
                             .multilineTextAlignment(.leading)
                         Spacer()
                     }
+                    
                     HStack {
                         Text(movie.descriptionFull!)
                             .multilineTextAlignment(.leading)
                     }
-                    //.background(Color(.blue))
+                    .padding()
+                    .background(Color(AppColor.BackGround.cardColour))
+                    .cornerRadius(10)
                     
-                    Divider()
                     
                     HStack {
                     Text("Torrents")
@@ -91,7 +89,7 @@ struct YTSDetails: View {
                         Spacer()
                     }
 
-                    ScrollView (.horizontal, showsIndicators: true) {
+                    ScrollView (.horizontal, showsIndicators: false) {
                     HStack (){
                                     if movie.torrents != nil {
                                    

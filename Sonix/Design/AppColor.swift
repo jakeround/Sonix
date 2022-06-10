@@ -14,6 +14,10 @@ import SwiftUI
 struct AppColor {
     
     enum BackGround {
+        @Theme(light: UIColor(hex: "F2F1F6"),
+               dark: UIColor(hex: "1C1C1E"))
+        static var cardColour: UIColor
+        
         @Theme(light: UIColor(hex: "ffffff"),
                dark: UIColor(hex: "333333"))
         static var lightBackground: UIColor
@@ -29,6 +33,17 @@ struct AppColor {
         @Theme(light: UIColor(hex: "ffffff"),
                dark: UIColor(hex: "161616F0"))
         static var tabBarBackground: UIColor
+    }
+    
+    enum Title {
+        @Theme(light: UIColor(hex: "000000"),
+               dark: UIColor(hex: "ffffff"))
+        static var defaultType: UIColor
+        
+        @Theme(light: UIColor(hex: "aaaaaa"),
+               dark: UIColor(hex: "aaaaaa"))
+        static var subType: UIColor
+
     }
     
     enum Components {
@@ -85,7 +100,7 @@ struct AppColor {
         }
         
         enum TabBar {
-            
+            // Global Colour
             @Theme(light: UIColor(hex: "FE3A5C"),
                    dark: UIColor(hex: "FE3A5C"))
             static var tint: UIColor

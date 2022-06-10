@@ -11,9 +11,7 @@ import SwiftUI
 struct YTS: View {
     @StateObject var networkingManager = NetworkManager()
     
-    let columns = [
-           GridItem(.adaptive(minimum: 180))
-       ]
+    let columns = [GridItem(.adaptive(minimum: 160))]
     
     @State private var showDetails = false
 
@@ -39,10 +37,9 @@ struct YTS: View {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(networkingManager.movies) { movie in
                         
-                            NavigationLink(destination: YTSDetails(movie: movie)) {
-                               // Text(movie.title!)
                             MovieListView(movie: movie)
-                    }.onAppear() {
+                            
+                            .onAppear() {
                         if networkingManager.movies.last?.id == movie.id {
                             networkingManager.loadMoreContent(currentItem: movie)
                         }
@@ -59,7 +56,7 @@ struct YTS: View {
                 }
                 
             
-            .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Movies")
             // Load API
             .onAppear {

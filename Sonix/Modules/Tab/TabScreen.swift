@@ -16,39 +16,24 @@ struct TabScreen: View {
             YTS()
                 .tabItem {
                     Label("Movies", systemImage: "filemenu.and.selection")
+                        .environment(\.symbolVariants, .none)
                 }
             Dashboard()
                 .tabItem {
-                    Label("Download", systemImage: "arrow.down.circle")
-                }
-            //ChillInstitute(url: URL(string: "https://chill.institute/")!)
-                //.tabItem {
-                  //  Image("icon_upload")
-                   //     .renderingMode(.template)
+                    Label("Download", systemImage: "folder")
+                        .environment(\.symbolVariants, .none)
                     
-                  // Text(Constants.ChillInstitute)
-                //}
+                }
             SettingsScreen()
                 .tabItem {
-                    Image("icon_settings")
-                        .renderingMode(.template)
-                    
-                    Text(Constants.settings)
+                    Label("Settings", systemImage: "gearshape")
+                        .environment(\.symbolVariants, .none)
                 }
         }
         .accentColor(Color(AppColor.Components.TabBar.tint))
         
     }
     
-}
-
-extension TabScreen {
-    struct Constants {
-        static let dashboard = "Dashboard"
-        static let files = "Files"
-        static let settings = "Settings"
-        static let ChillInstitute = "Download"
-    }
 }
 
 struct TabScreen_Previews: PreviewProvider {
