@@ -10,11 +10,14 @@ import SwiftUI
 struct YTSDetails: View {
     
     let movie: Movies
-
+    
+    @StateObject var viewModel = SearchViewModel()
+    
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
                 Spacer()
                 Spacer()
+                
                 AsyncImage(
                                 url: URL(string: movie.mediumCoverImage!),
                                 content: { image in
@@ -45,8 +48,27 @@ struct YTSDetails: View {
                             HStack {
                                 Text(movie.duration)
                                     .padding()
-                                Text(movie.language!)
+                                Text(movie.language!.uppercased())
                             }
+                
+                HStack {
+                SearchField(placeholder: "Torrent Hash", value: $viewModel.searchText)
+                
+                Button {
+                    self.transferData()
+                    //self.fetchData()
+                } label: {
+                    if $viewModel.isUploading.wrappedValue {
+                        ProgressView()
+                            .tint(Color(AppColor.primaryText))
+                    } else {
+                        Text("Transfer")
+                            .font(.system(size: 16, weight: .bold, design: .default))
+                    }
+                }
+                .buttonStyle(HollowButtonStyle())
+                }
+            
                                   
                     
                 
@@ -99,7 +121,23 @@ struct YTSDetails: View {
                         
             
         }
-        .navigationTitle(movie.title!)
+        //.navigationTitle(movie.title!)
     }
 }
 
+extension YTSDetails {
+    
+    func fetchData() {
+        viewModel.fetchData()
+    }
+    
+    func refreshData() {
+        viewModel.refreshData()
+    }
+    
+    func transferData() {
+        viewModel.trasferData()
+    }
+    
+    
+}

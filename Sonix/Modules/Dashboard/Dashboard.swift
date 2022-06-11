@@ -51,24 +51,24 @@ struct Dashboard: View {
                     
                     ScrollView {
                         
-                        HStack {
-                        SearchField(placeholder: Constants.searchBarPlaceholder, value: $viewModel.searchText)
+                        //HStack {
+                        //SearchField(placeholder: Constants.searchBarPlaceholder, value: $viewModel.searchText)
                         
-                        Button {
-                            self.transferData()
+                        //Button {
+                        //    self.transferData()
                             //self.fetchData()
-                        } label: {
-                            if $viewModel.isUploading.wrappedValue {
-                                ProgressView()
-                                    .tint(Color(AppColor.primaryText))
-                            } else {
-                                Text("Transfer")
-                                    .font(.system(size: 16, weight: .bold, design: .default))
-                            }
-                        }
-                        .buttonStyle(HollowButtonStyle())
-                        }
-                        .padding()
+                        //} label: {
+                        //    if $viewModel.isUploading.wrappedValue {
+                        //        ProgressView()
+                        //            .tint(Color(AppColor.primaryText))
+                        //    } else {
+                         //      Text("Transfer")
+                          //          .font(.system(size: 16, weight: .bold, design: .default))
+                         //   }
+                        //}
+                        //.buttonStyle(HollowButtonStyle())
+                        //}
+                        //.padding()
                         
                         LazyVGrid(columns: columns, spacing: 30) {
                         
@@ -84,10 +84,11 @@ struct Dashboard: View {
                            // }
                         
                     }
+                        .padding()
                        
                     .onAppear {
                         self.fetchData()
-                        //self.refreshData()
+                        self.refreshData()
                     }
                     }
                     .refresher(style: .system) { done in // Called when pulled to refresh
@@ -195,8 +196,8 @@ struct Dashboard: View {
                     Image("Poster_Image")
                         .resizable()
                         .scaledToFit()
-                        .cornerRadius(10)
-                        .frame(width: 150)
+                        .cornerRadius(16)
+                        .frame(width: 165)
                        
                        //Text(newStr1) // 1
                        //Text(newStr2) // 20
