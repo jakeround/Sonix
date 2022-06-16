@@ -58,11 +58,11 @@ struct YTS: View {
             
                 .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Movies")
-            // Load API
-            .onAppear {
-                networkingManager.loadData()
-                
-            }
+            // Redundant
+            //.onAppear {
+            //    networkingManager.loadData()
+            //
+            //}
           
         }
         .navigationViewStyle(StackNavigationViewStyle())

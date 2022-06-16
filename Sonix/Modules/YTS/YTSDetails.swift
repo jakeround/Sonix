@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import YouTubePlayerKit
+import WebKit
 
 struct YTSDetails: View {
     
     let movie: Movies
-    
     @StateObject var viewModel = SearchViewModel()
+    //let youTubePlayer: YouTubePlayer = \(movie.trailer?)
+    @State private var isShowingWebView: Bool = false
+    
     
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
                 Spacer()
                 Spacer()
+                
+                
                 
                 AsyncImage(
                                 url: URL(string: movie.mediumCoverImage!),
@@ -48,8 +54,33 @@ struct YTSDetails: View {
                             HStack {
                                 Text(movie.duration)
                                     .padding()
+                                //Text(movie.year!)
+                                  //  .padding()
                                 Text(movie.language!.uppercased())
                             }
+            
+                
+                 //ForEach(movie.genres!, id: \.self) { i in
+                  //          HStack {
+                  //              Text("Genre")
+                  //          }
+                  //      }
+            
+                printUI(movie.genres)
+                
+                        Button(action: {
+                            isShowingWebView = true
+                        })
+                        {
+                            Text("Trailer")
+                                .padding()
+                                        .foregroundColor(.white)
+                                        .background(.red)
+                                        .cornerRadius(5)
+                        }
+                        .sheet(isPresented: $isShowingWebView) {
+                            Webview(url: movie.trailer)
+                        }
                 
                 HStack {
                 SearchField(placeholder: "Torrent Hash", value: $viewModel.searchText)
@@ -79,19 +110,29 @@ struct YTSDetails: View {
                         Text("Description")
                             .font(.subheadline)
                             .fontWeight(.bold)
-                            .frame(width: .infinity)
                             .multilineTextAlignment(.leading)
                         Spacer()
                     }
+                    
                     
                     HStack {
                         Text(movie.descriptionFull!)
                             .multilineTextAlignment(.leading)
                     }
+                    .frame(
+                          minWidth: 0,
+                          maxWidth: .infinity,
+                          minHeight: 0,
+                          maxHeight: .infinity,
+                          alignment: .topLeading
+                        )
                     .padding()
                     .background(Color(AppColor.BackGround.cardColour))
                     .cornerRadius(10)
                     
+                    Spacer()
+                    
+                  
                     
                     HStack {
                     Text("Torrents")
@@ -123,6 +164,8 @@ struct YTSDetails: View {
         }
         //.navigationTitle(movie.title!)
     }
+    
+    
 }
 
 extension YTSDetails {
@@ -140,4 +183,13 @@ extension YTSDetails {
     }
     
     
+}
+
+
+extension View {
+    func printUI(_ args: Any..., separator: String = " ", terminator: String = "\n") -> EmptyView {
+        let output = args.map(String.init(describing:)).joined(separator: separator)
+        print(output, terminator: terminator)
+        return EmptyView()
+    }
 }

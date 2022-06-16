@@ -10,12 +10,12 @@ import YouTubePlayerKit
 
 struct YouTubeTrailer: View {
     
-    let trailer: String
+    let trailer: URL
 
     let youTubePlayer: YouTubePlayer = "https://youtube.com/watch?v=psL_5RIBqnY"
 
     var body: some View {
-        Text(trailer)
+        Print(trailer)
         YouTubePlayerView(self.youTubePlayer) { state in
             // Overlay ViewBuilder closure to place an overlay View
             // for the current `YouTubePlayer.State`
@@ -32,3 +32,9 @@ struct YouTubeTrailer: View {
 
 }
 
+extension View {
+    func Print(_ vars: Any...) -> some View {
+        for v in vars { print(v) }
+        return EmptyView()
+    }
+}

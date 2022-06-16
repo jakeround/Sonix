@@ -12,7 +12,7 @@ import SwiftUI
 class NetworkManager: ObservableObject {
     @Published var movies: [Movies] = []
     var currentPage: Int = 1
-    var sortby = "year"
+   var sortby = "download_count"
     
     init() {
         loadData()
@@ -29,7 +29,7 @@ class NetworkManager: ObservableObject {
     //MARK: - API CALL
     func loadData() {
 
-        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=\(self.sortby)&page=\(self.currentPage)")!
+        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)")!
         
            URLSession.shared.dataTask(with: url) { (data, response, error) in
 

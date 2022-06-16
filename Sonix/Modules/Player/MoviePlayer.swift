@@ -41,3 +41,7 @@ struct MoviePlayer_Previews: PreviewProvider {
         MoviePlayer(url: "https://bit.ly/swswift")
     }
 }
+
+
+
+

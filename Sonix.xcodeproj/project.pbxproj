@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4004E6982854318400FA045A /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4004E6972854318400FA045A /* Webview.swift */; };
 		40242076284FDCB900D86024 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242075284FDCB900D86024 /* MovieListView.swift */; };
 		40242078284FDD5C00D86024 /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242077284FDD5C00D86024 /* Movies.swift */; };
 		4024207A284FDD9400D86024 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242079284FDD9400D86024 /* NetworkManager.swift */; };
@@ -127,6 +128,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4004E6972854318400FA045A /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		40242075284FDCB900D86024 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		40242077284FDD5C00D86024 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 		40242079284FDD9400D86024 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../NetworkManager.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				40845015283903BA00AA8908 /* YTS.swift */,
 				4024207B284FEF4A00D86024 /* YTSDetails.swift */,
+				4004E6972854318400FA045A /* Webview.swift */,
 				402420A4285018A100D86024 /* YouTubeTrailer.swift */,
 				40242075284FDCB900D86024 /* MovieListView.swift */,
 				4084501828390A3300AA8908 /* TorrentView.swift */,
@@ -954,6 +957,7 @@
 				507710F4280AF50E003DFA91 /* AppTheme.swift in Sources */,
 				505ABFBB280ED57300C855CB /* AVPlayerView.swift in Sources */,
 				40242076284FDCB900D86024 /* MovieListView.swift in Sources */,
+				4004E6982854318400FA045A /* Webview.swift in Sources */,
 				50EDBD96280EE4A500BF930F /* SuccessModel.swift in Sources */,
 				50EDBDBE280EE4A500BF930F /* FilesService+CRUD.swift in Sources */,
 				50EDBDB7280EE4A500BF930F /* TransfersService+Model.swift in Sources */,

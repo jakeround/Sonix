@@ -208,21 +208,26 @@ struct Dashboard: View {
                        
                        
                        //Text(editedText)
-                       VStack (alignment: .center, spacing: 0){
-                       Text(substring2)
-                           .foregroundColor(
-                               Color(AppColor.Components.SearchBar.text)
-                           )
-                           .multilineTextAlignment(.center)
-                           //.background(.blue)
-                           .frame(height: 45)
-                           .lineLimit(3)
-                          
-                       Text(year)
-                               //.multilineTextAlignment(.center)
-                               .foregroundColor(
-                                Color(.gray)
-                               )
+                       VStack (alignment: .center, spacing: 10){
+                           
+                           Text(substring2)
+                               .font(.system(size: 18))
+                               .fontWeight(.regular)
+                               .foregroundColor(Color(AppColor.Title.defaultType))
+                               .frame(width: 165, alignment: .leading)
+                               .lineLimit(1)
+                               //.background(Color(.blue))
+                           
+                           Text(year)
+                               .font(.system(size: 16))
+                               .fontWeight(.regular)
+                               .foregroundColor(Color(AppColor.Title.subType))
+                               .frame(width: 165, alignment: .leading)
+                           
+                           
+                           
+                           
+                    
                        }
                        .frame(height: 65)
                        //.background(.blue)

@@ -47,7 +47,7 @@ struct Movies : Decodable, Identifiable {
     let titleEnglish : String?
     let titleLong : String?
     let slug : String?
-    let year : Int
+    let year : Int?
     let rating : Float?
     let runtime : Int?
     let genres : [String]?
@@ -69,10 +69,16 @@ struct Movies : Decodable, Identifiable {
     
     var duration: String {
            guard let runtime = self.runtime, runtime > 0 else {
-               return ""
+               return " "
            }
         return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? ""
-       }
+    }
+    
+ 
+    
+    var trailer: URL {
+            return URL(string: "https://www.youtube.com/watch?v=\(ytTrailerCode ?? "")")!
+        }
 
     enum CodingKeys: String, CodingKey {
 
@@ -114,9 +120,6 @@ struct Movies : Decodable, Identifiable {
             return formatter
         }()
 }
-
-
-
 
 //MARK: - TORRENTS
 
