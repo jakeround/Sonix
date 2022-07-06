@@ -14,6 +14,8 @@ struct SettingsScreen: View {
     enum SettingsType: String, CaseIterable {
         case logout = "Logout"
     }
+    
+    let userManager: UserManager = .shared
         
     @StateObject var viewModel = SettingsViewModel()
     @State var showLogoutAlert: Bool = false
@@ -48,6 +50,8 @@ struct SettingsScreen: View {
     private var listingView: some View {
         
         ScrollView {
+            
+            printUI(viewModel.userName1())
             
             ForEach(0 ..< SettingsType.allCases.count) { index in
                 
@@ -132,3 +136,4 @@ struct SettingsScreen_Previews: PreviewProvider {
         SettingsScreen()
     }
 }
+

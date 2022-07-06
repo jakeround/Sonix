@@ -19,7 +19,8 @@ public struct PlaceholderStyle: ViewModifier {
                     .padding(.horizontal, 5)
             }
             content
-            .foregroundColor(Color.white)
+            .foregroundColor(Color(AppColor.Components.LoginField.activeText))
+            .cornerRadius(8)
             .padding(5.0)
         }
     }

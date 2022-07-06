@@ -33,7 +33,8 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func userName1() {
-        print(userManager.currentUser)
+        print("test")
+        
     }
 
 }

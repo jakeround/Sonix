@@ -44,9 +44,9 @@ final class SearchViewModel: ObservableObject {
         putioKitClient = ApiClientModel(id: Global.clientID, secret: Global.clientSecret, name: "")
     }
     
-    deinit {
-        debugPrint("Deint: \(String(describing: self))")
-    }
+    //deinit {
+    //   debugPrint("Deint: \(String(describing: self))")
+    //}
     
     func fetchData()  {
         guard hasMore else { return }

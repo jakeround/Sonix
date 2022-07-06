@@ -28,23 +28,35 @@ struct LoginScreen: View {
                     Spacer()
                     Text("Sonix")
                         .font(.system(size: 42, weight: .bold))
+                    Text("Watch your favourite movies")
+                        .foregroundColor(.gray)
                     Spacer()
                     
                     
+                    
+                    
+                    HStack {
                     Button(action: { showingSheet.toggle() }) {
-                        Text("Login")
-                            .frame(width: 390, height: 56)
-                            .font(.system(size: 18, weight: .bold, design: .default))
-                           .foregroundColor(.white)
-                           .contentShape(Rectangle()) // Add this line
-                    }
+                            Text("Get Started")
+                        }
+                        .font(.system(size: 18, weight: .bold, design: .default))
+                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
+                        //.padding([.leading, .trailing], 20)
+                        .foregroundColor(.white)
+                        
+                        .background(Color.primary)
+                        .cornerRadius(13)
+                        
+                        
+                    }//.padding([.leading, .trailing], 20)
+                    
                     .sheet(isPresented: $showingSheet) {
                         SheetView()
                     }
                     
-                    .background(Color.primary)
-                    .cornerRadius(13)
-                    .buttonStyle(PlainButtonStyle())
+                    //.background(Color.primary)
+                    //.cornerRadius(13)
+                    //.buttonStyle(PlainButtonStyle())
                     
                     
 
@@ -53,12 +65,12 @@ struct LoginScreen: View {
 
                     
                 }
-                .padding()
-                
+                //.padding()
+                .padding([.leading, .trailing], 20)
             
             
         }
-        .padding()
+        //.padding()
         .navigationBarHidden(true)
         //.frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(AppColor.BackGround.lightBackground))
@@ -70,25 +82,35 @@ struct LoginScreen: View {
     
     struct SheetView: View {
         @Environment(\.dismiss) var dismiss
-        
         @StateObject var viewModel = LoginViewModel()
-        
         @State var showTabScreen: Bool = false
+        
+        @State private var username = ""
+        @State private var password = ""
 
         var body: some View {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack (alignment: .leading) {
+                HStack {
+                    
+                }.frame(height: 16)
                 
-                Text("Login")
-                    .font(.system(size: 48, weight: .bold))
-                
+                VStack(alignment: .leading) {
+                Text("Username or email address")
+                        .multilineTextAlignment(.leading)
+                    .font(.system(size: 14, weight: .bold, design: .default))
+                    //.frame(alignment: .leading)
+                    
+                }
                 LoginField(placeholder: Constants.userName, isPassword: false, value: $viewModel.username)
-                    
+                
+                VStack(alignment: .leading, spacing: 6) {
+                Text("Password")
+                    .font(.system(size: 14, weight: .bold, design: .default))
+                }
+                .frame(alignment: .trailing)
                 LoginField(placeholder: Constants.password, isPassword: true, value: $viewModel.password)
-                    
-
-
                 
-                
+                Spacer()
                 
                 Button {
                     viewModel.startAuthenticationFlow()
@@ -99,30 +121,30 @@ struct LoginScreen: View {
                         
                     } else {
                         Text(Constants.login)
-                            .frame(width: 390, height: 56)
                             .font(.system(size: 18, weight: .bold, design: .default))
-                           .foregroundColor(.white)
-                           .contentShape(Rectangle()) // Add this line
+                            .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
+                            .foregroundColor(.white)
+                            
+                            .background(Color.primary)
+                            .cornerRadius(13)
                     }
                     
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color.primary)
-                .cornerRadius(13)
-                .buttonStyle(PlainButtonStyle())
-                .keyboardShortcut(.defaultAction)
                 
-                .disabled($viewModel.loginButtonDisabled.wrappedValue)
-                //.buttonStyle(ThemeButtonStyle())
                 
-                Spacer()
+                
+                
 
                 
             }
-            .padding()
+            .padding([.leading, .trailing], 20)
+                
+
+                
+           
             .errorAlert(error: $viewModel.error)
-            
         }
+        
         
     }
     
@@ -141,9 +163,13 @@ struct LoginScreen: View {
             
                 //.padding()
                 .frame(height: 50)
-                .background(
-                    Color(AppColor.Components.LoginField.background).cornerRadius(13)
-                )
+                .cornerRadius(8)
+                //.border(Color(AppColor.Components.LoginField.background), width: 1)
+                .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(AppColor.Components.LoginField.background), lineWidth: 1)
+                        )
+               
                 .foregroundColor(
                     Color(AppColor.Components.LoginField.text)
                 )
@@ -169,8 +195,8 @@ struct LoginScreen: View {
 extension LoginScreen {
     struct Constants {
         static let login = "Login"
-        static let userName = "Username"
-        static let password = "Password"
+        static let userName = "Jake"
+        static let password = ""
     }
 }
 

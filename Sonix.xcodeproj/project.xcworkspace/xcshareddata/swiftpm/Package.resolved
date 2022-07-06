@@ -19,6 +19,24 @@
       }
     },
     {
+      "identity" : "swiftui-webview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-webview",
+      "state" : {
+        "revision" : "69740c45b2dd0f1e408b2b96030554f47669955e",
+        "version" : "1.0.7"
+      }
+    },
+    {
+      "identity" : "swiftui-youtube-player",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-youtube-player",
+      "state" : {
+        "revision" : "73d0d5225f6c1734918fa96ed5d6ecbfd1152e63",
+        "version" : "1.0.2"
+      }
+    },
+    {
       "identity" : "youtubeplayerkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",

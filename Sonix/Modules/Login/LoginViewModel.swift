@@ -28,9 +28,9 @@ final class LoginViewModel: ObservableObject {
         putioKitClient = ApiClientModel(id: Global.clientID, secret: Global.clientSecret, name: "")
     }
     
-    deinit {
-        debugPrint("Deint: \(String(describing: self))")
-    }
+    //deinit {
+        //debugPrint("Deint: \(String(describing: self))")
+    //}
     
     private func setupObservers() {
         Publishers.CombineLatest($username, $password).sink { [weak self] eml, pwd in

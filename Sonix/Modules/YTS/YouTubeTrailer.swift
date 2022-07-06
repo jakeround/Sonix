@@ -6,35 +6,41 @@
 //
 
 import SwiftUI
-import YouTubePlayerKit
+import SwiftUIYouTubePlayer
 
 struct YouTubeTrailer: View {
     
-    let trailer: URL
-
-    let youTubePlayer: YouTubePlayer = "https://youtube.com/watch?v=psL_5RIBqnY"
-
-    var body: some View {
-        Print(trailer)
-        YouTubePlayerView(self.youTubePlayer) { state in
-            // Overlay ViewBuilder closure to place an overlay View
-            // for the current `YouTubePlayer.State`
-            switch state {
-            case .idle:
-                ProgressView()
-            case .ready:
-                EmptyView()
-            case .error(let error):
-                Text(verbatim: "YouTube player couldn't be loaded")
-            }
+    let trailer: String
+    
+    @State private var action = YouTubePlayerAction.play
+    @State private var state = YouTubePlayerState.empty
+    
+    
+    private var buttonText: String {
+        switch state.status {
+        case .playing:
+            return "Pause"
+        case .unstarted,  .ended, .paused:
+            return "Play"
+        case .buffering, .queued:
+            return "Wait"
         }
     }
-
-}
-
-extension View {
-    func Print(_ vars: Any...) -> some View {
-        for v in vars { print(v) }
-        return EmptyView()
+    private var infoText: String {
+        "Q: \(state.quality)"
+    }
+    
+    var body: some View {
+        VStack {
+            YouTubePlayer(action: $action, state: $state)
+            .onAppear {
+                action = .loadID(trailer)
+            }
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        .background(Color.white)
+        .edgesIgnoringSafeArea(.all)
+        
+        
     }
 }

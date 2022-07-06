@@ -77,13 +77,17 @@ struct AppColor {
         
         enum LoginField {
             
-            @Theme(light: UIColor(hex: "E0E0E0"),
-                   dark: UIColor(hex: "E0E0E0"))
+            @Theme(light: UIColor(hex: "000000"),
+                   dark: UIColor(hex: "AAAAAA"))
             static var background: UIColor
             
             @Theme(light: UIColor(hex: "000000"),
-                   dark: UIColor(hex: "000000"))
+                   dark: UIColor(hex: "AAAAAA"))
             static var text: UIColor
+            
+            @Theme(light: UIColor(hex: "000000"),
+                   dark: UIColor(hex: "ffffff"))
+            static var activeText: UIColor
                         
         }
         

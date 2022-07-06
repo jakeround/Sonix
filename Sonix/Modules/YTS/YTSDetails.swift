@@ -16,12 +16,18 @@ struct YTSDetails: View {
     //let youTubePlayer: YouTubePlayer = \(movie.trailer?)
     @State private var isShowingWebView: Bool = false
     
+    @State private var array = [1, 1, 2]
+
+        func doSomething(index: Int) {
+            self.array = [1, 2, 3]
+        }
     
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
                 Spacer()
                 Spacer()
                 
+              
                 
                 
                 AsyncImage(
@@ -51,6 +57,14 @@ struct YTSDetails: View {
                                             .foregroundColor(Color(.label))
                                             .multilineTextAlignment(.center)
                             }
+                
+                            VStack (alignment: .leading){
+                                        Text(movie.genre)
+                                            .font(.body)
+                                            .foregroundColor(Color(.gray))
+                                            .multilineTextAlignment(.center)
+                            }
+                
                             HStack {
                                 Text(movie.duration)
                                     .padding()
@@ -60,45 +74,27 @@ struct YTSDetails: View {
                             }
             
                 
-                 //ForEach(movie.genres!, id: \.self) { i in
-                  //          HStack {
-                  //              Text("Genre")
-                  //          }
-                  //      }
-            
-                printUI(movie.genres)
+
                 
-                        Button(action: {
-                            isShowingWebView = true
-                        })
-                        {
+
+                
+                VStack {
+         
+                        NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!)) {
                             Text("Trailer")
-                                .padding()
-                                        .foregroundColor(.white)
-                                        .background(.red)
-                                        .cornerRadius(5)
-                        }
-                        .sheet(isPresented: $isShowingWebView) {
-                            Webview(url: movie.trailer)
-                        }
-                
-                HStack {
-                SearchField(placeholder: "Torrent Hash", value: $viewModel.searchText)
-                
-                Button {
-                    self.transferData()
-                    //self.fetchData()
-                } label: {
-                    if $viewModel.isUploading.wrappedValue {
-                        ProgressView()
-                            .tint(Color(AppColor.primaryText))
-                    } else {
-                        Text("Transfer")
-                            .font(.system(size: 16, weight: .bold, design: .default))
+                        }.font(.system(size: 18, weight: .bold, design: .default))
+                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
+                        .foregroundColor(.white)
+                        .contentShape(Rectangle())
+                        .background(Color.primary)
+                        .cornerRadius(13)
+                  
                     }
-                }
-                .buttonStyle(HollowButtonStyle())
-                }
+                
+
+                 
+                
+            
             
                                   
                     
@@ -152,6 +148,24 @@ struct YTSDetails: View {
                                         }
                                     }
                                     }
+                    }
+                    
+                    HStack {
+                    SearchField(placeholder: "Torrent Hash", value: $viewModel.searchText)
+                    
+                    Button {
+                        self.transferData()
+                        //self.fetchData()
+                    } label: {
+                        if $viewModel.isUploading.wrappedValue {
+                            ProgressView()
+                                .tint(Color(AppColor.primaryText))
+                        } else {
+                            Text("Transfer")
+                                .font(.system(size: 16, weight: .bold, design: .default))
+                        }
+                    }
+                    .buttonStyle(HollowButtonStyle())
                     }
                 }
                 .padding()

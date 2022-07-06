@@ -74,6 +74,16 @@ struct Movies : Decodable, Identifiable {
         return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? ""
     }
     
+    var genre:String {
+            if let genres = genres {
+                return genres.joined(separator: " / ")
+            }else{
+                return "Unknown Genre"
+            }
+            
+            
+        }
+    
  
     
     var trailer: URL {

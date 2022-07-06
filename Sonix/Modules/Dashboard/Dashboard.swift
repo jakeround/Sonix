@@ -35,7 +35,7 @@ struct Dashboard: View {
 
     
     let columns = [
-           GridItem(.adaptive(minimum: 180))
+           GridItem(.adaptive(minimum: 160))
        ]
     
     var body: some View {
@@ -188,9 +188,10 @@ struct Dashboard: View {
                //let newStr2 = str2.westernArabicNumeralsOnly
                let year = str3.westernArabicNumeralsOnly
                
+               let dummyVideo = URL(string: "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4")
               
                
-               NavigationLink(destination: DetailsView.init( title: substring2 + "", fileType: data.file.fileExtension, videoURL: viewModel.getStreamURL(file: data.file)!, shareURL: viewModel.getStreamURL(file: data.file) )) {
+               NavigationLink(destination: DetailsView.init( title: substring2 + "", fileType: data.file.fileExtension, videoURL: (viewModel.getStreamURL(file: data.file) ?? dummyVideo)!, shareURL: viewModel.getStreamURL(file: data.file) )) {
                    VStack {
                        
                     Image("Poster_Image")
