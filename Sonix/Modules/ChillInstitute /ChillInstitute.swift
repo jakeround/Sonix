@@ -24,6 +24,6 @@ struct ChillInstitute: UIViewRepresentable {
 
 struct ChillInstitute_Previews: PreviewProvider {
     static var previews: some View {
-        ChillInstitute(url: URL(string: "https://www.appcoda.com")!)
+        ChillInstitute(url: URL(string: "https://chill.institute/")!)
     }
 }

@@ -27,8 +27,12 @@ struct YTSDetails: View {
                 Spacer()
                 Spacer()
                 
-              
                 
+                
+                //RatingView(rating: 3.1)
+                printUI(movie.yearText)
+                
+                //Text(movie.yearText)
                 
                 AsyncImage(
                                 url: URL(string: movie.mediumCoverImage!),
@@ -50,6 +54,8 @@ struct YTSDetails: View {
                                 }
                             )
                 
+                
+                
                             VStack (alignment: .leading){
                                         Text(movie.title!)
                                             .font(.title)
@@ -68,8 +74,8 @@ struct YTSDetails: View {
                             HStack {
                                 Text(movie.duration)
                                     .padding()
-                                //Text(movie.year!)
-                                  //  .padding()
+                                Text(movie.mpaRating!)
+                                    .padding()
                                 Text(movie.language!.uppercased())
                             }
             
@@ -80,7 +86,7 @@ struct YTSDetails: View {
                 
                 VStack {
          
-                        NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!)) {
+                    NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                             Text("Trailer")
                         }.font(.system(size: 18, weight: .bold, design: .default))
                         .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
@@ -94,7 +100,7 @@ struct YTSDetails: View {
 
                  
                 
-            
+             
             
                                   
                     
@@ -128,7 +134,9 @@ struct YTSDetails: View {
                     
                     Spacer()
                     
-                  
+                    HStack {
+                                                    RatingsSection
+                                                }
                     
                     HStack {
                     Text("Torrents")
@@ -176,7 +184,7 @@ struct YTSDetails: View {
                         
             
         }
-        //.navigationTitle(movie.title!)
+        .navigationTitle(movie.title!)
     }
     
     
@@ -199,6 +207,38 @@ extension YTSDetails {
     
 }
 
+extension YTSDetails {
+    private var RatingsSection: some View {
+        HStack(alignment: .center) {
+            RatingsBuilder(ratings: movie.rating!)
+                .font(.system(size: 24))
+            //Text("\(movie.rating, specifier: "%.1f")")
+            //.foregroundColor(.yellow)
+            //.font(.system(size: 24))
+            //.fontWeight(.semibold)
+        }
+        .padding(.vertical)
+    }
+    
+    @ViewBuilder
+    private func RatingsBuilder(ratings: Double) -> some View {
+        let percent = ratings * 10
+        let stars = (percent + 0.5) / 20
+        let rounded = Int(stars.rounded())
+        let remainder = Int(5 - rounded)
+        
+        HStack {
+            ForEach(0..<rounded) { _ in
+                Image(systemName: "star.fill")
+                    .renderingMode(.original)
+            }
+            ForEach(0..<remainder) { _ in
+                Image(systemName: "star.fill")
+                    .foregroundColor(Color(.systemGray))
+            }
+        }
+    }
+}
 
 extension View {
     func printUI(_ args: Any..., separator: String = " ", terminator: String = "\n") -> EmptyView {

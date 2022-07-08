@@ -38,6 +38,8 @@ struct Dashboard: View {
            GridItem(.adaptive(minimum: 160))
        ]
     
+    @State var showSheetView1 = false
+    
     var body: some View {
         
         
@@ -97,7 +99,18 @@ struct Dashboard: View {
                             done() // Stops the refresh view (can be called on a background thread)
                         }
                     }
-                    
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Browse")
+                    .navigationBarItems(leading:
+                        Button(action: {
+                            self.showSheetView1.toggle()
+                        }) {
+                            Image(systemName: "gearshape")
+                        }
+                    )
+                    .sheet(isPresented: $showSheetView1) {
+                                SettingsScreen()
+                            }
                     
 
                     
@@ -105,8 +118,7 @@ struct Dashboard: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(AppColor.BackGround.darkBackground))
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(Constants.title)
+                
                 //.toolbar {
                    // Button(action: {
                      //           self.fetchData()
@@ -131,6 +143,7 @@ struct Dashboard: View {
                 }
             }
             .navigationViewStyle(.stack)
+        
         }
         
 
@@ -310,7 +323,7 @@ extension Dashboard {
 
 extension Dashboard {
     struct Constants {
-        static let title = "Download"
+        static let title = "Downloads"
         static let searchBarPlaceholder = "Paste URL or Torrent Hash"
         static let transfer = "Transfer"
     }

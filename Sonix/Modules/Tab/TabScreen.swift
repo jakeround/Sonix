@@ -15,19 +15,19 @@ struct TabScreen: View {
         TabView {
             YTS()
                 .tabItem {
-                    Label("Movies", systemImage: "filemenu.and.selection")
+                    Label("Browse", systemImage: "tv")
                         .environment(\.symbolVariants, .none)
                 }
+            //Sheet()
+                //.tabItem {
+                //    Label("Sheet", systemImage: "filemenu.and.selection")
+                //        .environment(\.symbolVariants, .none)
+               // }
             Dashboard()
                 .tabItem {
-                    Label("Download", systemImage: "folder")
+                    Label("Downloads", systemImage: "arrow.down.circle")
                         .environment(\.symbolVariants, .none)
                     
-                }
-            SettingsScreen()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                        .environment(\.symbolVariants, .none)
                 }
         }
         .accentColor(Color(AppColor.Components.TabBar.tint))

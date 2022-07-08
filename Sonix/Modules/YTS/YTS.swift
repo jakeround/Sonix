@@ -14,6 +14,8 @@ struct YTS: View {
     let columns = [GridItem(.adaptive(minimum: 160))]
     
     @State private var showDetails = false
+    
+    @State var showSheetView = false
 
     var body: some View {
         NavigationView {
@@ -34,7 +36,7 @@ struct YTS: View {
                             //}
                     
                     
-                    LazyVGrid(columns: columns, spacing: 30) {
+                    LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(networkingManager.movies) { movie in
                         
                             MovieListView(movie: movie)
@@ -54,28 +56,34 @@ struct YTS: View {
                     
                     .padding()
                 }
+            
                 
             
                 .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Movies")
+            .navigationTitle("Browse")
+            .navigationBarItems(leading:
+                    Button(action: {
+                        self.showSheetView.toggle()
+                    }) {
+                        Image(systemName: "gearshape")
+                    }
+                )
+            
             // Redundant
             //.onAppear {
             //    networkingManager.loadData()
             //
             //}
+            .sheet(isPresented: $showSheetView) {
+                        SettingsScreen()
+                    }
           
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        
     }
     
     
-    private var testview: some View {
-        NavigationLink {
-            Text("Detals View")
-        } label: {
-            Text("Hello World")
-        }
-    }
     
     
     

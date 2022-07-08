@@ -48,7 +48,7 @@ struct Movies : Decodable, Identifiable {
     let titleLong : String?
     let slug : String?
     let year : Int?
-    let rating : Float?
+    let rating : Double?
     let runtime : Int?
     let genres : [String]?
     let summary : String?
@@ -74,16 +74,22 @@ struct Movies : Decodable, Identifiable {
         return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? ""
     }
     
-    var genre:String {
+    
+    
+    var genre: String {
             if let genres = genres {
                 return genres.joined(separator: " / ")
-            }else{
+            } else {
                 return "Unknown Genre"
             }
-            
-            
         }
     
+    var yearText: Int? {
+        if let year = year {
+            print("no year")
+        }
+        return year
+    }
  
     
     var trailer: URL {

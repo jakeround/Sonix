@@ -22,6 +22,11 @@ struct SettingsScreen: View {
 
     var body: some View {
         NavigationView {
+            
+         
+    
+
+            
             VStack {
                listingView
                     .alert("", isPresented: $showLogoutAlert) {
@@ -33,8 +38,6 @@ struct SettingsScreen: View {
                         Text(Constants.logoutMessage)
                     }
                     .frame(minWidth: 350, maxWidth: 700)
-
-                SettingsView()
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,6 +45,7 @@ struct SettingsScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(Constants.title)
             .errorAlert(error: $viewModel.error)
+            
         }
         .navigationViewStyle(.stack)
 
@@ -51,7 +55,22 @@ struct SettingsScreen: View {
         
         ScrollView {
             
-            printUI(viewModel.userName1())
+            
+            HStack {
+                Text("Sonix allows you to browse movies and stream via Put.io")
+                    .multilineTextAlignment(.leading)
+            }
+            .frame(
+                  minWidth: 0,
+                  maxWidth: .infinity,
+                  minHeight: 0,
+                  maxHeight: .infinity,
+                  alignment: .topLeading
+                )
+            .padding()
+            .background(Color(AppColor.BackGround.cardColour))
+            .cornerRadius(10)
+            
             
             ForEach(0 ..< SettingsType.allCases.count) { index in
                 
@@ -65,8 +84,6 @@ struct SettingsScreen: View {
                     }
                 
             }
-            
-        
             
             
             
@@ -92,7 +109,7 @@ struct SettingsScreen: View {
                 Spacer()
             }
             .background(
-                Color(AppColor.Components.SettingList.background).cornerRadius(10)
+                Color(AppColor.BackGround.cardColour).cornerRadius(10)
             )
         }
     }

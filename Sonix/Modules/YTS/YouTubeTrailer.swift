@@ -11,6 +11,7 @@ import SwiftUIYouTubePlayer
 struct YouTubeTrailer: View {
     
     let trailer: String
+    let title: String
     
     @State private var action = YouTubePlayerAction.play
     @State private var state = YouTubePlayerState.empty
@@ -31,6 +32,7 @@ struct YouTubeTrailer: View {
     }
     
     var body: some View {
+        NavigationView {
         VStack {
             YouTubePlayer(action: $action, state: $state)
             .onAppear {
@@ -40,7 +42,12 @@ struct YouTubeTrailer: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(Color.white)
         .edgesIgnoringSafeArea(.all)
-        
-        
+            
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(title)
+        }
+       
+        .navigationViewStyle(StackNavigationViewStyle())
     }
+        
 }

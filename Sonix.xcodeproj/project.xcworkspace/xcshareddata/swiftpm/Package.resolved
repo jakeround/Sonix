@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "bottomsheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielsaidi/BottomSheet.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1b5fad9879558cc89e044c088befd9859afcdcae"
+      }
+    },
+    {
       "identity" : "swiftui-introspect",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",

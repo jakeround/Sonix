@@ -17,6 +17,8 @@
 		40845016283903BA00AA8908 /* YTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40845015283903BA00AA8908 /* YTS.swift */; };
 		4084501928390A3300AA8908 /* TorrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4084501828390A3300AA8908 /* TorrentView.swift */; };
 		40FFF7402875052C00E5D339 /* SwiftUIYouTubePlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 40FFF73F2875052C00E5D339 /* SwiftUIYouTubePlayer */; };
+		40FFF7472876305B00E5D339 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 40FFF7462876305B00E5D339 /* BottomSheet */; };
+		40FFF7492876309E00E5D339 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFF7482876309E00E5D339 /* Sheet.swift */; };
 		501B8A06280FC03400180DE5 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501B8A05280FC03400180DE5 /* UIApplication.swift */; };
 		501B8A08281064EF00180DE5 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501B8A07281064EF00180DE5 /* ShareSheet.swift */; };
 		501E71EA280BAD0F00BEEDD5 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E71E9280BAD0F00BEEDD5 /* ValidationError.swift */; };
@@ -135,6 +137,7 @@
 		4084500E2838184600AA8908 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		40845015283903BA00AA8908 /* YTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTS.swift; sourceTree = "<group>"; };
 		4084501828390A3300AA8908 /* TorrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentView.swift; sourceTree = "<group>"; };
+		40FFF7482876309E00E5D339 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		501B8A05280FC03400180DE5 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		501B8A07281064EF00180DE5 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		501E71E9280BAD0F00BEEDD5 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				407F7A49283FD626005A64E8 /* Refresher in Frameworks */,
+				40FFF7472876305B00E5D339 /* BottomSheet in Frameworks */,
 				40FFF7402875052C00E5D339 /* SwiftUIYouTubePlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +272,14 @@
 				4084501828390A3300AA8908 /* TorrentView.swift */,
 			);
 			path = YTS;
+			sourceTree = "<group>";
+		};
+		40FFF74A287630A500E5D339 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				40FFF7482876309E00E5D339 /* Sheet.swift */,
+			);
+			path = Sheet;
 			sourceTree = "<group>";
 		};
 		501E71EF280BB1A000BEEDD5 /* Model */ = {
@@ -360,6 +372,7 @@
 				507710EF280AF2D4003DFA91 /* Settings */,
 				50771120280B19CD003DFA91 /* Dashboard */,
 				BE003D62281704BF00EDD097 /* Details */,
+				40FFF74A287630A500E5D339 /* Sheet */,
 				40845017283903C000AA8908 /* YTS */,
 				BE0EC2CE2816CE40006D471C /* ChillInstitute  */,
 				507710EE280AF2B5003DFA91 /* Tab */,
@@ -785,6 +798,7 @@
 			packageProductDependencies = (
 				407F7A48283FD626005A64E8 /* Refresher */,
 				40FFF73F2875052C00E5D339 /* SwiftUIYouTubePlayer */,
+				40FFF7462876305B00E5D339 /* BottomSheet */,
 			);
 			productName = Sonix;
 			productReference = 507710B5280AEFFB003DFA91 /* Sonix.app */;
@@ -863,6 +877,7 @@
 				407F7A47283FD626005A64E8 /* XCRemoteSwiftPackageReference "SwiftUI-Refresher" */,
 				402420A12850182000D86024 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 				40FFF73E2875052C00E5D339 /* XCRemoteSwiftPackageReference "swiftui-youtube-player" */,
+				40FFF7452876305B00E5D339 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			productRefGroup = 507710B6280AEFFB003DFA91 /* Products */;
 			projectDirPath = "";
@@ -940,6 +955,7 @@
 				50EDBD9E280EE4A500BF930F /* URLRequest+HeaderPair.swift in Sources */,
 				50EDBDC1280EE4A500BF930F /* FilesService.swift in Sources */,
 				501E71EC280BAD7300BEEDD5 /* ErrorModifier.swift in Sources */,
+				40FFF7492876309E00E5D339 /* Sheet.swift in Sources */,
 				50EDBDB1280EE4A500BF930F /* FileOrTransferProtocol.swift in Sources */,
 				50EDBDB6280EE4A500BF930F /* RSSService+Models.swift in Sources */,
 				50EDBDB4280EE4A500BF930F /* ConfigService.swift in Sources */,
@@ -1357,6 +1373,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		40FFF7452876305B00E5D339 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/BottomSheet.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1369,6 +1393,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 40FFF73E2875052C00E5D339 /* XCRemoteSwiftPackageReference "swiftui-youtube-player" */;
 			productName = SwiftUIYouTubePlayer;
+		};
+		40FFF7462876305B00E5D339 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40FFF7452876305B00E5D339 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
 		};
 /* End XCSwiftPackageProductDependency section */
 

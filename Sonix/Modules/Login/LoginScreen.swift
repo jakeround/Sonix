@@ -195,7 +195,7 @@ struct LoginScreen: View {
 extension LoginScreen {
     struct Constants {
         static let login = "Login"
-        static let userName = "Jake"
+        static let userName = ""
         static let password = ""
     }
 }
