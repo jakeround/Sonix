@@ -2,7 +2,7 @@
 //  SearchView.swift
 //  Sonix
 //
-//  Created by Brittany Rima on 7/8/22.
+//  Created by Jake Round on 21/05/2022.
 //
 
 import SwiftUI

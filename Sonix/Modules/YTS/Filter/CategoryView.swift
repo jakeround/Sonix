@@ -2,7 +2,7 @@
 //  CategoryView.swift
 //  Sonix
 //
-//  Created by Brittany Rima on 7/8/22.
+//  Created by Jake Round on 21/05/2022.
 //
 
 import SwiftUI
@@ -85,7 +85,7 @@ struct CategoryView: View {
                        
                         .font(.headline.bold())
                         .padding()
-                        .background(Color(AppColor.Components.ThemeButton.background))
+                        .background(Color(AppColor.Components.ThemeButton.filter))
                         .foregroundColor(.white)
                         .clipShape(Capsule())
                     }

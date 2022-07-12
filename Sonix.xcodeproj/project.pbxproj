@@ -287,7 +287,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		18242AAD2878D1B800F332FB /* AddedByBrit */ = {
+		18242AAD2878D1B800F332FB /* Filter */ = {
 			isa = PBXGroup;
 			children = (
 				18242AAE2878D40600F332FB /* CategoryButtonView.swift */,
@@ -298,13 +298,13 @@
 				1849D7CA287A6A570061D464 /* LabelView.swift */,
 				18A652AC287B8F2800F477A5 /* YTSSearchViewModel.swift */,
 			);
-			path = AddedByBrit;
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		40845017283903C000AA8908 /* YTS */ = {
 			isa = PBXGroup;
 			children = (
-				18242AAD2878D1B800F332FB /* AddedByBrit */,
+				18242AAD2878D1B800F332FB /* Filter */,
 				40845015283903BA00AA8908 /* YTS.swift */,
 				4024207B284FEF4A00D86024 /* YTSDetails.swift */,
 				402420A4285018A100D86024 /* YouTubeTrailer.swift */,

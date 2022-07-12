@@ -50,9 +50,13 @@ struct AppColor {
         
         enum ThemeButton {
             
-            @Theme(light: UIColor(hex: "FE3A5C"),
-                   dark: UIColor(hex: "FE3A5C"))
+            @Theme(light: UIColor(hex: "F2F1F6"),
+                   dark: UIColor(hex: "181818"))
             static var background: UIColor
+            
+            @Theme(light: UIColor(hex: "181818"),
+                   dark: UIColor(hex: "aaaaaa"))
+            static var filter: UIColor
             
             @Theme(light: UIColor(hex: "FFFFFF"),
                    dark: UIColor(hex: "FFFFFF"))
@@ -93,8 +97,8 @@ struct AppColor {
         
         enum SearchBar {
             
-            @Theme(light: UIColor(hex: "F1F1F1"),
-                   dark: UIColor(hex: "000000"))
+            @Theme(light: UIColor(hex: "F2F1F6"),
+                   dark: UIColor(hex: "F2F1F6"))
             static var background: UIColor
             
             @Theme(light: UIColor(hex: "38383A"),
