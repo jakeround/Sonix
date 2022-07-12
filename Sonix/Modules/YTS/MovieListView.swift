@@ -48,11 +48,16 @@ struct MovieListView: View {
                 .lineLimit(1)
                 //.background(Color(.blue))
             
-            Text(movie.duration)
-                .font(.system(size: 16))
-                .fontWeight(.regular)
-                .foregroundColor(Color(AppColor.Title.subType))
-                .frame(width: 165, alignment: .leading)
+            if movie.yearText != nil {
+                let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
+                Text(year)
+                    .font(.system(size: 16))
+                    .fontWeight(.regular)
+                    .foregroundColor(Color(AppColor.Title.subType))
+                    .frame(width: 165, alignment: .leading)
+                    
+                
+            }
             
             
             //if movie.synopsis != nil {

@@ -10,79 +10,129 @@ import SwiftUI
 
 struct YTS: View {
     @StateObject var networkingManager = NetworkManager()
+    @StateObject var searchManager = YTSSearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
     
     @State private var showDetails = false
     
     @State var showSheetView = false
+    @State var showSearchView = false
+    
+    @State private var selectedCategory = ""
+    
+    var filteredResults: [Movies] {
+        if selectedCategory == "" {
+            return networkingManager.movies
+        } else {
+            return searchManager.categorizedResults
+        }
+    }
 
+    
     var body: some View {
         NavigationView {
             
-           
             
             
             
-                ScrollView {
-                    
-                   
-                            //Button("Change Genre") {
-                            //    showDetails.toggle()
-                           // }
-                            //if showDetails {
-                            //    Text("Sort by Year")
-                            //        .font(.largeTitle)
-                            //}
-                    
-                    
-                    LazyVGrid(columns: columns, spacing: 15) {
-                        ForEach(networkingManager.movies) { movie in
-                        
-                            MovieListView(movie: movie)
-                            
-                            .onAppear() {
-                        if networkingManager.movies.last?.id == movie.id {
-                            networkingManager.loadMoreContent(currentItem: movie)
-                        }
-                        
-                    }
-                    
-                    
-                    }// Close LazyVGrid
-                        
-                        
-                    }
-                    
+            
+            ScrollView {
+                CategoryView(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
                     .padding()
-                }
-            
                 
+                
+                
+                //Button("Change Genre") {
+                //    showDetails.toggle()
+                // }
+                //if showDetails {
+                //    Text("Sort by Year")
+                //        .font(.largeTitle)
+                //}
+                
+                
+                LazyVGrid(columns: columns, spacing: 15) {
+                    ForEach(filteredResults, id: \.id) { movie in
+                        
+                        MovieListView(movie: movie)
+                        
+                            .onAppear() {
+                                if networkingManager.movies.last?.id == movie.id {
+                                    networkingManager.loadMoreContent(currentItem: movie)
+                                }
+                                if searchManager.categorizedResults.last?.id == movie.id {
+                                    searchManager.loadMoreCategorizedContent(currentItem: movie)
+                                }
+                                
+                            }
+                        
+                        
+                        
+                        
+                    }// Close LazyVGrid
+                    
+                    
+                }
+                
+                .padding()
+            }
             
-                .navigationBarTitleDisplayMode(.inline)
+            
+            
+            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Browse")
             .navigationBarItems(leading:
-                    Button(action: {
-                        self.showSheetView.toggle()
-                    }) {
-                        Image(systemName: "gearshape")
-                    }
-                )
+                                    Button(action: {
+                self.showSheetView.toggle()
+            }) {
+                Image(systemName: "gearshape")
+            }, trailing:
+                                    
+                                    Button(action: {
+                showSearchView.toggle()
+            }, label: {
+                Image(systemName: "magnifyingglass")
+            })
+                                
+                                
+            )
+            .onChange(of: searchManager.filterBy, perform: { _ in
+                searchManager.loadFilteredResults()
+                print(networkingManager.sortby)
+            })
             
-            // Redundant
-            //.onAppear {
-            //    networkingManager.loadData()
+            .onChange(of: selectedCategory, perform: { _ in
+                searchManager.categorizedResults = []
+                searchManager.selectedCategory = selectedCategory
+                searchManager.searchByCategory()
+      
+            })
+            
+            
+            
             //
-            //}
+            ////             Redundant
+            //            .onAppear {
+            //                networkingManager.loadData()
+            //
+            //            }
             .sheet(isPresented: $showSheetView) {
-                        SettingsScreen()
-                    }
-          
+                SettingsScreen()
+            }
+            .sheet(isPresented: $showSearchView) {
+                SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
+            }
+            
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onChange(of: networkingManager.sortby) { newValue in
+            networkingManager.movies = []
+            networkingManager.loadData()
+        }
         
     }
-    
     
     
     

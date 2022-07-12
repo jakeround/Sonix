@@ -71,13 +71,20 @@ struct YTSDetails: View {
                                             .multilineTextAlignment(.center)
                             }
                 
-                            HStack {
-                                Text(movie.duration)
-                                    .padding()
-                                Text(movie.mpaRating!)
-                                    .padding()
-                                Text(movie.language!.uppercased())
-                            }
+                HStack {
+                    Text(movie.duration)
+                        .padding()
+                    Text(movie.mpaRating!)
+                        .padding()
+                    Text(movie.language!.uppercased())
+                    if movie.yearText != nil {
+                        let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
+                        Text(year)
+                            .padding()
+                            
+                        
+                    }
+                }
             
                 
 

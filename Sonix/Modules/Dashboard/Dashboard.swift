@@ -100,7 +100,7 @@ struct Dashboard: View {
                         }
                     }
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Browse")
+                    .navigationTitle("Downloads")
                     .navigationBarItems(leading:
                         Button(action: {
                             self.showSheetView1.toggle()

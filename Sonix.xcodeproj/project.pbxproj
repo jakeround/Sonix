@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18242AAC2878C7B200F332FB /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18242AAB2878C7B200F332FB /* YouTubePlayerKit */; };
+		18242AAF2878D40600F332FB /* CategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18242AAE2878D40600F332FB /* CategoryButtonView.swift */; };
+		18242AB12878DA8000F332FB /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18242AB02878DA8000F332FB /* CategoryView.swift */; };
+		1849D7C52878F3E10061D464 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849D7C42878F3E10061D464 /* SearchView.swift */; };
+		1849D7C72878FB750061D464 /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849D7C62878FB750061D464 /* SearchListView.swift */; };
+		1849D7C9287932C80061D464 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849D7C8287932C80061D464 /* SearchBarView.swift */; };
+		1849D7CB287A6A580061D464 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849D7CA287A6A570061D464 /* LabelView.swift */; };
+		186C67C82878C70D0035BC64 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 186C67C72878C70D0035BC64 /* BottomSheet */; };
+		18A652AD287B8F2800F477A5 /* YTSSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A652AC287B8F2800F477A5 /* YTSSearchViewModel.swift */; };
 		40242076284FDCB900D86024 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242075284FDCB900D86024 /* MovieListView.swift */; };
 		40242078284FDD5C00D86024 /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242077284FDD5C00D86024 /* Movies.swift */; };
 		4024207A284FDD9400D86024 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40242079284FDD9400D86024 /* NetworkManager.swift */; };
@@ -129,6 +138,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18242AAE2878D40600F332FB /* CategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonView.swift; sourceTree = "<group>"; };
+		18242AB02878DA8000F332FB /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		1849D7C42878F3E10061D464 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		1849D7C62878FB750061D464 /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
+		1849D7C8287932C80061D464 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		1849D7CA287A6A570061D464 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		18A652AC287B8F2800F477A5 /* YTSSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTSSearchViewModel.swift; sourceTree = "<group>"; };
 		40242075284FDCB900D86024 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		40242077284FDD5C00D86024 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 		40242079284FDD9400D86024 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../NetworkManager.swift; sourceTree = "<group>"; };
@@ -240,6 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				407F7A49283FD626005A64E8 /* Refresher in Frameworks */,
+				186C67C82878C70D0035BC64 /* BottomSheet in Frameworks */,
+				18242AAC2878C7B200F332FB /* YouTubePlayerKit in Frameworks */,
 				40FFF7472876305B00E5D339 /* BottomSheet in Frameworks */,
 				40FFF7402875052C00E5D339 /* SwiftUIYouTubePlayer in Frameworks */,
 			);
@@ -262,9 +280,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18242AAA2878C7A800F332FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		18242AAD2878D1B800F332FB /* AddedByBrit */ = {
+			isa = PBXGroup;
+			children = (
+				18242AAE2878D40600F332FB /* CategoryButtonView.swift */,
+				18242AB02878DA8000F332FB /* CategoryView.swift */,
+				1849D7C42878F3E10061D464 /* SearchView.swift */,
+				1849D7C62878FB750061D464 /* SearchListView.swift */,
+				1849D7C8287932C80061D464 /* SearchBarView.swift */,
+				1849D7CA287A6A570061D464 /* LabelView.swift */,
+				18A652AC287B8F2800F477A5 /* YTSSearchViewModel.swift */,
+			);
+			path = AddedByBrit;
+			sourceTree = "<group>";
+		};
 		40845017283903C000AA8908 /* YTS */ = {
 			isa = PBXGroup;
 			children = (
+				18242AAD2878D1B800F332FB /* AddedByBrit */,
 				40845015283903BA00AA8908 /* YTS.swift */,
 				4024207B284FEF4A00D86024 /* YTSDetails.swift */,
 				402420A4285018A100D86024 /* YouTubeTrailer.swift */,
@@ -306,6 +346,7 @@
 				507710CD280AEFFF003DFA91 /* SonixTests */,
 				507710D7280AEFFF003DFA91 /* SonixUITests */,
 				507710B6280AEFFB003DFA91 /* Products */,
+				18242AAA2878C7A800F332FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -799,6 +840,8 @@
 				407F7A48283FD626005A64E8 /* Refresher */,
 				40FFF73F2875052C00E5D339 /* SwiftUIYouTubePlayer */,
 				40FFF7462876305B00E5D339 /* BottomSheet */,
+				186C67C72878C70D0035BC64 /* BottomSheet */,
+				18242AAB2878C7B200F332FB /* YouTubePlayerKit */,
 			);
 			productName = Sonix;
 			productReference = 507710B5280AEFFB003DFA91 /* Sonix.app */;
@@ -878,6 +921,7 @@
 				402420A12850182000D86024 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 				40FFF73E2875052C00E5D339 /* XCRemoteSwiftPackageReference "swiftui-youtube-player" */,
 				40FFF7452876305B00E5D339 /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				186C67C62878C70D0035BC64 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			productRefGroup = 507710B6280AEFFB003DFA91 /* Products */;
 			projectDirPath = "";
@@ -931,6 +975,7 @@
 				50EDBDBB280EE4A500BF930F /* FilesService+Model.swift in Sources */,
 				402420A5285018A100D86024 /* YouTubeTrailer.swift in Sources */,
 				50936590280C6C0900F14A1B /* LazyView.swift in Sources */,
+				1849D7C72878FB750061D464 /* SearchListView.swift in Sources */,
 				50EDBD9D280EE4A500BF930F /* URLRequest+PutIOKit.swift in Sources */,
 				50EDBD98280EE4A500BF930F /* Data+MultipartForm.swift in Sources */,
 				4084501928390A3300AA8908 /* TorrentView.swift in Sources */,
@@ -946,15 +991,19 @@
 				5093658C280C565300F14A1B /* ActivityIndicator.swift in Sources */,
 				50EDBDA1280EE4A500BF930F /* ImageCache.swift in Sources */,
 				501E71FB280C446A00BEEDD5 /* SearchViewModel.swift in Sources */,
+				18242AB12878DA8000F332FB /* CategoryView.swift in Sources */,
 				50EDBDAA280EE4A500BF930F /* CreatedAndUpdatedDateFormatter.swift in Sources */,
 				50EDBD9A280EE4A500BF930F /* Decodable+GenericInit.swift in Sources */,
 				50EDBD99280EE4A500BF930F /* JSONDecoder+PutioKit.swift in Sources */,
+				1849D7CB287A6A580061D464 /* LabelView.swift in Sources */,
+				1849D7C52878F3E10061D464 /* SearchView.swift in Sources */,
 				501E71EA280BAD0F00BEEDD5 /* ValidationError.swift in Sources */,
 				501B8A06280FC03400180DE5 /* UIApplication.swift in Sources */,
 				501E71F9280C446000BEEDD5 /* SearchScreen.swift in Sources */,
 				50EDBD9E280EE4A500BF930F /* URLRequest+HeaderPair.swift in Sources */,
 				50EDBDC1280EE4A500BF930F /* FilesService.swift in Sources */,
 				501E71EC280BAD7300BEEDD5 /* ErrorModifier.swift in Sources */,
+				18A652AD287B8F2800F477A5 /* YTSSearchViewModel.swift in Sources */,
 				40FFF7492876309E00E5D339 /* Sheet.swift in Sources */,
 				50EDBDB1280EE4A500BF930F /* FileOrTransferProtocol.swift in Sources */,
 				50EDBDB6280EE4A500BF930F /* RSSService+Models.swift in Sources */,
@@ -985,6 +1034,7 @@
 				50EDBDAB280EE4A500BF930F /* NetworkHandler.swift in Sources */,
 				4084500F2838184700AA8908 /* Dashboard.swift in Sources */,
 				5077111F280B15A8003DFA91 /* LoginViewModel.swift in Sources */,
+				1849D7C9287932C80061D464 /* SearchBarView.swift in Sources */,
 				501E71F1280C40C800BEEDD5 /* UserDefaultsKey.swift in Sources */,
 				50EDBDC9280EE4A600BF930F /* SharesService+Model.swift in Sources */,
 				50EDBDB0280EE4A500BF930F /* MimeType.swift in Sources */,
@@ -1002,6 +1052,7 @@
 				50EDBDA3280EE4A500BF930F /* ImagePersistence.swift in Sources */,
 				50EDBDC3280EE4A500BF930F /* FriendsService.swift in Sources */,
 				50EDBDAF280EE4A500BF930F /* Swime.swift in Sources */,
+				18242AAF2878D40600F332FB /* CategoryButtonView.swift in Sources */,
 				50EDBDA5280EE4A500BF930F /* UIImage+Decoded.swift in Sources */,
 				507710C5280AEFFE003DFA91 /* Sonix.xcdatamodeld in Sources */,
 				50EDBDAC280EE4A500BF930F /* ApiClientModel.swift in Sources */,
@@ -1349,6 +1400,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		186C67C62878C70D0035BC64 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/BottomSheet.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		402420A12850182000D86024 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit.git";
@@ -1384,6 +1443,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18242AAB2878C7B200F332FB /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 402420A12850182000D86024 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
+		};
+		186C67C72878C70D0035BC64 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40FFF7452876305B00E5D339 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
 		407F7A48283FD626005A64E8 /* Refresher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 407F7A47283FD626005A64E8 /* XCRemoteSwiftPackageReference "SwiftUI-Refresher" */;

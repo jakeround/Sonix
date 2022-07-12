@@ -12,7 +12,8 @@ import SwiftUI
 class NetworkManager: ObservableObject {
     @Published var movies: [Movies] = []
     var currentPage: Int = 1
-   var sortby = "download_count"
+    @Published var sortby: String = "download_count"
+    @Published var category: String = ""
     
     init() {
         loadData()
@@ -21,15 +22,16 @@ class NetworkManager: ObservableObject {
    //MARK: - PAGINATION
     func loadMoreContent(currentItem item: Movies) {
             currentPage += 1
-            loadData()
+        loadData()
     }
     
+
     
     
     //MARK: - API CALL
     func loadData() {
 
-        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)")!
+        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?genre=\(category)&sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)")!
         
            URLSession.shared.dataTask(with: url) { (data, response, error) in
 
@@ -40,7 +42,6 @@ class NetworkManager: ObservableObject {
 
                        DispatchQueue.main.async {
                            self.movies.append(contentsOf: result.data?.movies ?? [])
-
                            print("Page: \(self.currentPage)")
                        }
 
