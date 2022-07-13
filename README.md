@@ -12,4 +12,4 @@ Sonix is built using Swift + SwiftUI, all contributions are welcome!
 
 ![Movies](Assets/Movies.png)
 ![Movie Details](Assets/Movies_Details.png)
-![Sonix](Assets/Downloads.png)
+![Sonix](Assets/Putio_Downloads.png)
