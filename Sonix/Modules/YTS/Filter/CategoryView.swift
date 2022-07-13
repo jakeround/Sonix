@@ -8,16 +8,11 @@
 import SwiftUI
 
 struct CategoryView: View {
-    let genres = ["🤣 Comedy", "👽 Sci-Fi", "👻 Horror", "🧨 Action", "🙀 Thriller", "♥️ Romance", "👽 Adventure", "🎨 Animation", "♥️ Biography", "🔪 Crime", "📝 Documentary", "🎭 Drama", "🏡 Family", "🔮 Fantasy", "📺 Film-Noir", "🔦 History", "🎶 Musical", "❓ Mystery", "⚽️ Sport", "⚠️ War", "🤠 Western",]
+    let genres = ["🧨 Action", "👻 Horror", "🙀 Thriller", "🔍 Adventure", "🤣 Comedy", "👽 Sci-Fi", "♥️ Romance", "🎨 Animation", "📚 Biography", "🔪 Crime", "📝 Documentary", "🎭 Drama", "🏡 Family", "🔮 Fantasy", "📺 Film-Noir", "⏰ History", "🎺 Musical", "❓ Mystery", "⚽️ Sport", "⚠️ War", "🤠 Western",]
 
     @ObservedObject var networkManager: NetworkManager
-
     @ObservedObject var searchVM: YTSSearchViewModel
     @Binding var selectedCategory: String
-
-   
-
-    
     
     var body: some View {
         HStack {
@@ -28,49 +23,33 @@ struct CategoryView: View {
                     //MARK: - FILTER MENU
                     Menu {
                         //
-                        Button {
                         
-//                            networkManager.sortby = "date_added"
+                        Button {
+                            searchVM.filterBy = "seeds"
+                        } label: {
+                            LabelView(label: "Trending", selected: searchVM.filterBy == "seeds" ? true : false)
+                        }
+                        
+                        // IMDB RATING
+                            Button {
+                                searchVM.filterBy = "rating"
+                            } label: {
+                                LabelView(label: "Top Rated", selected: searchVM.filterBy == "rating" ? true : false)
+                            }
+                        
+                        Button {
                             searchVM.filterBy = "date_added"
-                            
                         } label: {
                             LabelView(label: "Latest", selected: searchVM.filterBy == "date_added" ? true : false)
                         }
-                    // SEEDS
+
                         Button {
-                            // filter by SEEDS
-                      
-//                            networkManager.sortby = "seeds"
-                            searchVM.filterBy = "seeds"
-                        } label: {
-                            LabelView(label: "Seeds", selected: searchVM.filterBy == "seeds" ? true : false)
-                        }
-                        
-                    // YEAR
-                        Button {
-                            // filter by YEAR
-           
-//                            networkManager.sortby = "year"
                             searchVM.filterBy = "year"
                         } label: {
                             LabelView(label: "Year", selected: searchVM.filterBy == "year" ? true : false)
                         }
                         
-                    // IMDB RATING
                         Button {
-                            // filter by IMDB
-    
-//                            networkManager.sortby = "rating"
-                            searchVM.filterBy = "rating"
-                        } label: {
-                            LabelView(label: "Rating", selected: searchVM.filterBy == "rating" ? true : false)
-                        }
-                        
-                    // DOWNLOADS
-                        Button {
-                            // filter by DOWNLOADS
-                          
-//                            networkManager.sortby = "download_count"
                             searchVM.filterBy = "download_count"
                         } label: {
                             LabelView(label: "Downloads", selected: searchVM.filterBy == "download_count" ? true : false)
@@ -78,8 +57,8 @@ struct CategoryView: View {
                         
                         
                     } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "line.3.horizontal.circle")
+                        HStack(spacing: 10) {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
                             Text("Filter")
                         }
                        
@@ -114,12 +93,8 @@ struct CategoryView: View {
             }
 
         }
-        
+        .padding(.top, 20)
+        .padding(.bottom, 20)
     }
 }
 
-//struct CategoryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CategoryView(selectedButton: <#Binding<String>#>)
-//    }
-//}

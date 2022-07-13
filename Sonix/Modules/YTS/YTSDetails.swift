@@ -22,17 +22,13 @@ struct YTSDetails: View {
             self.array = [1, 2, 3]
         }
     
+    @State private var oneActive: Bool = false
+    @State private var twoActive: Bool = false
+    
     var body: some View {
             ScrollView (.vertical, showsIndicators: true) {
                 Spacer()
                 Spacer()
-                
-                
-                
-                //RatingView(rating: 3.1)
-                printUI(movie.yearText)
-                
-                //Text(movie.yearText)
                 
                 AsyncImage(
                                 url: URL(string: movie.mediumCoverImage!),
@@ -70,59 +66,136 @@ struct YTSDetails: View {
                                             .foregroundColor(Color(.gray))
                                             .multilineTextAlignment(.center)
                             }
-                
-                HStack {
-                    Text(movie.duration)
-                        .padding()
-                    Text(movie.mpaRating!)
-                        .padding()
-                    Text(movie.language!.uppercased())
-                    if movie.yearText != nil {
-                        let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
-                        Text(year)
-                            .padding()
-                            
-                        
-                    }
-                }
-            
-                
-
-                
 
                 
                 VStack {
-         
+                    
                     NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                             Text("Trailer")
-                        }.font(.system(size: 18, weight: .bold, design: .default))
-                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
+                        }
+                        .font(.system(size: 18, weight: .bold, design: .default))
+                        .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
                         .foregroundColor(.white)
                         .contentShape(Rectangle())
                         .background(Color.primary)
                         .cornerRadius(13)
                   
                     }
-                
+                    
+                            Menu("Select Quality") {
+                                if movie.torrents != nil {
+                               
+                                    ForEach(movie.torrents!) { torrent in
+                                       TorrentView(torrent: torrent)
+                                            .padding(.bottom)
+                                            
+                                    }
+                                }
+                            }
+                            .font(.system(size: 18, weight: .bold, design: .default))
+                            .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
+                            .foregroundColor(.white)
+                            .contentShape(Rectangle())
+                            .background(Color.primary)
+                            .cornerRadius(13)
 
-                 
-                
-             
-            
-                                  
-                    
-                
-                
-                VStack {
-                    
                     HStack {
-                        Text("Description")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                    }
+                    SearchField(placeholder: "Select quality and paste", value: $viewModel.searchText)
                     
+                    Button {
+                        self.transferData()
+                        //self.fetchData()
+                    } label: {
+                        if $viewModel.isUploading.wrappedValue {
+                            ProgressView()
+                                .tint(Color(AppColor.primaryText))
+                        } else {
+                            Text("Download")
+                                .font(.system(size: 16, weight: .bold, design: .default))
+                        }
+                    }
+                    .buttonStyle(HollowButtonStyle())
+                    }.frame(minWidth: 100, maxWidth: 390)
+                    
+                    
+                .padding(.horizontal)
+                
+                VStack (spacing: 0) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        if movie.yearText != nil {
+                        VStack (spacing: 5) {
+                                Text("Year")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 12, design: .default))
+                                let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
+                                Text(year)
+                                .font(.system(size: 22, weight: .bold, design: .default))
+                                Text("Release")
+                            }
+                        .frame(width: 200, height: 100)
+                        .background(Color(AppColor.BackGround.cardColour))
+                        .cornerRadius(10)
+                        }
+                        
+                        VStack (spacing: 5) {
+                                Text("Duration")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 12, design: .default))
+                                Text(movie.duration)
+                                    .font(.system(size: 22, weight: .bold, design: .default))
+                                Text("Standard")
+                            }
+                        .frame(width: 200, height: 100)
+                        .background(Color(AppColor.BackGround.cardColour))
+                        .cornerRadius(10)
+                        
+                        VStack (spacing: 5) {
+                                Text("Language")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 12, design: .default))
+                                Text(movie.language ?? "n/a")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 22, weight: .bold, design: .default))
+                                Text("Original")
+                            }
+                        .frame(width: 200, height: 100)
+                        .background(Color(AppColor.BackGround.cardColour))
+                        .cornerRadius(10)
+                        
+                        VStack (spacing: 5) {
+                                Text("Advised")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 12, design: .default))
+                                Text(movie.mpaRating ?? "n/a")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 22, weight: .bold, design: .default))
+                                Text("Age")
+                            }
+                        .frame(width: 200, height: 100)
+                        .background(Color(AppColor.BackGround.cardColour))
+                        .cornerRadius(10)
+                        
+                        if movie.rating != nil {
+                            VStack (spacing: 5) {
+                                Text("Year")
+                                    .textCase(.uppercase)
+                                    .font(.system(size: 12, design: .default))
+                                let imdbRating = String(movie.rating!).replacingOccurrences(of: ",", with: "")
+                                Text(imdbRating)
+                                .font(.system(size: 22, weight: .bold, design: .default))
+                                RatingsSection
+                            }
+                        .frame(width: 200, height: 100)
+                        .background(Color(AppColor.BackGround.cardColour))
+                        .cornerRadius(10)
+                        }
+                    }
+                }
+                    
+                }
+                
+                VStack (spacing: 16) {
                     
                     HStack {
                         Text(movie.descriptionFull!)
@@ -138,50 +211,9 @@ struct YTSDetails: View {
                     .padding()
                     .background(Color(AppColor.BackGround.cardColour))
                     .cornerRadius(10)
-                    
-                    Spacer()
-                    
-                    HStack {
-                                                    RatingsSection
-                                                }
-                    
-                    HStack {
-                    Text("Torrents")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
-                        Spacer()
-                    }
 
-                    ScrollView (.horizontal, showsIndicators: false) {
-                    HStack (){
-                                    if movie.torrents != nil {
-                                   
-                                        ForEach(movie.torrents!) { torrent in
-                                           TorrentView(torrent: torrent)
-                                                .padding(.bottom)
-                                        }
-                                    }
-                                    }
-                    }
                     
-                    HStack {
-                    SearchField(placeholder: "Torrent Hash", value: $viewModel.searchText)
-                    
-                    Button {
-                        self.transferData()
-                        //self.fetchData()
-                    } label: {
-                        if $viewModel.isUploading.wrappedValue {
-                            ProgressView()
-                                .tint(Color(AppColor.primaryText))
-                        } else {
-                            Text("Transfer")
-                                .font(.system(size: 16, weight: .bold, design: .default))
-                        }
-                    }
-                    .buttonStyle(HollowButtonStyle())
-                    }
+                   
                 }
                 .padding()
                 
@@ -194,7 +226,36 @@ struct YTSDetails: View {
         .navigationTitle(movie.title!)
     }
     
+    func placeOrder() { }
+        func adjustOrder() { }
+        func rename() { }
+        func delay() { }
+        func cancelOrder() { }
     
+    
+    struct MenuView: View {
+        @Binding var oneActive: Bool
+        @Binding var twoActive: Bool
+        
+        var body: some View {
+            Menu {
+                Button {
+                    oneActive = true
+                } label: {
+                    Text("Option One")
+                }
+            
+                Button {
+                    twoActive = true
+                } label: {
+                    Text("Option Two")
+                }
+        
+            } label: {
+                Image(systemName: "ellipsis")
+            }
+        }
+    }
 }
 
 extension YTSDetails {
@@ -218,13 +279,13 @@ extension YTSDetails {
     private var RatingsSection: some View {
         HStack(alignment: .center) {
             RatingsBuilder(ratings: movie.rating!)
-                .font(.system(size: 24))
+                .font(.system(size: 18))
             //Text("\(movie.rating, specifier: "%.1f")")
             //.foregroundColor(.yellow)
             //.font(.system(size: 24))
             //.fontWeight(.semibold)
         }
-        .padding(.vertical)
+        //.padding(.vertical)
     }
     
     @ViewBuilder
@@ -246,6 +307,8 @@ extension YTSDetails {
         }
     }
 }
+
+
 
 extension View {
     func printUI(_ args: Any..., separator: String = " ", terminator: String = "\n") -> EmptyView {

@@ -13,7 +13,7 @@ class YTSSearchViewModel: ObservableObject {
     @Published var searchResults: [Movies] = []
     @Published var categorizedResults: [Movies] = []
     @Published var selectedCategory = ""
-    @Published var filterBy = "Download_count"
+    @Published var filterBy = "download_count"
 
     @Published var searchQuery = ""
     

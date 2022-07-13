@@ -325,7 +325,7 @@ extension Dashboard {
     struct Constants {
         static let title = "Downloads"
         static let searchBarPlaceholder = "Paste URL or Torrent Hash"
-        static let transfer = "Transfer"
+        static let transfer = "Download"
     }
 }
 

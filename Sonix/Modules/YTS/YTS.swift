@@ -37,21 +37,10 @@ struct YTS: View {
             
             
             
-            ScrollView {
+            ScrollView (.vertical, showsIndicators: false) {
+                VStack (spacing: 0) {
                 CategoryView(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
-                    .padding()
-                
-                
-                
-                //Button("Change Genre") {
-                //    showDetails.toggle()
-                // }
-                //if showDetails {
-                //    Text("Sort by Year")
-                //        .font(.largeTitle)
-                //}
-                
-                
+     
                 LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(filteredResults, id: \.id) { movie in
                         
@@ -74,9 +63,12 @@ struct YTS: View {
                     
                     
                 }
-                
-                .padding()
+                }
+                .padding(.left, 16)
+                .padding(.right, 16)
             }
+            .padding(0)
+            
             
             
             
@@ -153,5 +145,34 @@ struct NavigationLazyView<Content: View>: View {
 struct YTS_Previews: PreviewProvider {
     static var previews: some View {
         YTS( )
+    }
+}
+
+enum NoFlipEdge {
+    case left, right
+}
+
+struct NoFlipPadding: ViewModifier {
+    let edge: NoFlipEdge
+    let length: CGFloat?
+    @Environment(\.layoutDirection) var layoutDirection
+    
+    private var computedEdge: Edge.Set {
+        if layoutDirection == .rightToLeft {
+            return edge == .left ? .trailing : .leading
+        } else {
+            return edge == .left ? .leading : .trailing
+        }
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .padding(computedEdge, length)
+    }
+}
+
+extension View {
+    func padding(_ edge: NoFlipEdge, _ length: CGFloat? = nil) -> some View {
+        self.modifier(NoFlipPadding(edge: edge, length: length))
     }
 }

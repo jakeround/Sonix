@@ -18,11 +18,6 @@ struct TabScreen: View {
                     Label("Browse", systemImage: "tv")
                         .environment(\.symbolVariants, .none)
                 }
-            //Sheet()
-                //.tabItem {
-                //    Label("Sheet", systemImage: "filemenu.and.selection")
-                //        .environment(\.symbolVariants, .none)
-               // }
             Dashboard()
                 .tabItem {
                     Label("Downloads", systemImage: "arrow.down.circle")

@@ -32,22 +32,22 @@ struct YouTubeTrailer: View {
     }
     
     var body: some View {
-        NavigationView {
+        
         VStack {
             YouTubePlayer(action: $action, state: $state)
             .onAppear {
                 action = .loadID(trailer)
             }
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .background(Color.white)
-        .edgesIgnoringSafeArea(.all)
-            
-        .navigationBarTitleDisplayMode(.inline)
+       // .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+       // .background(Color.white)
+       // .edgesIgnoringSafeArea(.all)
         .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+        
         }
        
-        .navigationViewStyle(StackNavigationViewStyle())
+        //.navigationViewStyle(StackNavigationViewStyle())
     }
         
-}
+

@@ -69,7 +69,7 @@ struct Movies : Decodable, Identifiable {
     
     var duration: String {
            guard let runtime = self.runtime, runtime > 0 else {
-               return " "
+               return "n/a"
            }
         return Movies.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? ""
     }
@@ -85,9 +85,6 @@ struct Movies : Decodable, Identifiable {
         }
     
     var yearText: Int? {
-        if let year = year {
-            print("no year")
-        }
         return year
     }
  

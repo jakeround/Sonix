@@ -55,7 +55,7 @@ struct AppColor {
             static var background: UIColor
             
             @Theme(light: UIColor(hex: "181818"),
-                   dark: UIColor(hex: "aaaaaa"))
+                   dark: UIColor(hex: "222222"))
             static var filter: UIColor
             
             @Theme(light: UIColor(hex: "FFFFFF"),
@@ -65,6 +65,14 @@ struct AppColor {
             @Theme(light: UIColor(hex: "FE3A5C"),
                    dark: UIColor(hex: "FE3A5C"))
             static var border: UIColor
+            
+            @Theme(light: UIColor(hex: "000000"),
+                   dark: UIColor(hex: "ffffff"))
+            static var textActive: UIColor
+            
+            @Theme(light: UIColor(hex: "ffffff"),
+                   dark: UIColor(hex: "000000"))
+            static var textSelected: UIColor
         }
         
         enum HollowButton {
@@ -100,6 +108,10 @@ struct AppColor {
             @Theme(light: UIColor(hex: "F2F1F6"),
                    dark: UIColor(hex: "F2F1F6"))
             static var background: UIColor
+            
+            @Theme(light: UIColor(hex: "FE3A5C"),
+                   dark: UIColor(hex: "ffffff"))
+            static var backgroundSelected: UIColor
             
             @Theme(light: UIColor(hex: "38383A"),
                    dark: UIColor(hex: "ffffff"))
