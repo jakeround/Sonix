@@ -68,7 +68,7 @@ struct YTS: View {
                 .padding(.right, 16)
             }
             .padding(0)
-            
+            .background(Color(AppColor.BackGround.darkBackground))
             
             
             
@@ -131,6 +131,7 @@ struct YTS: View {
     
     
 }
+    
 
 struct NavigationLazyView<Content: View>: View {
     let build: () -> Content

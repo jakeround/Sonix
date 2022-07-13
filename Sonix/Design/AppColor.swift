@@ -18,12 +18,12 @@ struct AppColor {
                dark: UIColor(hex: "1C1C1E"))
         static var cardColour: UIColor
         
-        @Theme(light: UIColor(hex: "ffffff"),
-               dark: UIColor(hex: "333333"))
+        @Theme(light: UIColor(hex: "fdfdfd"),
+               dark: UIColor(hex: "181818"))
         static var lightBackground: UIColor
         
-        @Theme(light: UIColor(hex: "ffffff"),
-               dark: UIColor(hex: "000000"))
+        @Theme(light: UIColor(hex: "fdfdfd"),
+               dark: UIColor(hex: "0b0b0b"))
         static var darkBackground: UIColor
         
         @Theme(light: UIColor(hex: "ffffff"),
@@ -55,7 +55,7 @@ struct AppColor {
             static var background: UIColor
             
             @Theme(light: UIColor(hex: "181818"),
-                   dark: UIColor(hex: "222222"))
+                   dark: UIColor(hex: "181818"))
             static var filter: UIColor
             
             @Theme(light: UIColor(hex: "FFFFFF"),

@@ -223,6 +223,7 @@ struct YTSDetails: View {
                         
             
         }
+            .background(Color(AppColor.BackGround.darkBackground))
         .navigationTitle(movie.title!)
     }
     
