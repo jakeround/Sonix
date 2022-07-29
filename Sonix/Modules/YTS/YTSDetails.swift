@@ -17,78 +17,178 @@ struct YTSDetails: View {
     @State private var isShowingWebView: Bool = false
     
     @State private var array = [1, 1, 2]
-
-        func doSomething(index: Int) {
-            self.array = [1, 2, 3]
-        }
+    
+    func doSomething(index: Int) {
+        self.array = [1, 2, 3]
+    }
     
     @State private var oneActive: Bool = false
     @State private var twoActive: Bool = false
     
+    @State private var showingSheet = false
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
+    
     var body: some View {
-            ScrollView (.vertical, showsIndicators: true) {
-                Spacer()
-                Spacer()
-                
-                AsyncImage(
-                                url: URL(string: movie.mediumCoverImage!),
-                                content: { image in
-                                    image.resizable()
-                                         .aspectRatio(contentMode: .fit)
-                                         //.resizable()
-                                         .scaledToFit()
-                                         .cornerRadius(16)
-                                         .frame(width: 165)
-                                },
-                                placeholder: {
-                                    Image("poster")
-                                        .aspectRatio(contentMode: .fit)
-                                        //.resizable()
-                                        .scaledToFit()
-                                        .cornerRadius(16)
-                                        .frame(width: 165)
-                                }
-                            )
-                
-                
-                
-                            VStack (alignment: .leading){
-                                        Text(movie.title!)
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(Color(.label))
-                                            .multilineTextAlignment(.center)
-                            }
-                
-                            VStack (alignment: .leading){
-                                        Text(movie.genre)
-                                            .font(.body)
-                                            .foregroundColor(Color(.gray))
-                                            .multilineTextAlignment(.center)
-                            }
-
-                
-                VStack {
+        ScrollView {
+            VStack (spacing: 0) {
+                ZStack {
                     
-                    NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
-                            Text("Trailer")
+                    AsyncImage(
+                        url: URL(string: movie.mediumCoverImage!),
+                        content: { image in
+                            image.resizable()
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 500)
+                                .frame(minWidth: UIScreen.screenWidth, maxWidth: .infinity)
+                                .clipped()
+                                .blur(radius: 80)
+                                .opacity(0.1)
+                                .transition(.opacity.animation(.easeIn))
+                        },
+                        placeholder: {
+                            Image("poster")
+                                .aspectRatio(contentMode: .fit)
+                            //.resizable()
+                                .scaledToFit()
+                                .cornerRadius(16)
+                                .frame(width: 165)
                         }
-                        .font(.system(size: 18, weight: .bold, design: .default))
-                        .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
-                        .foregroundColor(.white)
-                        .contentShape(Rectangle())
-                        .background(Color.primary)
-                        .cornerRadius(13)
-                  
+                        
+                    ).frame(height: 500)
+                    
+                    VStack {
+                        AsyncImage(
+                            url: URL(string: movie.mediumCoverImage!),
+                            content: { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                //.resizable()
+                                    .scaledToFit()
+                                    .cornerRadius(16)
+                                    .frame(width: 180)
+                            },
+                            placeholder: {
+                                Image("poster")
+                                    .aspectRatio(contentMode: .fit)
+                                //.resizable()
+                                    .scaledToFit()
+                                    .cornerRadius(16)
+                                    .frame(width: 180)
+                            }
+                        )
+                        
+                        VStack (alignment: .leading){
+                            Text(movie.title!)
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.label))
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        
+                        
+                        
+                        GeometryReader { geometry in
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    Spacer()
+                                    if movie.yearText != nil {
+                                        VStack (spacing: 5) {
+                                            let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
+                                            Text(year)
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        }
+                                        .frame(height: 50)
+                                        .padding(.left)
+                                        .padding(.right)
+                                        .background(Color(AppColor.BackGround.cardColour))
+                                        .cornerRadius(50)
+                                    }
+                                    
+                                    VStack (spacing: 5) {
+                                        Text(movie.duration)
+                                            .font(.system(size: 16, weight: .bold, design: .default))
+                                    }
+                                    .frame(height: 50)
+                                    .padding(.left)
+                                    .padding(.right)
+                                    .background(Color(AppColor.BackGround.cardColour))
+                                    .cornerRadius(50)
+                                    
+                                    VStack (spacing: 5) {
+                                        Text(movie.language ?? "n/a")
+                                            .textCase(.uppercase)
+                                            .font(.system(size: 16, weight: .bold, design: .default))
+                                    }
+                                    .frame(height: 50)
+                                    .padding(.left)
+                                    .padding(.right)
+                                    .background(Color(AppColor.BackGround.cardColour))
+                                    .cornerRadius(50)
+                                    
+                                    VStack (spacing: 5) {
+                                        Text(movie.mpaRating ?? "n/a")
+                                            .textCase(.uppercase)
+                                            .font(.system(size: 16, weight: .bold, design: .default))
+                                    }
+                                    .frame(height: 50)
+                                    .padding(.left)
+                                    .padding(.right)
+                                    .background(Color(AppColor.BackGround.cardColour))
+                                    .cornerRadius(50)
+                                    
+                                    if movie.rating != nil {
+                                        VStack (spacing: 5) {
+                                            let imdbRating = String(movie.rating!).replacingOccurrences(of: ",", with: "")
+                                            Text("\(imdbRating) / 10")
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                            //RatingsSection
+                                        }
+                                        .frame(height: 50)
+                                        .padding(.left)
+                                        .padding(.right)
+                                        .background(Color(AppColor.BackGround.cardColour))
+                                        .cornerRadius(50)
+                                    }
+                                    Spacer()
+                                }
+                                //.padding()
+                                .frame(width: geometry.size.width)
+                                .frame(height: 50)
+                            }
+                        }.frame(height: 50)
                     }
                     
+                } // Close ZStack
+                
+                
+                
+                
+                
+                HStack {
+                    if sizeClass == .compact {
+                        VStack {
+                            
+                            NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                                Text("Trailer")
+                            }
+                            .font(.system(size: 18, weight: .bold, design: .default))
+                            .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
+                            .foregroundColor(.white)
+                            .contentShape(Rectangle())
+                            .background(Color.primary)
+                            .cornerRadius(13)
+                            
+                            
                             Menu("Select Quality") {
                                 if movie.torrents != nil {
-                               
+                                    
                                     ForEach(movie.torrents!) { torrent in
-                                       TorrentView(torrent: torrent)
+                                        TorrentView(torrent: torrent)
                                             .padding(.bottom)
-                                            
+                                        
                                     }
                                 }
                             }
@@ -98,141 +198,101 @@ struct YTSDetails: View {
                             .contentShape(Rectangle())
                             .background(Color.primary)
                             .cornerRadius(13)
+                            
+                            
+                            HStack {
+                                Text(movie.descriptionFull!)
+                                    .multilineTextAlignment(.leading)
+                            }
+                        }
+                        
+                        
+                        
+                        
+                    } else {
+                        HStack (spacing: 32) {
+                            HStack {
+                                Text(movie.descriptionFull!)
+                                    .font(.system(size: 16, weight: .regular, design: .default))
+                                    .tracking(0.2)
+                                    .lineSpacing(2)
 
-                    HStack {
-                    SearchField(placeholder: "Select quality and paste", value: $viewModel.searchText)
-                    
-                    Button {
-                        self.transferData()
-                        //self.fetchData()
-                    } label: {
-                        if $viewModel.isUploading.wrappedValue {
-                            ProgressView()
-                                .tint(Color(AppColor.primaryText))
-                        } else {
-                            Text("Download")
-                                .font(.system(size: 16, weight: .bold, design: .default))
+                                    .multilineTextAlignment(.leading)
+                                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                                Spacer()
+                            }
+                            
+                            
+                            VStack (alignment: .leading){
+                                Menu("Play") {
+                                    if movie.torrents != nil {
+                                        
+                                        ForEach(movie.torrents!) { torrent in
+                                            TorrentView(torrent: torrent)
+                                                .padding(.bottom)
+                                            
+                                        }
+                                    }
+                                }
+                                .font(.system(size: 18, weight: .bold, design: .default))
+                                .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
+                                .foregroundColor(.white)
+                                .contentShape(Rectangle())
+                                .background(Color.primary)
+                                .cornerRadius(10)
+                                
+                                NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                                    Text("Trailer")
+                                }
+                                .font(.system(size: 18, weight: .bold, design: .default))
+                                .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
+                                .foregroundColor(.white)
+                                .contentShape(Rectangle())
+                                .background(Material.ultraThick)
+                                .cornerRadius(10)
+                                Spacer()
+                            }
+                            
                         }
-                    }
-                    .buttonStyle(HollowButtonStyle())
-                    }.frame(minWidth: 100, maxWidth: 390)
-                    
-                    
-                .padding(.horizontal)
-                
-                VStack (spacing: 0) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        if movie.yearText != nil {
-                        VStack (spacing: 5) {
-                                Text("Year")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 12, design: .default))
-                                let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
-                                Text(year)
-                                .font(.system(size: 22, weight: .bold, design: .default))
-                                Text("Release")
-                            }
-                        .frame(width: 200, height: 100)
-                        .background(Color(AppColor.BackGround.cardColour))
-                        .cornerRadius(10)
-                        }
-                        
-                        VStack (spacing: 5) {
-                                Text("Duration")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 12, design: .default))
-                                Text(movie.duration)
-                                    .font(.system(size: 22, weight: .bold, design: .default))
-                                Text("Standard")
-                            }
-                        .frame(width: 200, height: 100)
-                        .background(Color(AppColor.BackGround.cardColour))
-                        .cornerRadius(10)
-                        
-                        VStack (spacing: 5) {
-                                Text("Language")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 12, design: .default))
-                                Text(movie.language ?? "n/a")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 22, weight: .bold, design: .default))
-                                Text("Original")
-                            }
-                        .frame(width: 200, height: 100)
-                        .background(Color(AppColor.BackGround.cardColour))
-                        .cornerRadius(10)
-                        
-                        VStack (spacing: 5) {
-                                Text("Advised")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 12, design: .default))
-                                Text(movie.mpaRating ?? "n/a")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 22, weight: .bold, design: .default))
-                                Text("Age")
-                            }
-                        .frame(width: 200, height: 100)
-                        .background(Color(AppColor.BackGround.cardColour))
-                        .cornerRadius(10)
-                        
-                        if movie.rating != nil {
-                            VStack (spacing: 5) {
-                                Text("Year")
-                                    .textCase(.uppercase)
-                                    .font(.system(size: 12, design: .default))
-                                let imdbRating = String(movie.rating!).replacingOccurrences(of: ",", with: "")
-                                Text(imdbRating)
-                                .font(.system(size: 22, weight: .bold, design: .default))
-                                RatingsSection
-                            }
-                        .frame(width: 200, height: 100)
-                        .background(Color(AppColor.BackGround.cardColour))
-                        .cornerRadius(10)
-                        }
+                        .padding(.left)
+                        .padding(.right)
                     }
                 }
-                    
-                }
+                .padding(.vertical)
                 
-                VStack (spacing: 16) {
-                    
-                    HStack {
-                        Text(movie.descriptionFull!)
-                            .multilineTextAlignment(.leading)
-                    }
-                    .frame(
-                          minWidth: 0,
-                          maxWidth: .infinity,
-                          minHeight: 0,
-                          maxHeight: .infinity,
-                          alignment: .topLeading
-                        )
+                
+                HStack {
+                                    SearchField(placeholder: "Select quality and paste", value: $viewModel.searchText)
+                                    
+                                    Button {
+                                        self.transferData()
+                                        //self.fetchData()
+                                    } label: {
+                                        if $viewModel.isUploading.wrappedValue {
+                                            ProgressView()
+                                                .tint(Color(AppColor.primaryText))
+                                        } else {
+                                            Text("Download")
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        }
+                                    }
+                                    .buttonStyle(HollowButtonStyle())
+                                    }.frame(minWidth: 100, maxWidth: 390)
                     .padding()
-                    .background(Color(AppColor.BackGround.cardColour))
-                    .cornerRadius(10)
-
-                    
-                   
-                }
-                .padding()
                 
-                                 
-            
-            
-                        
-            
+            }
         }
-            .background(Color(AppColor.BackGround.darkBackground))
-        .navigationTitle(movie.title!)
     }
+
+    
+
+
     
     func placeOrder() { }
-        func adjustOrder() { }
-        func rename() { }
-        func delay() { }
-        func cancelOrder() { }
-    
+    func adjustOrder() { }
+    func rename() { }
+    func delay() { }
+    func cancelOrder() { }
     
     struct MenuView: View {
         @Binding var oneActive: Bool
@@ -245,19 +305,21 @@ struct YTSDetails: View {
                 } label: {
                     Text("Option One")
                 }
-            
+                
                 Button {
                     twoActive = true
                 } label: {
                     Text("Option Two")
                 }
-        
+                
             } label: {
                 Image(systemName: "ellipsis")
             }
         }
     }
 }
+
+
 
 extension YTSDetails {
     
@@ -275,6 +337,8 @@ extension YTSDetails {
     
     
 }
+
+
 
 extension YTSDetails {
     private var RatingsSection: some View {
@@ -307,6 +371,7 @@ extension YTSDetails {
             }
         }
     }
+    
 }
 
 
@@ -318,3 +383,10 @@ extension View {
         return EmptyView()
     }
 }
+
+extension UIScreen{
+    static let screenWidth = UIScreen.main.bounds.size.width
+    static let screenHeight = UIScreen.main.bounds.size.height
+    static let screenSize = UIScreen.main.bounds.size
+}
+

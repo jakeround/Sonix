@@ -10,6 +10,7 @@ import SwiftUI
 struct TorrentView: View {
     @State private var showToast = false
     let torrent: Torrents
+    @State private var showingAlert = false
     
     @State private var showEditView = false
   var body: some View {
@@ -17,6 +18,7 @@ struct TorrentView: View {
       Button(action: {
           print(torrent.hash)
           let finaltorrent = (torrent.hash)
+          
      
           
           print("Copied to clipboard")
