@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoryView: View {
-    let genres = ["🧨 Action", "👻 Horror", "🙀 Thriller", "🔍 Adventure", "🤣 Comedy", "👽 Sci-Fi", "💙 Romance", "🎨 Animation", "📚 Biography", "🔪 Crime", "📝 Documentary", "🎭 Drama", "🏡 Family", "🔮 Fantasy", "📺 Film-Noir", "⏰ History", "🎺 Musical", "❓ Mystery", "⚽️ Sport", "⚠️ War", "🤠 Western",]
+    let genres = ["🧨 Action", "👻 Horror", "🙀 Thriller", "🔍 Adventure", "🤣 Comedy", "👽 Sci-Fi", "♥️ Romance", "🎨 Animation", "📚 Biography", "🔪 Crime", "📝 Documentary", "🎭 Drama", "🏡 Family", "🔮 Fantasy", "📺 Film-Noir", "⏰ History", "🎺 Musical", "❓ Mystery", "⚽️ Sport", "⚠️ War", "🤠 Western",]
 
     @ObservedObject var networkManager: NetworkManager
     @ObservedObject var searchVM: YTSSearchViewModel

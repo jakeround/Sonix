@@ -114,8 +114,10 @@ struct AppColor {
             static var backgroundSelected: UIColor
             
             @Theme(light: UIColor(hex: "38383A"),
-                   dark: UIColor(hex: "ffffff"))
+                   dark: UIColor(hex: "000000"))
             static var text: UIColor
+            
+            
             
         }
         

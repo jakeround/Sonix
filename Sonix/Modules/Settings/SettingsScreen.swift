@@ -132,22 +132,6 @@ extension SettingsScreen {
     }
 }
 
-struct SettingsView: View {
-        
-    var body: some View {
-       
-            NavigationLink {
-                ChillInstitute(url: URL(string: "https://chill.institute/#/auth")!)
-            } label: {
-                Text("Chill Institute")
-                    .padding()
-                    .background(Color(.gray))
-                    .cornerRadius(10)
-            }
-        
-    }
-}
-
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         SettingsScreen()

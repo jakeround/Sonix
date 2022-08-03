@@ -8,8 +8,8 @@
 import SwiftUI
 
 
-struct YTS: View {
-    @StateObject var networkingManager = NetworkManager()
+struct BrowseYTS: View {
+    @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
     @StateObject var searchManager = YTSSearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
@@ -28,14 +28,9 @@ struct YTS: View {
             return searchManager.categorizedResults
         }
     }
-
     
     var body: some View {
         NavigationView {
-            
-            
-            
-            
             
             ScrollView (.vertical, showsIndicators: false) {
                 VStack (spacing: 0) {
@@ -70,8 +65,6 @@ struct YTS: View {
             .padding(0)
             .background(Color(AppColor.BackGround.darkBackground))
             
-            
-            
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Browse")
             .navigationBarItems(leading:
@@ -79,13 +72,7 @@ struct YTS: View {
                 self.showSheetView.toggle()
             }) {
                 Image(systemName: "gearshape")
-            }, trailing:
-                                    
-                                    Button(action: {
-                showSearchView.toggle()
-            }, label: {
-                Image(systemName: "magnifyingglass")
-            })
+            }
                                 
                                 
             )
@@ -98,7 +85,6 @@ struct YTS: View {
                 searchManager.categorizedResults = []
                 searchManager.selectedCategory = selectedCategory
                 searchManager.searchByCategory()
-      
             })
             
             
@@ -112,11 +98,9 @@ struct YTS: View {
             .sheet(isPresented: $showSheetView) {
                 SettingsScreen()
             }
-            .sheet(isPresented: $showSearchView) {
-                SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
-            }
-            
-            
+            //.sheet(isPresented: $showSearchView) {
+           //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
+           // }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: networkingManager.sortby) { newValue in
@@ -125,11 +109,6 @@ struct YTS: View {
         }
         
     }
-    
-    
-    
-    
-    
 }
     
 
@@ -145,7 +124,7 @@ struct NavigationLazyView<Content: View>: View {
 
 struct YTS_Previews: PreviewProvider {
     static var previews: some View {
-        YTS( )
+        BrowseYTS( )
     }
 }
 

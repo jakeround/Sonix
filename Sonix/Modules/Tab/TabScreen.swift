@@ -13,12 +13,17 @@ struct TabScreen: View {
     var body: some View {
         
         TabView {
-            YTS()
+            BrowseYTS()
                 .tabItem {
                     Label("Browse", systemImage: "tv")
                         .environment(\.symbolVariants, .none)
                 }
-            Dashboard()
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                        .environment(\.symbolVariants, .none)
+                }
+            DownloadsView()
                 .tabItem {
                     Label("Downloads", systemImage: "arrow.down.circle")
                         .environment(\.symbolVariants, .none)

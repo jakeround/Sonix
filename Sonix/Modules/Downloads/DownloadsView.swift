@@ -10,14 +10,14 @@ import SwiftUI
 import Foundation
 import Refresher
 
-struct Dashboard: View {
+struct DownloadsView: View {
     
     struct SharesheetURL: Identifiable {
         let id: String
         let url: URL
     }
         
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel = TransferViewModel()
     
     @State var showVideoPlayer: Bool = false
     @State var videoURL: URL? = nil
@@ -204,7 +204,9 @@ struct Dashboard: View {
                let dummyVideo = URL(string: "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4")
               
                
-               NavigationLink(destination: DetailsView.init( title: substring2 + "", fileType: data.file.fileExtension, videoURL: (viewModel.getStreamURL(file: data.file) ?? dummyVideo)!, shareURL: viewModel.getStreamURL(file: data.file) )) {
+               
+               
+               NavigationLink(destination: PlayerView.init( title: substring2 + "", fileType: data.file.fileExtension, videoURL: (viewModel.getStreamURL(file: data.file) ?? dummyVideo)!, shareURL: viewModel.getStreamURL(file: data.file) )) {
                    VStack {
                        
                     Image("Poster_Image")
@@ -295,7 +297,7 @@ extension String {
 }
 
 
-extension Dashboard {
+extension DownloadsView {
     
     func fetchData() {
         viewModel.fetchData()
@@ -321,7 +323,7 @@ extension Dashboard {
     
 }
 
-extension Dashboard {
+extension DownloadsView {
     struct Constants {
         static let title = "Downloads"
         static let searchBarPlaceholder = "Paste URL or Torrent Hash"
@@ -331,7 +333,7 @@ extension Dashboard {
 
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
-        SearchScreen()
+        TransferView()
     }
 }
 

@@ -15,44 +15,46 @@ class NetworkManager: ObservableObject {
     @Published var sortby: String = "download_count"
     @Published var category: String = ""
     
-    init() {
-        loadData()
+    init(shouldLoadData: Bool) {
+        if shouldLoadData {
+            self.loadData()
+        }
     }
     
-   //MARK: - PAGINATION
+    //MARK: - PAGINATION
     func loadMoreContent(currentItem item: Movies) {
-            currentPage += 1
+        currentPage += 1
         loadData()
     }
     
-
+    
     
     
     //MARK: - API CALL
     func loadData() {
-
-        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?genre=\(category)&sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)")!
         
-           URLSession.shared.dataTask(with: url) { (data, response, error) in
-
-               if(error == nil && data != nil)
-               {
-                   do {
-                       let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-
-                       DispatchQueue.main.async {
-                           self.movies.append(contentsOf: result.data?.movies ?? [])
-                           print("Page: \(self.currentPage)")
-                       }
-
-                   } catch let error {
-
-                       debugPrint(error)
-                   }
-               }
-
-           }.resume()
-
-
-       }
+        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?genre=\(category)&sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)")!
+        print(url)
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if(error == nil && data != nil)
+            {
+                do {
+                    let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
+                    print("result movies count = \(result.data?.movies?.count)")
+                    DispatchQueue.main.async {
+                        self.movies.append(contentsOf: result.data?.movies ?? [])
+                        print("Page: \(self.currentPage)")
+                    }
+                    
+                } catch let error {
+                    
+                    debugPrint(error)
+                }
+            }
+            
+        }.resume()
+        
+        
+    }
 }

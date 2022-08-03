@@ -12,8 +12,8 @@ struct SearchListView: View {
     
     
     var body: some View {
-        NavigationLink(destination: YTSDetails(movie: movie)) {
-            HStack(spacing: 10) {
+        NavigationLink(destination: MovieDetailsView(movie: movie)) {
+            VStack(spacing: 10) {
                 if movie.largeCoverImage != nil {
                     //AsyncImage(url: URL(string: movie.mediumCoverImage!))
                     
@@ -42,29 +42,30 @@ struct SearchListView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(movie.title!)
                         .font(.system(size: 18))
-                        .fontWeight(.bold)
+                        .fontWeight(.regular)
                         .foregroundColor(Color(AppColor.Title.defaultType))
+                        .frame(width: 165, alignment: .leading)
                         .lineLimit(1)
-                       
+                        //.background(Color(.blue))
                     
                     if movie.yearText != nil {
                         let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
                         Text(year)
-                            .font(.system(size: 18))
-                            .foregroundColor(.secondary)
+                            .font(.system(size: 16))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color(AppColor.Title.subType))
+                            .frame(width: 165, alignment: .leading)
                             
                         
                     }
                         
                     
-                    Spacer()
+                   // Spacer()
                 }
-                .padding()
+               // .padding()
 
                
-                Spacer()
                 
-                Image(systemName: "chevron.right")
                     
                 
             
@@ -74,8 +75,4 @@ struct SearchListView: View {
 }
 }
 
-struct SearchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        YTS()
-    }
-}
+

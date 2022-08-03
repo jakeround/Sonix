@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-import YouTubePlayerKit
+
 import WebKit
 
-struct YTSDetails: View {
+struct MovieDetailsView: View {
     
     let movie: Movies
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel = TransferViewModel()
     //let youTubePlayer: YouTubePlayer = \(movie.trailer?)
     @State private var isShowingWebView: Bool = false
     
@@ -244,6 +244,7 @@ struct YTSDetails: View {
                                 NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                                     Text("Trailer")
                                 }
+                                
                                 .font(.system(size: 18, weight: .bold, design: .default))
                                 .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
                                 .foregroundColor(.white)
@@ -321,7 +322,7 @@ struct YTSDetails: View {
 
 
 
-extension YTSDetails {
+extension MovieDetailsView {
     
     func fetchData() {
         viewModel.fetchData()
@@ -340,7 +341,7 @@ extension YTSDetails {
 
 
 
-extension YTSDetails {
+extension MovieDetailsView {
     private var RatingsSection: some View {
         HStack(alignment: .center) {
             RatingsBuilder(ratings: movie.rating!)
@@ -389,4 +390,3 @@ extension UIScreen{
     static let screenHeight = UIScreen.main.bounds.size.height
     static let screenSize = UIScreen.main.bounds.size
 }
-

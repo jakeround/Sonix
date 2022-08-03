@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct DetailsView: View {
+struct PlayerView: View {
     
     //@StateObject var viewModel = SearchViewModel()
     
@@ -55,6 +55,7 @@ struct DetailsView: View {
                     .onDisappear() {
                         // Stop the player when the view disappears
                         player?.pause()
+                        
                     }
             }
             .navigationBarTitle(title, displayMode: .inline)
@@ -106,4 +107,3 @@ extension UINavigationController {
         //.frame(maxWidth: .infinity, maxHeight: .infinity)
        
         
-

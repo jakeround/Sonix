@@ -17,7 +17,7 @@ struct PutioKitSearchFile: Identifiable {
     var shareURL: URL? = nil
 }
 
-final class SearchViewModel: ObservableObject {
+final class TransferViewModel: ObservableObject {
     
     private var bag = Set<AnyCancellable>()
         

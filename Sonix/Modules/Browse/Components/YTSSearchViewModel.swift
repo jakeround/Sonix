@@ -39,50 +39,45 @@ class YTSSearchViewModel: ObservableObject {
     }
     
     
-    
-    
-    
     func searchMovies(searchText: String) {
-
-        guard let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?query_term=\(searchText)&limit=50&page=\(self.currentPage)") else {
-                print("No movies found for this title")
-                return
+        let query = searchText.trimmed.urlEncoded ?? searchText.trimmed
+        let urlStr = "https://yts.torrentbay.to/api/v2/list_movies.json?query_term=\(query)"
+        // "https://yts.torrentbay.to/api/v2/list_movies.json?query_term=\(query)&limit=50&page=\(self.currentPage)"
+        guard let url = URL(string: urlStr) else {
+            print("invalid URL. No movies found for this title")
+            return
+        }
+        print(url)
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if(error == nil && data != nil)
+            {
+                do {
+                    let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
+                    print("result movies count = \(result.data?.movies?.count)")
+                    DispatchQueue.main.async {
+                        self.searchResults.append(contentsOf: result.data?.movies ?? [])
+                        print("Page: \(self.currentPage)")
+                    }
+                    
+                } catch let error {
+                    debugPrint(error)
+                }
             }
-        
-           URLSession.shared.dataTask(with: url) { (data, response, error) in
-
-               if(error == nil && data != nil)
-               {
-                   do {
-                       let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-
-                       DispatchQueue.main.async {
-                           self.searchResults.append(contentsOf: result.data?.movies ?? [])
-                           print("Page: \(self.currentPage)")
-                       }
-
-                   } catch let error {
-
-                       debugPrint(error)
-                   }
-               }
-
-           }.resume()
-        
-
-
-       }
+            
+        }.resume()
+    }
     
     func searchByCategory() {
         let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?genre=\(self.selectedCategory)&sort_by=\(filterBy)&limit=50&page=\(self.currentPage)")!
-        
+        print(url)
            URLSession.shared.dataTask(with: url) { (data, response, error) in
 
                if(error == nil && data != nil)
                {
                    do {
                        let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-
+                       print("result movies count = \(result.data?.movies?.count)")
                        DispatchQueue.main.async {
                            self.categorizedResults.append(contentsOf: result.data?.movies ?? [])
                            print("Page: \(self.currentPage)")

@@ -7,11 +7,34 @@
 
 import SwiftUI
 
+extension Data {
+    func getUTF8EncodedString() -> String? {
+        return String(bytes: self, encoding: .utf8)
+    }
+    func getJson() -> Any? {
+        do {
+            let json = try JSONSerialization.jsonObject(with: self, options: [])
+            return json
+        } catch {
+            return nil
+        }
+    }
+}
+extension String {
+    var trimmed: String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    var urlEncoded: String? {
+        let allowedCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "~-_."))
+        return self.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)
+    }
+}
+
 struct SearchBarView: View {
     @ObservedObject var vm: YTSSearchViewModel
-    @Binding var isShowingSearchView: Bool
+    //@Binding var isShowingSearchView: Bool
     
-   
+    
     
     var body: some View {
         ZStack {
@@ -22,43 +45,39 @@ struct SearchBarView: View {
                 Image(systemName: "magnifyingglass")
                 
                 TextField("Search...", text: $vm.searchQuery)
-        
+
+                
                     .onReceive(
                         vm.$searchQuery
-                            .debounce(for: .milliseconds(800), scheduler: DispatchQueue.main)
+                            .debounce(for: .milliseconds(1500), scheduler: DispatchQueue.main)
                     ) { guard !$0 .isEmpty else { return }
-                        vm.searchMovies(searchText: $0)
-                        print("Searching for \($0)")
-
+                        vm.searchMovies(searchText: $0.trimmed)
+                        print("Searching for '\($0.trimmed)'")
                     }
-                      
+                
                     .onChange(of: vm.searchQuery) { _ in
                         vm.searchResults = []
                         vm.searchMovies(searchText: vm.searchQuery)
                         print(vm.searchQuery)
                     }
-                    
-                   
-
-                    
-                   
+                
                 Spacer()
                 
                 Button {
-                    isShowingSearchView = false
+                    //isShowingSearchView = false
                     vm.searchQuery = ""
                 } label: {
-                    Image(systemName: "x.circle")
+                    Image(systemName: "xmark.circle")
                 }
-
+                
                 
             }
             .foregroundColor(Color(AppColor.Components.SearchBar.text))
             .padding(13)
             
             
-           
-                
+            
+            
         }
         .frame(height: 40)
         .cornerRadius(13)

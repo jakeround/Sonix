@@ -11,7 +11,7 @@ struct MovieListView: View {
     let movie: Movies
     
     var body: some View {
-        NavigationLink(destination: YTSDetails(movie: movie)) {
+        NavigationLink(destination: MovieDetailsView(movie: movie)) {
         VStack(spacing: 10) {
             if movie.largeCoverImage != nil {
                 //AsyncImage(url: URL(string: movie.mediumCoverImage!))

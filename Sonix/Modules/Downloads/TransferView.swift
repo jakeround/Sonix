@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct SearchScreen: View {
+struct TransferView: View {
     
     struct SharesheetURL: Identifiable {
         let id: String
         let url: URL
     }
         
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel = TransferViewModel()
     
     @State var showVideoPlayer: Bool = false
     @State var videoURL: URL? = nil
@@ -176,7 +176,7 @@ struct SearchScreen: View {
 
 }
 
-extension SearchScreen {
+extension TransferView {
     
     func fetchData() {
         viewModel.fetchData()
@@ -205,7 +205,7 @@ extension SearchScreen {
     
 }
 
-extension SearchScreen {
+extension TransferView {
     struct Constants {
         static let title = "Sonix"
         static let searchBarPlaceholder = "Paste URL or Torrent Hash"
@@ -215,6 +215,6 @@ extension SearchScreen {
 
 struct SearchScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SearchScreen()
+        TransferView()
     }
 }
