@@ -106,15 +106,19 @@ struct AppColor {
         enum SearchBar {
             
             @Theme(light: UIColor(hex: "F2F1F6"),
-                   dark: UIColor(hex: "F2F1F6"))
+                   dark: UIColor(hex: "181818"))
             static var background: UIColor
             
             @Theme(light: UIColor(hex: "FE3A5C"),
                    dark: UIColor(hex: "ffffff"))
             static var backgroundSelected: UIColor
             
+            @Theme(light: UIColor(hex: "0b0b0b"),
+                   dark: UIColor(hex: "666666"))
+            static var icons: UIColor
+            
             @Theme(light: UIColor(hex: "38383A"),
-                   dark: UIColor(hex: "000000"))
+                   dark: UIColor(hex: "ffffff"))
             static var text: UIColor
             
             

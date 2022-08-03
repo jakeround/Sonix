@@ -31,18 +31,24 @@ extension String {
 }
 
 struct SearchBarView: View {
-    @ObservedObject var vm: YTSSearchViewModel
+    @ObservedObject var vm: SearchViewModel
     //@Binding var isShowingSearchView: Bool
     
-    
+    @State private var searchText = ""
     
     var body: some View {
         ZStack {
             Rectangle()
                 .foregroundColor(Color(AppColor.Components.SearchBar.background))
             
+         
+            
+            
             HStack {
+            
+                
                 Image(systemName: "magnifyingglass")
+                    .foregroundColor(Color(AppColor.Components.SearchBar.icons))
                 
                 TextField("Search...", text: $vm.searchQuery)
 
@@ -68,6 +74,7 @@ struct SearchBarView: View {
                     vm.searchQuery = ""
                 } label: {
                     Image(systemName: "xmark.circle")
+                        .foregroundColor(Color(AppColor.Components.SearchBar.icons))
                 }
                 
                 
@@ -82,12 +89,9 @@ struct SearchBarView: View {
         .frame(height: 40)
         .cornerRadius(13)
         .padding()
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        //.background(Color(.systemBlue))
     }
 }
 
-//struct SearchBarView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBarView()
-//            .preferredColorScheme(.light)
-//    }
-//}

@@ -10,8 +10,6 @@
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
+	<string></string>
 </dict>
 </plist>

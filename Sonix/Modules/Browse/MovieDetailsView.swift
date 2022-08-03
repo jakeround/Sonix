@@ -171,7 +171,7 @@ struct MovieDetailsView: View {
                     if sizeClass == .compact {
                         VStack {
                             
-                            NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                            NavigationLink(destination: YouTubeTrailer_Working(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                                 Text("Trailer")
                             }
                             .font(.system(size: 18, weight: .bold, design: .default))
@@ -205,6 +205,7 @@ struct MovieDetailsView: View {
                                     .multilineTextAlignment(.leading)
                             }
                         }
+                        .padding()
                         
                         
                         
@@ -218,9 +219,10 @@ struct MovieDetailsView: View {
                                     .lineSpacing(2)
 
                                     .multilineTextAlignment(.leading)
-                                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    .frame(minWidth: 100, maxWidth: .infinity)
                                 Spacer()
                             }
+                            .frame(minWidth: 100, maxWidth: .infinity)
                             
                             
                             VStack (alignment: .leading){
@@ -241,7 +243,8 @@ struct MovieDetailsView: View {
                                 .background(Color.primary)
                                 .cornerRadius(10)
                                 
-                                NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                                
+                                NavigationLink(destination: YouTubeTrailer_Working(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                                     Text("Trailer")
                                 }
                                 

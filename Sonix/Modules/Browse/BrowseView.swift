@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BrowseYTS: View {
     @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
-    @StateObject var searchManager = YTSSearchViewModel()
+    @StateObject var searchManager = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
     
@@ -67,15 +67,8 @@ struct BrowseYTS: View {
             
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Browse")
-            .navigationBarItems(leading:
-                                    Button(action: {
-                self.showSheetView.toggle()
-            }) {
-                Image(systemName: "gearshape")
-            }
+            .navigationBarHidden(true)
                                 
-                                
-            )
             .onChange(of: searchManager.filterBy, perform: { _ in
                 searchManager.loadFilteredResults()
                 print(networkingManager.sortby)

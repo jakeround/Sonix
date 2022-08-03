@@ -39,7 +39,7 @@ struct SearchListView: View {
                                 )
                 }
                 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text(movie.title!)
                         .font(.system(size: 18))
                         .fontWeight(.regular)

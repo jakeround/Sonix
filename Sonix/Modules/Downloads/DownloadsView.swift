@@ -101,13 +101,7 @@ struct DownloadsView: View {
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Downloads")
-                    .navigationBarItems(leading:
-                        Button(action: {
-                            self.showSheetView1.toggle()
-                        }) {
-                            Image(systemName: "gearshape")
-                        }
-                    )
+                    .navigationBarHidden(true)
                     .sheet(isPresented: $showSheetView1) {
                                 SettingsScreen()
                             }

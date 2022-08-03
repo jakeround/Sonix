@@ -10,7 +10,7 @@ import Combine
 
 struct SearchView: View {
     @ObservedObject var networkingManager = NetworkManager(shouldLoadData: true)
-    @StateObject var searchVM = YTSSearchViewModel()
+    @StateObject var searchVM = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
     
@@ -33,9 +33,15 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
 
+            VStack {
+                SearchBarView(vm: searchVM)
+                    .padding(.left, 12)
+                    .padding(.right, 12)
+            
+            
             ScrollView (.vertical, showsIndicators: false) {
-                VStack (spacing: 0) {
-                    SearchBarView(vm: searchVM)
+                
+                    
      
                 LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(searchResults, id: \.id) { movie in
@@ -44,21 +50,23 @@ struct SearchView: View {
                                 .onAppear() {
                                     if searchVM.searchResults.last?.id == movie.id {
                                         searchVM.loadMoreSearchContent(currentItem: movie)
+                                        printUI("Call")
                                     }
                                     
                                 }
                         }
                     
                     
-                }
+                
                     
                 }
                 .padding(.left, 16)
                 .padding(.right, 16)
             }
-            .padding(0)
+            //.padding()
             .background(Color(AppColor.BackGround.darkBackground))
-            
+            }
+        
             
             
             //.frame(maxWidth: .infinity)
@@ -70,6 +78,7 @@ struct SearchView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Search")
         }
+        
         .navigationViewStyle(StackNavigationViewStyle())
         
     }
