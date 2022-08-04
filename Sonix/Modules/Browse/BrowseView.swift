@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 
 struct BrowseYTS: View {
@@ -13,6 +14,9 @@ struct BrowseYTS: View {
     @StateObject var searchManager = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
+    
+    @State var showList = false
+    @State var showMapSetting = false
     
     @State private var showDetails = false
     
@@ -31,7 +35,7 @@ struct BrowseYTS: View {
     
     var body: some View {
         NavigationView {
-            
+            GeometryReader { geo in
             ScrollView (.vertical, showsIndicators: false) {
                 VStack (spacing: 0) {
                 CategoryView(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
@@ -52,10 +56,10 @@ struct BrowseYTS: View {
                             }
                         
                         
-                        
+                            
                         
                     }// Close LazyVGrid
-                    
+                   
                     
                 }
                 }
@@ -91,9 +95,21 @@ struct BrowseYTS: View {
             .sheet(isPresented: $showSheetView) {
                 SettingsScreen()
             }
+            .bottomSheet(
+                isPresented: $showMapSetting,
+                height: geo.size.height,
+                topBarHeight: 16,
+                topBarCornerRadius: 16,
+                showTopIndicator: true
+            ) {
+           
+                Test()
+            }
+                printUI(geo.size.height)
             //.sheet(isPresented: $showSearchView) {
            //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
            // }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: networkingManager.sortby) { newValue in

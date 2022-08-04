@@ -10,22 +10,29 @@ import YouTubePlayerKit
 
 struct YouTubeTrailer: View {
     
-    let trailer: String
-    let title: String
-    
-    let youTubePlayer = YouTubePlayer(
-        source: .video(id: "psL_5RIBqnY"),
-        configuration: .init(
-            autoPlay: true
-        )
-    )
+    private let trailer: String
+
+        private let title: String
+
+        @StateObject
+        private var youTubePlayer: YouTubePlayer
+
+        init(trailer: String, title: String) {
+            self.trailer = trailer
+            self.title = title
+            self._youTubePlayer = .init(
+                wrappedValue: .init(
+                    source: .video(id: trailer),
+                    configuration: .init(
+                        autoPlay: true
+                    )
+                )
+            )
+        }
     
     var body: some View {
         
         VStack {
-            Text(title)
-            Text(trailer)
-            
             YouTubePlayerView(self.youTubePlayer) { state in
                 // Overlay ViewBuilder closure to place an overlay View
                 // for the current `YouTubePlayer.State`

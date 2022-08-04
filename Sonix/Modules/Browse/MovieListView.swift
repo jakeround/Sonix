@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 struct MovieListView: View {
     let movie: Movies
+    @State var showList = false
+    @State var showMapSetting = false
+    
     
     var body: some View {
         NavigationLink(destination: MovieDetailsView(movie: movie)) {
+        
+        
         VStack(spacing: 10) {
             if movie.largeCoverImage != nil {
                 //AsyncImage(url: URL(string: movie.mediumCoverImage!))
@@ -75,12 +81,13 @@ struct MovieListView: View {
             //}
             
         }
-            
+        
         //.background(Color(.blue))
         .frame(width: 140)
             
         
         
-    }
+    //}
 }
+    }
 }

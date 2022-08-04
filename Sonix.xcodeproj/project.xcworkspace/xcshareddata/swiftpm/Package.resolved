@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "bottomsheet",
+      "identity" : "bottom-sheet",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/danielsaidi/BottomSheet.git",
+      "location" : "https://github.com/weitieda/bottom-sheet.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "1b5fad9879558cc89e044c088befd9859afcdcae"
+        "revision" : "de09fedfb7a9c5ab4effbdb4df284229c60f72db",
+        "version" : "1.0.11"
       }
     },
     {
@@ -25,24 +25,6 @@
       "state" : {
         "revision" : "a8fd7935ece9a255da9a6dc06a6b56f00caae95d",
         "version" : "1.0.10"
-      }
-    },
-    {
-      "identity" : "swiftui-webview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/globulus/swiftui-webview",
-      "state" : {
-        "revision" : "f9be55089c020268760d626abbadd643a2b1ca4a",
-        "version" : "1.0.8"
-      }
-    },
-    {
-      "identity" : "swiftui-youtube-player",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/globulus/swiftui-youtube-player",
-      "state" : {
-        "branch" : "main",
-        "revision" : "73d0d5225f6c1734918fa96ed5d6ecbfd1152e63"
       }
     },
     {

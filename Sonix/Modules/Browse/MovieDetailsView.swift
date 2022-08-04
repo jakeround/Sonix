@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import WebKit
-
 struct MovieDetailsView: View {
     
     let movie: Movies
@@ -21,6 +19,8 @@ struct MovieDetailsView: View {
     func doSomething(index: Int) {
         self.array = [1, 2, 3]
     }
+    
+   // @State private var sheetStyle = BottomSheetStyle.standard
     
     @State private var oneActive: Bool = false
     @State private var twoActive: Bool = false
@@ -171,7 +171,7 @@ struct MovieDetailsView: View {
                     if sizeClass == .compact {
                         VStack {
                             
-                            NavigationLink(destination: YouTubeTrailer_Working(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                            NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                                 Text("Trailer")
                             }
                             .font(.system(size: 18, weight: .bold, design: .default))
@@ -244,7 +244,7 @@ struct MovieDetailsView: View {
                                 .cornerRadius(10)
                                 
                                 
-                                NavigationLink(destination: YouTubeTrailer_Working(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                                NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
                                     Text("Trailer")
                                 }
                                 
