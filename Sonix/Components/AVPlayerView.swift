@@ -30,4 +30,7 @@ struct AVPlayerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         return AVPlayerViewController()
     }
+    
+    
 }
+

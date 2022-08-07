@@ -11,16 +11,7 @@ struct MovieDetailsView: View {
     
     let movie: Movies
     @StateObject var viewModel = TransferViewModel()
-    //let youTubePlayer: YouTubePlayer = \(movie.trailer?)
     @State private var isShowingWebView: Bool = false
-    
-    @State private var array = [1, 1, 2]
-    
-    func doSomething(index: Int) {
-        self.array = [1, 2, 3]
-    }
-    
-   // @State private var sheetStyle = BottomSheetStyle.standard
     
     @State private var oneActive: Bool = false
     @State private var twoActive: Bool = false
@@ -28,269 +19,234 @@ struct MovieDetailsView: View {
     @State private var showingSheet = false
     @Environment(\.horizontalSizeClass) var sizeClass
     
+    @State var trailerURL: String = ""
+    @State var showTrailerPlayer: Bool = false
+    
+    @State var streamURL: URL? = nil
+    @State var showMoviePlayer: Bool = false
     
     var body: some View {
-        ScrollView {
-            VStack (spacing: 0) {
-                ZStack {
-                    
-                    AsyncImage(
-                        url: URL(string: movie.mediumCoverImage!),
-                        content: { image in
-                            image.resizable()
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 500)
-                                .frame(minWidth: UIScreen.screenWidth, maxWidth: .infinity)
-                                .clipped()
-                                .blur(radius: 80)
-                                .opacity(0.1)
-                                .transition(.opacity.animation(.easeIn))
-                        },
-                        placeholder: {
-                            Image("poster")
-                                .aspectRatio(contentMode: .fit)
-                            //.resizable()
-                                .scaledToFit()
-                                .cornerRadius(16)
-                                .frame(width: 165)
-                        }
+        ZStack {
+            ScrollView {
+                VStack (spacing: 0) {
+                    ZStack {
                         
-                    ).frame(height: 500)
-                    
-                    VStack {
-                        AsyncImage(
-                            url: URL(string: movie.mediumCoverImage!),
-                            content: { image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                //.resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(16)
-                                    .frame(width: 180)
-                            },
-                            placeholder: {
-                                Image("poster")
-                                    .aspectRatio(contentMode: .fit)
-                                //.resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(16)
-                                    .frame(width: 180)
-                            }
-                        )
-                        
-                        VStack (alignment: .leading){
-                            Text(movie.title!)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(.label))
-                                .multilineTextAlignment(.center)
-                        }
-                        
-                        
-                        
-                        
-                        GeometryReader { geometry in
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    Spacer()
-                                    if movie.yearText != nil {
-                                        VStack (spacing: 5) {
-                                            let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
-                                            Text(year)
-                                                .font(.system(size: 16, weight: .bold, design: .default))
-                                        }
-                                        .frame(height: 50)
-                                        .padding(.left)
-                                        .padding(.right)
-                                        .background(Color(AppColor.BackGround.cardColour))
-                                        .cornerRadius(50)
-                                    }
-                                    
-                                    VStack (spacing: 5) {
-                                        Text(movie.duration)
-                                            .font(.system(size: 16, weight: .bold, design: .default))
-                                    }
-                                    .frame(height: 50)
-                                    .padding(.left)
-                                    .padding(.right)
-                                    .background(Color(AppColor.BackGround.cardColour))
-                                    .cornerRadius(50)
-                                    
-                                    VStack (spacing: 5) {
-                                        Text(movie.language ?? "n/a")
-                                            .textCase(.uppercase)
-                                            .font(.system(size: 16, weight: .bold, design: .default))
-                                    }
-                                    .frame(height: 50)
-                                    .padding(.left)
-                                    .padding(.right)
-                                    .background(Color(AppColor.BackGround.cardColour))
-                                    .cornerRadius(50)
-                                    
-                                    VStack (spacing: 5) {
-                                        Text(movie.mpaRating ?? "n/a")
-                                            .textCase(.uppercase)
-                                            .font(.system(size: 16, weight: .bold, design: .default))
-                                    }
-                                    .frame(height: 50)
-                                    .padding(.left)
-                                    .padding(.right)
-                                    .background(Color(AppColor.BackGround.cardColour))
-                                    .cornerRadius(50)
-                                    
-                                    if movie.rating != nil {
-                                        VStack (spacing: 5) {
-                                            let imdbRating = String(movie.rating!).replacingOccurrences(of: ",", with: "")
-                                            Text("\(imdbRating) / 10")
-                                                .font(.system(size: 16, weight: .bold, design: .default))
-                                            //RatingsSection
-                                        }
-                                        .frame(height: 50)
-                                        .padding(.left)
-                                        .padding(.right)
-                                        .background(Color(AppColor.BackGround.cardColour))
-                                        .cornerRadius(50)
-                                    }
-                                    Spacer()
-                                }
-                                //.padding()
-                                .frame(width: geometry.size.width)
-                                .frame(height: 50)
-                            }
-                        }.frame(height: 50)
-                    }
-                    
-                } // Close ZStack
-                
-                
-                
-                
-                
-                HStack {
-                    if sizeClass == .compact {
                         VStack {
                             
-                            NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
-                                Text("Trailer")
-                            }
-                            .font(.system(size: 18, weight: .bold, design: .default))
-                            .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
-                            .foregroundColor(.white)
-                            .contentShape(Rectangle())
-                            .background(Color.primary)
-                            .cornerRadius(13)
-                            
-                            
-                            Menu("Select Quality") {
-                                if movie.torrents != nil {
-                                    
-                                    ForEach(movie.torrents!) { torrent in
-                                        TorrentView(torrent: torrent)
-                                            .padding(.bottom)
-                                        
-                                    }
-                                }
-                            }
-                            .font(.system(size: 18, weight: .bold, design: .default))
-                            .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
-                            .foregroundColor(.white)
-                            .contentShape(Rectangle())
-                            .background(Color.primary)
-                            .cornerRadius(13)
-                            
-                            
-                            HStack {
-                                Text(movie.descriptionFull!)
-                                    .multilineTextAlignment(.leading)
-                            }
-                        }
-                        .padding()
-                        
-                        
-                        
-                        
-                    } else {
-                        HStack (spacing: 32) {
-                            HStack {
-                                Text(movie.descriptionFull!)
-                                    .font(.system(size: 16, weight: .regular, design: .default))
-                                    .tracking(0.2)
-                                    .lineSpacing(2)
-
-                                    .multilineTextAlignment(.leading)
-                                    .frame(minWidth: 100, maxWidth: .infinity)
-                                Spacer()
-                            }
-                            .frame(minWidth: 100, maxWidth: .infinity)
-                            
+                            RemoteImage(image: movie.mediumCoverImage.safeUnwrapped)
                             
                             VStack (alignment: .leading){
-                                Menu("Play") {
-                                    if movie.torrents != nil {
+                                Text(movie.title!)
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(.label))
+                                    .multilineTextAlignment(.center)
+                            }
+                                                        
+                            
+                            GeometryReader { geometry in
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        Spacer()
+                                        if movie.yearText != nil {
+                                            VStack (spacing: 5) {
+                                                let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
+                                                Text(year)
+                                                    .font(.system(size: 16, weight: .bold, design: .default))
+                                            }
+                                            .frame(height: 50)
+                                            .padding(.left)
+                                            .padding(.right)
+                                            .background(Color(AppColor.BackGround.cardColour))
+                                            .cornerRadius(50)
+                                        }
                                         
-                                        ForEach(movie.torrents!) { torrent in
-                                            TorrentView(torrent: torrent)
-                                                .padding(.bottom)
-                                            
+                                        VStack (spacing: 5) {
+                                            Text(movie.duration)
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        }
+                                        .frame(height: 50)
+                                        .padding(.left)
+                                        .padding(.right)
+                                        .background(Color(AppColor.BackGround.cardColour))
+                                        .cornerRadius(50)
+                                        
+                                        VStack (spacing: 5) {
+                                            Text(movie.language ?? "n/a")
+                                                .textCase(.uppercase)
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        }
+                                        .frame(height: 50)
+                                        .padding(.left)
+                                        .padding(.right)
+                                        .background(Color(AppColor.BackGround.cardColour))
+                                        .cornerRadius(50)
+                                        
+                                        VStack (spacing: 5) {
+                                            Text(movie.mpaRating ?? "n/a")
+                                                .textCase(.uppercase)
+                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        }
+                                        .frame(height: 50)
+                                        .padding(.left)
+                                        .padding(.right)
+                                        .background(Color(AppColor.BackGround.cardColour))
+                                        .cornerRadius(50)
+                                        
+                                        if movie.rating != nil {
+                                            VStack (spacing: 5) {
+                                                let imdbRating = String(movie.rating!).replacingOccurrences(of: ",", with: "")
+                                                Text("\(imdbRating) / 10")
+                                                    .font(.system(size: 16, weight: .bold, design: .default))
+                                                //RatingsSection
+                                            }
+                                            .frame(height: 50)
+                                            .padding(.left)
+                                            .padding(.right)
+                                            .background(Color(AppColor.BackGround.cardColour))
+                                            .cornerRadius(50)
+                                        }
+                                        Spacer()
+                                    }
+                                    //.padding()
+                                    .frame(width: geometry.size.width)
+                                    .frame(height: 50)
+                                }
+                            }.frame(height: 50)
+                        }
+                        
+                    } // Close ZStack
+                    
+                    
+                    
+                    
+                    
+                    HStack {
+                        if sizeClass == .compact {
+                            VStack {
+                                                            
+                                Button {
+                                    trailerURL = movie.ytTrailerCode.safeUnwrapped
+                                    showTrailerPlayer.toggle()
+                                } label: {
+                                    Text("Trailer")
+                                }
+                                .buttonStyle(ThemeButtonStyle())
+                                
+                                Menu("Select Quality") {
+                                    if let torrents = movie.torrents {
+                                        
+                                        ForEach(torrents) { torrent in
+                                            TorrentView(torrent: torrent, selectedHash: { hash in
+                                                self.transferData(hash: hash)
+                                            })
+                                            .padding(.bottom)
                                         }
                                     }
                                 }
                                 .font(.system(size: 18, weight: .bold, design: .default))
-                                .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
+                                .frame(minWidth: 100, maxWidth: 390, minHeight: 54)
                                 .foregroundColor(.white)
                                 .contentShape(Rectangle())
                                 .background(Color.primary)
-                                .cornerRadius(10)
-                                
+                                .cornerRadius(13)
                                 
                                 NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
-                                    Text("Trailer")
+                                                                    Text("Trailer")
+                                                                }
+                                                                
+                                                                .font(.system(size: 18, weight: .bold, design: .default))
+                                                                .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
+                                                                .foregroundColor(.white)
+                                                                .contentShape(Rectangle())
+                                                                .background(Material.ultraThick)
+                                                                .cornerRadius(10)
+                                                                Spacer()
+                                HStack {
+                                    Text(movie.descriptionFull!)
+                                        .multilineTextAlignment(.leading)
                                 }
-                                
-                                .font(.system(size: 18, weight: .bold, design: .default))
-                                .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
-                                .foregroundColor(.white)
-                                .contentShape(Rectangle())
-                                .background(Material.ultraThick)
-                                .cornerRadius(10)
-                                Spacer()
                             }
+                            .padding()
                             
-                        }
-                        .padding(.left)
-                        .padding(.right)
-                    }
-                }
-                .padding(.vertical)
-                
-                
-                HStack {
-                                    SearchField(placeholder: "Select quality and paste", value: $viewModel.searchText)
+                            
+                            
+                            
+                        } else {
+                            HStack (spacing: 32) {
+                                HStack {
+                                    Text(movie.descriptionFull!)
+                                        .font(.system(size: 16, weight: .regular, design: .default))
+                                        .tracking(0.2)
+                                        .lineSpacing(2)
                                     
-                                    Button {
-                                        self.transferData()
-                                        //self.fetchData()
-                                    } label: {
-                                        if $viewModel.isUploading.wrappedValue {
-                                            ProgressView()
-                                                .tint(Color(AppColor.primaryText))
-                                        } else {
-                                            Text("Download")
-                                                .font(.system(size: 16, weight: .bold, design: .default))
+                                        .multilineTextAlignment(.leading)
+                                        .frame(minWidth: 100, maxWidth: .infinity)
+                                    Spacer()
+                                }
+                                .frame(minWidth: 100, maxWidth: .infinity)
+                                
+                                
+                                VStack (alignment: .leading){
+                                    Menu("Play") {
+                                        if let torrents = movie.torrents {
+                                            ForEach(torrents) { torrent in
+                                                TorrentView(torrent: torrent, selectedHash: { hash in
+                                                    self.transferData(hash: hash)
+                                                })
+                                                .padding(.bottom)
+                                            }
                                         }
                                     }
-                                    .buttonStyle(HollowButtonStyle())
-                                    }.frame(minWidth: 100, maxWidth: 390)
-                    .padding()
-                
+                                    .font(.system(size: 18, weight: .bold, design: .default))
+                                    .frame(minWidth: 100, maxWidth: 254, minHeight: 48)
+                                    .foregroundColor(.white)
+                                    .contentShape(Rectangle())
+                                    .background(Color.primary)
+                                    .cornerRadius(10)
+                                    
+                                    
+                                    NavigationLink(destination: YouTubeTrailer(trailer: movie.ytTrailerCode!, title: movie.title!)) {
+                                                                    Text("Trailer")
+                                                                }
+                                                                .font(.system(size: 18, weight: .bold, design: .default))
+                                                                .frame(minWidth: 100, maxWidth: 254, minHeight: 54)
+                                                                .foregroundColor(.white)
+                                                                .contentShape(Rectangle())
+                                                                .background(Color.primary)
+                                                                .cornerRadius(13)
+                                                                
+                                    Spacer()
+                                }
+                                
+                            }
+                            .padding(.left)
+                            .padding(.right)
+                        }
+                    }
+                    .padding(.vertical)
+                    
+                    
+                }
             }
+            
+        }
+        .errorAlert(error: $viewModel.error)
+        //.fullScreenCover(isPresented: $showTrailerPlayer) {
+        //    YoutubeFullscreenPlayerView(url: $trailerURL)
+        //}
+        .fullScreenCover(isPresented: $showMoviePlayer) {
+            AVPlayerView(videoURL: $streamURL)
+                .edgesIgnoringSafeArea(.all)
+        }
+        .fullScreenCover(isPresented: $viewModel.isUploading) {
+            LoaderView(movie: movie, progress: $viewModel.progress)
         }
     }
-
     
-
-
+    
+    
+    
     
     func placeOrder() { }
     func adjustOrder() { }
@@ -335,10 +291,12 @@ extension MovieDetailsView {
         viewModel.refreshData()
     }
     
-    func transferData() {
-        viewModel.trasferData()
+    func transferData(hash: String) {
+        viewModel.downloadMovie(hash: hash, completion: { url in
+            streamURL = url
+            showMoviePlayer = true
+        })
     }
-    
     
 }
 
@@ -349,12 +307,7 @@ extension MovieDetailsView {
         HStack(alignment: .center) {
             RatingsBuilder(ratings: movie.rating!)
                 .font(.system(size: 18))
-            //Text("\(movie.rating, specifier: "%.1f")")
-            //.foregroundColor(.yellow)
-            //.font(.system(size: 24))
-            //.fontWeight(.semibold)
         }
-        //.padding(.vertical)
     }
     
     @ViewBuilder
@@ -365,17 +318,63 @@ extension MovieDetailsView {
         let remainder = Int(5 - rounded)
         
         HStack {
-            ForEach(0..<rounded) { _ in
+            ForEach(0 ..< rounded) { _ in
                 Image(systemName: "star.fill")
                     .renderingMode(.original)
             }
-            ForEach(0..<remainder) { _ in
+            ForEach(0 ..< remainder ) { _ in
                 Image(systemName: "star.fill")
                     .foregroundColor(Color(.systemGray))
             }
         }
     }
     
+}
+
+struct RemoteImage: View {
+    let image: String
+    var body: some View {
+        AsyncImage(
+            url: URL(string: image),
+            content: { image in
+                image.resizable()
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 175, height: 260)
+                    .clipped()
+            },
+            placeholder: {
+                Image("poster")
+                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
+                    .cornerRadius(16)
+                    .frame(width: 165)
+            }
+        )
+        .cornerRadius(5)
+    }
+}
+
+struct LoaderView: View {
+    let movie: Movies
+    @Binding var progress: CGFloat
+    
+    var body: some View {
+        VStack {
+            
+            VStack(alignment: .center, spacing: 20) {
+                RemoteImage(image: movie.mediumCoverImage.safeUnwrapped)
+                
+                ProgressView(value: progress, total: 1)
+                    .tint(Color(AppColor.theme))
+            }
+            .frame(minWidth: 160, maxWidth: 220)
+            
+        }
+        //.background(
+        //    Color(AppColor.BackGround.darkBackground)
+        //)
+    }
 }
 
 

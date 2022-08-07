@@ -23,12 +23,6 @@ struct TabScreen: View {
                     Label("Search", systemImage: "magnifyingglass")
                         .environment(\.symbolVariants, .none)
                 }
-            DownloadsView()
-                .tabItem {
-                    Label("Downloads", systemImage: "arrow.down.circle")
-                        .environment(\.symbolVariants, .none)
-                    
-                }
         }
         .accentColor(Color(AppColor.Components.TabBar.tint))
         

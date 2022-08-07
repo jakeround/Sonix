@@ -8,30 +8,22 @@
 import SwiftUI
 
 struct TorrentView: View {
-    @State private var showToast = false
     let torrent: Torrents
+    var selectedHash: ((String) -> Void)?
     
     @State private var showEditView = false
-  var body: some View {
-
-      Button(action: {
-          print(torrent.hash)
-          let finaltorrent = (torrent.hash)
-     
-          
-          print("Copied to clipboard")
-                            //isShowing = false
-                            UIPasteboard.general.string = self.torrent.hash!
-                            showToast = true
-
-                  }, label: {
-                      Text(torrent.quality!)
-                          .padding()
-                          .font(Font.largeTitle.bold())
-                          .background(Color.green)
-                  })
-      
-      
+    var body: some View {
+        
+        Button(action: {
+            let hash = torrent.hash.safeUnwrapped
+            UIPasteboard.general.string = hash
+            selectedHash?(hash)
+        }, label: {
+            Text(torrent.quality!)
+                .padding()
+                .font(Font.largeTitle.bold())
+                .background(Color.green)
+        })
     }
   
 }

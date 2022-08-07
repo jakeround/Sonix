@@ -33,7 +33,7 @@ struct TransferView: View {
                 VStack {
                     
                     HStack {
-                        SearchField(placeholder: Constants.searchBarPlaceholder, value: $viewModel.searchText)
+                        SearchField(placeholder: Constants.searchBarPlaceholder, value: .constant(""))
                         
                         Button {
                             self.transferData()
@@ -187,7 +187,9 @@ extension TransferView {
     }
     
     func transferData() {
-        viewModel.trasferData()
+        viewModel.downloadMovie(hash: "") { url in
+            
+        }
     }
     
     func getShareURL(file: PutioKitSearchFile) {
