@@ -13,25 +13,83 @@ import SwiftUI
 
 struct AppColor {
     
+    // Sonix 2.0 Theming
+    
+    enum Figma {
+        @Theme(light: UIColor(hex: "2B303C"),
+               dark: UIColor(hex: "242424"))
+        static var Card: UIColor
+        
+        @Theme(light: UIColor(hex: "2B303C"),
+               dark: UIColor(hex: "151515"))
+        static var Background: UIColor
+        
+        @Theme(light: UIColor(hex: "2B303C"),
+               dark: UIColor(hex: "FFFFFF"))
+        static var TitleText: UIColor
+        
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "ABFB4E"))
+        static var accentColor: UIColor
+        
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "000000"))
+        static var buttonText: UIColor
+    
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "A5A5A5"))
+        static var movieDetailsInfo: UIColor
+        
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "323232"))
+        static var buttonBorder: UIColor
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    // Below is old themeing
+    
+    enum designSystem {
+        @Theme(light: UIColor(hex: "2B303C"),
+               dark: UIColor(hex: "ffffff"))
+        static var headline: UIColor
+        
+        @Theme(light: UIColor(hex: "5B627A"),
+               dark: UIColor(hex: "ffffff"))
+        static var subtext: UIColor
+        
+        @Theme(light: UIColor(hex: "FFFFFF"),
+               dark: UIColor(hex: "ffffff"))
+        static var white: UIColor
+        
+
+    }
+    
+    
     enum BackGround {
-        @Theme(light: UIColor(hex: "F2F1F6"),
+        @Theme(light: UIColor(hex: "FAFAFA"),
                dark: UIColor(hex: "1C1C1E"))
         static var cardColour: UIColor
         
-        @Theme(light: UIColor(hex: "fdfdfd"),
+        @Theme(light: UIColor(hex: "FAFAFA"),
                dark: UIColor(hex: "181818"))
         static var lightBackground: UIColor
         
-        @Theme(light: UIColor(hex: "fdfdfd"),
+        @Theme(light: UIColor(hex: "FAFAFA"),
                dark: UIColor(hex: "0b0b0b"))
         static var darkBackground: UIColor
         
         @Theme(light: UIColor(hex: "ffffff"),
-               dark: UIColor(hex: "161616F0"))
+               dark: UIColor(hex: "ABFB4E"))
         static var navigationBarBackground: UIColor
         
         @Theme(light: UIColor(hex: "ffffff"),
-               dark: UIColor(hex: "161616F0"))
+               dark: UIColor(hex: "ABFB4E"))
         static var tabBarBackground: UIColor
     }
     
@@ -50,7 +108,7 @@ struct AppColor {
         
         enum ThemeButton {
             
-            @Theme(light: UIColor(hex: "F2F1F6"),
+            @Theme(light: UIColor(hex: "FAFAFA"),
                    dark: UIColor(hex: "181818"))
             static var background: UIColor
             
@@ -66,11 +124,11 @@ struct AppColor {
                    dark: UIColor(hex: "FE3A5C"))
             static var border: UIColor
             
-            @Theme(light: UIColor(hex: "000000"),
+            @Theme(light: UIColor(hex: "5C627B"),
                    dark: UIColor(hex: "ffffff"))
             static var textActive: UIColor
             
-            @Theme(light: UIColor(hex: "ffffff"),
+            @Theme(light: UIColor(hex: "0084C6"),
                    dark: UIColor(hex: "000000"))
             static var textSelected: UIColor
         }
@@ -109,7 +167,7 @@ struct AppColor {
                    dark: UIColor(hex: "181818"))
             static var background: UIColor
             
-            @Theme(light: UIColor(hex: "FE3A5C"),
+            @Theme(light: UIColor(hex: "E0F2FD"),
                    dark: UIColor(hex: "ffffff"))
             static var backgroundSelected: UIColor
             
@@ -127,8 +185,8 @@ struct AppColor {
         
         enum TabBar {
             // Global Colour
-            @Theme(light: UIColor(hex: "FE3A5C"),
-                   dark: UIColor(hex: "FE3A5C"))
+            @Theme(light: UIColor(hex: "ABFB4E"),
+                   dark: UIColor(hex: "ABFB4E"))
             static var tint: UIColor
             
         }
@@ -155,6 +213,10 @@ struct AppColor {
                    dark: UIColor(hex: "FE3A5C"))
             static var text: UIColor
             
+            @Theme(light: UIColor(hex: "FE3A5C"),
+                   dark: UIColor(hex: "FE3A5C"))
+            static var accentColor: UIColor
+            
         }
         
     }
@@ -167,8 +229,8 @@ struct AppColor {
            dark: UIColor.safeSeperator)
     static var seperator: UIColor
     
-    @Theme(light: UIColor(hex: "FE3A5C"),
-           dark: UIColor(hex: "FE3A5C"))
+    @Theme(light: UIColor(hex: "ABFB4E"),
+           dark: UIColor(hex: "ABFB4E"))
     static var theme: UIColor
     
     

@@ -25,6 +25,8 @@ struct YouTubeTrailer: View {
                     source: .video(id: trailer),
                     configuration: .init(
                         autoPlay: true
+                        
+                        
                     )
                 )
             )

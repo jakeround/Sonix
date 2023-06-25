@@ -12,8 +12,8 @@ import Combine
 class SearchViewModel: ObservableObject {
     @Published var searchResults: [Movies] = []
     @Published var categorizedResults: [Movies] = []
-    @Published var selectedCategory = ""
-    @Published var filterBy = "download_count"
+    @Published var selectedCategory = "Action"
+    @Published var filterBy = "like_count"
 
     @Published var searchQuery = ""
     

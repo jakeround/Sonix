@@ -15,60 +15,94 @@ struct CategoryView: View {
     @Binding var selectedCategory: String
     
     var body: some View {
+        VStack (spacing: 0) {
+        
+        VStack (alignment: .trailing, spacing: 4) {
+            //MARK: - FILTER MENU
+            Spacer()
+            
+            Menu {
+                //
+                
+                
+                Button {
+                    searchVM.filterBy = "title"
+                } label: {
+                    LabelView(label: "Title", selected: searchVM.filterBy == "title" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "year"
+                } label: {
+                    LabelView(label: "Year", selected: searchVM.filterBy == "year" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "rating"
+                } label: {
+                    LabelView(label: "Top Rated", selected: searchVM.filterBy == "rating" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "peers"
+                } label: {
+                    LabelView(label: "Peers", selected: searchVM.filterBy == "peers" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "seeds"
+                } label: {
+                    LabelView(label: "Trending", selected: searchVM.filterBy == "seeds" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "download_count"
+                } label: {
+                    LabelView(label: "Downloads", selected: searchVM.filterBy == "download_count" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "like_count"
+                } label: {
+                    LabelView(label: "Like Count", selected: searchVM.filterBy == "like_count" ? true : false)
+                }
+                
+                Button {
+                    searchVM.filterBy = "date_added"
+                } label: {
+                    LabelView(label: "Latest", selected: searchVM.filterBy == "date_added" ? true : false)
+                }
+                
+                
+            } label: {
+                HStack() {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                    Text("Discover")
+                    Spacer()
+                }
+                .frame(height: 61)
+               
+                .font(Font.system(size: 30, weight: .bold, design: .rounded))
+                //.padding()
+                .foregroundColor(Color(AppColor.designSystem.headline))
+                
+                //.foregroundColor(.white)
+                //.clipShape(Capsule())
+            }
+            //Spacer()
+           
+        }
+        
+        
+        
+        
         HStack {
             ScrollView(.horizontal, showsIndicators: false) {
+                
                 HStack {
                   
                     
-                    //MARK: - FILTER MENU
-                    Menu {
-                        //
-                        
-                        Button {
-                            searchVM.filterBy = "seeds"
-                        } label: {
-                            LabelView(label: "Trending", selected: searchVM.filterBy == "seeds" ? true : false)
-                        }
-                        
-                        // IMDB RATING
-                            Button {
-                                searchVM.filterBy = "rating"
-                            } label: {
-                                LabelView(label: "Top Rated", selected: searchVM.filterBy == "rating" ? true : false)
-                            }
-                        
-                        Button {
-                            searchVM.filterBy = "date_added"
-                        } label: {
-                            LabelView(label: "Latest", selected: searchVM.filterBy == "date_added" ? true : false)
-                        }
-
-                        Button {
-                            searchVM.filterBy = "year"
-                        } label: {
-                            LabelView(label: "Year", selected: searchVM.filterBy == "year" ? true : false)
-                        }
-                        
-                        Button {
-                            searchVM.filterBy = "download_count"
-                        } label: {
-                            LabelView(label: "Downloads", selected: searchVM.filterBy == "download_count" ? true : false)
-                        }
-                        
-                        
-                    } label: {
-                        HStack(spacing: 10) {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                            Text("Filter")
-                        }
-                       
-                        .font(.headline.bold())
-                        .padding()
-                        .background(Color(AppColor.Components.ThemeButton.filter))
-                        .foregroundColor(.white)
-                        .clipShape(Capsule())
-                    }
-                   
+            
 
 
                     ForEach(genres, id: \.self) { genre in
@@ -91,10 +125,14 @@ struct CategoryView: View {
                     
                 
             }
+            
 
         }
-        .padding(.top, 20)
-        .padding(.bottom, 20)
+        //.padding(.top, 20)
+        .padding(.bottom, 24)
+        
+    }
     }
 }
+
 

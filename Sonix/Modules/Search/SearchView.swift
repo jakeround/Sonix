@@ -29,24 +29,25 @@ struct SearchView: View {
             }
         }
     }
+    @State private var showingSheet = false
     
     var body: some View {
         NavigationView {
-
+            
             VStack {
                 SearchBarView(vm: searchVM)
                     .padding(.left, 12)
                     .padding(.right, 12)
-            
-            
-            ScrollView (.vertical, showsIndicators: false) {
                 
+                
+                ScrollView (.vertical, showsIndicators: false) {
                     
-     
-                LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(searchResults, id: \.id) { movie in
+                    
+                    
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        ForEach(searchResults, id: \.id) { movie in
                             SearchListView(movie: movie)
-                                //.padding()
+                            //.padding()
                                 .onAppear() {
                                     if searchVM.searchResults.last?.id == movie.id {
                                         searchVM.loadMoreSearchContent(currentItem: movie)
@@ -55,32 +56,37 @@ struct SearchView: View {
                                     
                                 }
                         }
-                    
-                    
-                
-                    
+                        
+                        
+                        
+                        
+                    }
+                    .padding(.left, 16)
+                    .padding(.right, 16)
                 }
-                .padding(.left, 16)
-                .padding(.right, 16)
             }
-            //.padding()
-            .background(Color(AppColor.BackGround.darkBackground))
+            .background(Color(AppColor.Figma.Background))
+            .navigationBarItems(leading:
+                                    HStack {
+                Text("Search")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                
+                
+            }, trailing:
+                                    HStack {
+                Button(action: {
+                    showingSheet.toggle()
+                }) {
+                    Image("Settings")
+                        .renderingMode(Image.TemplateRenderingMode?.init(Image.TemplateRenderingMode.original))
+                }
+                .sheet(isPresented: $showingSheet) {
+                    SettingsScreen()
+                }
+                
             }
-        
-            
-            
-            //.frame(maxWidth: .infinity)
-            //.navigationBarHidden(true)
-            //.navigationViewStyle(StackNavigationViewStyle())
-            
-            .background(Color(AppColor.BackGround.darkBackground))
-            
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Search")
+            )
         }
-        
-        .navigationViewStyle(StackNavigationViewStyle())
-        
     }
 }
     

@@ -90,8 +90,7 @@ struct SearchBarView: View {
         .cornerRadius(13)
         .padding()
         .navigationBarTitle("")
-        .navigationBarHidden(true)
-        //.background(Color(.systemBlue))
+        .background(Color(AppColor.Figma.Background))
     }
 }
 

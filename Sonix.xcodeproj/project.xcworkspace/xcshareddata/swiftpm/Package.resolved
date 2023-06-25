@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "bottom-sheet",
+      "identity" : "bottomsheet",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/weitieda/bottom-sheet.git",
+      "location" : "https://github.com/danielsaidi/BottomSheet.git",
       "state" : {
-        "revision" : "de09fedfb7a9c5ab4effbdb4df284229c60f72db",
-        "version" : "1.0.11"
+        "branch" : "master",
+        "revision" : "9be83ffd039f3b843c3f1e74446b7c3b3655ebe5"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
       "state" : {
-        "revision" : "f2616860a41f9d9932da412a8978fec79c06fe24",
-        "version" : "0.1.4"
+        "revision" : "56065b729481abce73fe606e218024bc77d055cd",
+        "version" : "0.6.2"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gh123man/SwiftUI-Refresher.git",
       "state" : {
-        "revision" : "a8fd7935ece9a255da9a6dc06a6b56f00caae95d",
-        "version" : "1.0.10"
+        "branch" : "master",
+        "revision" : "245beb2b2890c5a31a1630e38437c28e10683a2c"
       }
     },
     {

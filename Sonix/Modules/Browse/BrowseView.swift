@@ -95,16 +95,10 @@ struct BrowseYTS: View {
             .sheet(isPresented: $showSheetView) {
                 SettingsScreen()
             }
-            .bottomSheet(
-                isPresented: $showMapSetting,
-                height: geo.size.height,
-                topBarHeight: 16,
-                topBarCornerRadius: 16,
-                showTopIndicator: true
-            ) {
-           
-                Test()
-            }
+
+                
+        
+                
                 printUI(geo.size.height)
             //.sheet(isPresented: $showSearchView) {
            //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
@@ -115,6 +109,10 @@ struct BrowseYTS: View {
         .onChange(of: networkingManager.sortby) { newValue in
             networkingManager.movies = []
             networkingManager.loadData()
+        }
+        
+        .onAppear {
+            print("ContentView appeared!")
         }
         
     }

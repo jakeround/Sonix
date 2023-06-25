@@ -12,8 +12,8 @@ import SwiftUI
 class NetworkManager: ObservableObject {
     @Published var movies: [Movies] = []
     var currentPage: Int = 1
-    @Published var sortby: String = "download_count"
-    @Published var category: String = ""
+    @Published var sortby: String = "like_count"
+    @Published var category: String = "Action"
     
     init(shouldLoadData: Bool) {
         if shouldLoadData {

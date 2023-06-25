@@ -23,12 +23,12 @@ struct LoginScreen: View {
                 
                 VStack() {
                    
-                   
+                    Image("AppIcon")
                     
                     Spacer()
                     Text("Sonix")
                         .font(.system(size: 42, weight: .bold))
-                    Text("Watch your favourite movies")
+                    Text("Stream your favourite movies from Put.io")
                         .foregroundColor(.gray)
                     Spacer()
                     
@@ -39,13 +39,13 @@ struct LoginScreen: View {
                     Button(action: { showingSheet.toggle() }) {
                             Text("Get Started")
                         }
-                        .font(.system(size: 18, weight: .bold, design: .default))
-                        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
-                        //.padding([.leading, .trailing], 20)
-                        .foregroundColor(.white)
-                        
-                        .background(Color.primary)
-                        .cornerRadius(13)
+                    .frame(minWidth: 375, maxWidth: 430, minHeight: 56, maxHeight: 56, alignment: .center)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundColor(Color(AppColor.Figma.buttonText))
+                    .contentShape(Rectangle())
+                    .background(Color(AppColor.Figma.accentColor))
+                    .cornerRadius(12)
+                    .padding(.bottom, 16)
                         
                         
                     }//.padding([.leading, .trailing], 20)
@@ -91,17 +91,31 @@ struct LoginScreen: View {
         var body: some View {
             VStack (alignment: .leading) {
                 HStack {
+                Image("icon_logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 40)
+                    .padding(16)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+               
+                HStack {
                     
-                }.frame(height: 16)
+                    Text("Enter your put.io username and password to access your account")
+                        .foregroundColor(.gray)
+                }
+                .padding(.bottom)
+                
                 
                 VStack(alignment: .leading) {
-                Text("Username or email address")
+                Text("Username")
                         .multilineTextAlignment(.leading)
                     .font(.system(size: 14, weight: .bold, design: .default))
                     //.frame(alignment: .leading)
                     
                 }
                 LoginField(placeholder: Constants.userName, isPassword: false, value: $viewModel.username)
+                
                 
                 VStack(alignment: .leading, spacing: 6) {
                 Text("Password")
@@ -121,16 +135,18 @@ struct LoginScreen: View {
                         
                     } else {
                         Text(Constants.login)
-                            .font(.system(size: 18, weight: .bold, design: .default))
-                            .frame(minWidth: 100, maxWidth: .infinity, minHeight: 54)
-                            .foregroundColor(.white)
-                            
-                            .background(Color.primary)
-                            .cornerRadius(13)
+                            .frame(minWidth: 375, maxWidth: 430, minHeight: 56, maxHeight: 56, alignment: .center)
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(Color(AppColor.Figma.buttonText))
+                            .contentShape(Rectangle())
+                            .background(Color(AppColor.Figma.accentColor))
+                            .cornerRadius(12)
+                            .padding(.bottom, 16)
                     }
                     
                 }
                 
+                //Spacer()
                 
                 
                 
@@ -162,13 +178,15 @@ struct LoginScreen: View {
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             
                 //.padding()
-                .frame(height: 50)
+                .frame(height: 56)
+                .background(.black)
                 .cornerRadius(8)
+                
                 //.border(Color(AppColor.Components.LoginField.background), width: 1)
-                .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color(AppColor.Components.LoginField.background), lineWidth: 1)
-                        )
+                //.overlay(
+                       //     RoundedRectangle(cornerRadius: 8)
+                       //         .stroke(Color(AppColor.Components.LoginField.background), lineWidth: 1)
+                       // )
                
                 .foregroundColor(
                     Color(AppColor.Components.LoginField.text)
