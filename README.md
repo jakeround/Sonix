@@ -13,12 +13,12 @@ Sonix is built using Swift + SwiftUI, all contributions are welcome this is a si
 
 # Screenshots
 
+![Movies](Assets/Home.png)
+![Movies](Assets/Movie_1.png)
+![Movies](Assets/Genre.png)
 ![Movies](Assets/Download.png)
 ![Movies](Assets/Files.png)
-![Movies](Assets/Genre.png)
-![Movies](Assets/Home.png)
 ![Movies](Assets/List.png)
-![Movies](Assets/Movie_1.png)
 ![Movies](Assets/Movie_2.png)
 ![Movies](Assets/Upcoming.png)
 
