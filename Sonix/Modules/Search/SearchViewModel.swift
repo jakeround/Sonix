@@ -12,8 +12,8 @@ import Combine
 class SearchViewModel: ObservableObject {
     @Published var searchResults: [Movies] = []
     @Published var categorizedResults: [Movies] = []
-    @Published var selectedCategory = "Action"
-    @Published var filterBy = "like_count"
+    @Published var selectedCategory = ""
+    @Published var filterBy = "download_count"
 
     @Published var searchQuery = ""
     
@@ -41,8 +41,8 @@ class SearchViewModel: ObservableObject {
     
     func searchMovies(searchText: String) {
         let query = searchText.trimmed.urlEncoded ?? searchText.trimmed
-        let urlStr = "https://yts.torrentbay.to/api/v2/list_movies.json?query_term=\(query)"
-        // "https://yts.torrentbay.to/api/v2/list_movies.json?query_term=\(query)&limit=50&page=\(self.currentPage)"
+        let urlStr = "https://yts.mx/api/v2/list_movies.json?query_term=\(query)&limit=50&page=1"
+        //\(self.currentPage)"
         guard let url = URL(string: urlStr) else {
             print("invalid URL. No movies found for this title")
             return
@@ -69,7 +69,7 @@ class SearchViewModel: ObservableObject {
     }
     
     func searchByCategory() {
-        let url = URL(string: "https://yts.torrentbay.to/api/v2/list_movies.json?genre=\(self.selectedCategory)&sort_by=\(filterBy)&limit=50&page=\(self.currentPage)")!
+        let url = URL(string: "https://yts.mx/api/v2/list_movies.json?genre=\(self.selectedCategory)&sort_by=\(filterBy)&limit=50&page=\(self.currentPage)")!
         print(url)
            URLSession.shared.dataTask(with: url) { (data, response, error) in
 

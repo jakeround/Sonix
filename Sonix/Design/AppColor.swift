@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
+
 struct AppColor {
     
     // Sonix 2.0 Theming
@@ -44,6 +45,13 @@ struct AppColor {
                dark: UIColor(hex: "323232"))
         static var buttonBorder: UIColor
         
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "1E1E1E"))
+        static var searchSheet: UIColor
+        
+        @Theme(light: UIColor(hex: "FE3A5C"),
+               dark: UIColor(hex: "323232"))
+        static var searchBar: UIColor
         
         
         

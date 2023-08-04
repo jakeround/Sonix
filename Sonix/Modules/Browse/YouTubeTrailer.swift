@@ -24,9 +24,7 @@ struct YouTubeTrailer: View {
                 wrappedValue: .init(
                     source: .video(id: trailer),
                     configuration: .init(
-                        autoPlay: true
-                        
-                        
+                        autoPlay: false
                     )
                 )
             )

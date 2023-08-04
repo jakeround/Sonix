@@ -9,10 +9,5 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array/>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIColorName</key>
-		<string>PosterBackground</string>
-	</dict>
 </dict>
 </plist>

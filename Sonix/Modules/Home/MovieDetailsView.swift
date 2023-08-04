@@ -134,8 +134,7 @@ struct MovieDetailsView: View {
                                                     .foregroundColor(.gray)
                                             }
                                             .frame(height: 40)
-                                            .padding(.left)
-                                            .padding(.right)
+                                            .padding()
                                             .background(Color(AppColor.Figma.Card))
                                             .cornerRadius(12)
                                         }
@@ -147,8 +146,7 @@ struct MovieDetailsView: View {
                                                 .foregroundColor(.gray)
                                         }
                                         .frame(height: 40)
-                                        .padding(.left)
-                                        .padding(.right)
+                                        .padding()
                                         .background(Color(AppColor.Figma.Card))
                                         .cornerRadius(12)
                                         
@@ -159,8 +157,7 @@ struct MovieDetailsView: View {
                                                 .foregroundColor(.gray)
                                         }
                                         .frame(height: 40)
-                                        .padding(.left)
-                                        .padding(.right)
+                                        .padding()
                                         .background(Color(AppColor.Figma.Card))
                                         .cornerRadius(12)
                                     }

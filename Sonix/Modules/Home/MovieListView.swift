@@ -2,7 +2,7 @@
 //  MovieListView.swift
 //  Sonix
 //
-//  Created by Jake Round on 07/06/2022.
+//  Created by Jake Round on 07/06/2023.
 //
 
 import SwiftUI
@@ -11,10 +11,7 @@ struct MovieListView: View {
     let movie: Movies
     @State var showList = false
     @State var showMapSetting = false
-    
     @State private var showingSheet = false
-    
-    
     
     var body: some View {
         NavigationLink(destination: MovieDetailsView(movie: movie)) {
@@ -35,7 +32,7 @@ struct MovieListView: View {
                                 //.resizable()
                                     .scaledToFit()
                                     .cornerRadius(16)
-                                    .frame(width: 193, height: 256)
+                                    //.frame(width: 193, height: 256)
                             },
                             placeholder: {
                                 Image("Placeholder")
@@ -43,7 +40,7 @@ struct MovieListView: View {
                                 //.resizable()
                                     .scaledToFit()
                                     .cornerRadius(16)
-                                    .frame(width: 193, height: 256)
+                                    //.frame(width: 193, height: 256)
                             }
                         )
                     }
@@ -96,6 +93,7 @@ struct MovieListView: View {
                             //.padding(14)
                             //.background(Color(AppColor.BackGround.cardColour))
                         }
+                        Spacer()
                     }
                 }
                 //if movie.synopsis != nil {
@@ -112,8 +110,7 @@ struct MovieListView: View {
            //}
             
             
-            //.background(Color(.blue))
-            .frame(width: 191)
+            
             
             //.sheet(isPresented: $showingSheet) {
             //   MovieDetailsView(movie: movie)

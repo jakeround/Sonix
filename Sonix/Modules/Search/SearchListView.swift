@@ -13,7 +13,7 @@ struct SearchListView: View {
     
     var body: some View {
         NavigationLink(destination: MovieDetailsView(movie: movie)) {
-            VStack(spacing: 10) {
+            HStack(spacing: 10) {
                 if movie.largeCoverImage != nil {
                     //AsyncImage(url: URL(string: movie.mediumCoverImage!))
                     

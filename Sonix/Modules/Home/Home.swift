@@ -14,7 +14,7 @@ struct Home: View {
     @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
     @StateObject var searchManager = SearchViewModel()
     
-    let columns = [GridItem(.adaptive(minimum: 193))]
+    let columns = [GridItem(.adaptive(minimum: 160))]
     
     @State var showList = false
     @State var showMapSetting = false
@@ -36,18 +36,41 @@ struct Home: View {
     
     @State private var showingSheet = false
     
+    @State private var isShowingTravelModes = false
+    @State private var selectedTravelName = "car.fill"
+    
+    
+    
     var body: some View {
         NavigationView {
-            HStack {
-
-            GeometryReader { geo in
+            
+            
+            
+            
             ScrollView (.vertical, showsIndicators: false) {
-                VStack (spacing: 0) {
-                HomeFilter(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
-                    
-                    
-     
-                LazyVGrid(columns: columns, spacing: 12) {
+                
+                VStack {
+                    HomeFilter(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
+                }
+                
+//                ZStack (alignment: .bottomLeading) {
+//                    Button("") {
+//                        isShowingTravelModes.toggle()
+//                    }
+//                    .buttonStyle(travelModeButton(systemImageName: selectedTravelName))
+//                    .padding(30)
+//                    .sheet(isPresented: $isShowingTravelModes) {
+//                        if #available(iOS 16.0, *) {
+//                            travelOptionView
+//                                .presentationDetents([.medium, .large])
+//                                .presentationDragIndicator(.visible)
+//                        } else {
+//                            // Fallback on earlier versions
+//                        }
+//                    }
+//                }
+                
+                LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(filteredResults, id: \.id) { movie in
                         
                         MovieListView(movie: movie)
@@ -59,28 +82,30 @@ struct Home: View {
                                 if searchManager.categorizedResults.last?.id == movie.id {
                                     searchManager.loadMoreCategorizedContent(currentItem: movie)
                                 }
-                                   
-                                        networkingManager.loadData()
-                    
-                                    
+                                
+                                networkingManager.loadData()
+                                
+                                
                                 
                             }
                         
                         
-                            
+                        
                         
                     }// Close LazyVGrid
-                   
+                    
                     
                 }
-                }
-                .padding(.left, 16)
-                .padding(.right, 16)
+                
+                .padding(16)
+                
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .padding(0)
             .background(Color(AppColor.Figma.Background))
             
-         
+            
+            
             // Content isn't refreshed when just using filter option (have to select category then filter)
             .onChange(of: searchManager.filterBy, perform: { _ in
                 searchManager.loadFilteredResults()
@@ -96,64 +121,92 @@ struct Home: View {
             
             
             
+            
             //
             ////             Redundant
-                        .onAppear {
-                            networkingManager.loadData()
-        
-                        }
+            .onAppear {
+                networkingManager.loadData()
+                
+            }
             .sheet(isPresented: $showSheetView) {
                 SettingsScreen()
             }
-
+            
+            .navigationBarItems(leading:
+                                    HStack {
+                Text("Home")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
                 
-        
                 
-       
+            }, trailing:
+                                    HStack {
+                Button(action: {
+                    showingSheet.toggle()
+                }) {
+                    Image("Settings")
+                        .renderingMode(Image.TemplateRenderingMode?.init(Image.TemplateRenderingMode.original))
+                }
+                .sheet(isPresented: $showingSheet) {
+                    SettingsScreen()
+                }
+                
+            }
+            )
+            
+            
+            
+            
             //.sheet(isPresented: $showSearchView) {
-           //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
-           // }
-            }.background(Color(AppColor.Figma.Background))
-                    .navigationBarItems(leading:
-                                            HStack {
-                        Text("Sonix")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
-                        
-                        
-                    }, trailing:
-                                            HStack {
-                        Button(action: {
-                            showingSheet.toggle()
-                        }) {
-                            Image("Settings")
-                                .renderingMode(Image.TemplateRenderingMode?.init(Image.TemplateRenderingMode.original))
-                        }
-                        .sheet(isPresented: $showingSheet) {
-                            SettingsScreen()
-                        }
-                        
-                    }
-                    )
-        }
+            //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
+            // }
         }
         
-        .onChange(of: networkingManager.sortby) { newValue in
-            networkingManager.movies = []
-            networkingManager.loadData()
-        }
         
-        .onAppear {
-            print("ContentView appeared!")
-        }
         
+        
+        
+        //        .navigationViewStyle(StackNavigationViewStyle())
+        //
+        //        .onChange(of: networkingManager.sortby) { newValue in
+        //            networkingManager.movies = []
+        //            networkingManager.loadData()
+        //        }
+        //
+        //        .onAppear {
+        //            print("ContentView appeared!")
+        //        }
+        
+        
+        .navigationViewStyle(StackNavigationViewStyle())
     }
-}
     
-
-
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home( )
-    }
+    
+//    var travelOptionView: some View {
+//        VStack (spacing: 20) {
+//            SearchView()
+//        }
+//
+//
+//
+//
+//
+//
+//    }
+//
+//
+//    struct travelModeButton: ButtonStyle {
+//
+//        let systemImageName: String
+//
+//        func makeBody(configuration: Configuration) -> some View {
+//            Image(systemName: systemImageName)
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .foregroundColor(.white)
+//                .frame(width: 33, height: 33)
+//                .padding()
+//                .background(Color.pink)
+//                .clipShape(Circle())
+//        }
+//    }
 }
-

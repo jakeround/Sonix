@@ -59,6 +59,7 @@ struct CloudFiles: View {
                     VStack(spacing: 0) {
                         listingView
                     }
+                    .padding(.top, 16)
                    
                     
                     .onAppear {
@@ -66,6 +67,7 @@ struct CloudFiles: View {
                         self.refreshData()
                     }
                 }
+                
                 
                 .refresher(style: .system) { done in // Called when pulled to refresh
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
@@ -89,6 +91,9 @@ struct CloudFiles: View {
         .navigationBarTitle (Text("Files"), displayMode: .inline)
         //.font(.system(size: 18, weight: .bold, design: .rounded))
         .navigationBarTitleDisplayMode(.inline)
+        
+        .navigationViewStyle(StackNavigationViewStyle())
+        .background(Color(AppColor.Figma.Background))
         //.navigationViewStyle(.stack)
         
     }
@@ -139,13 +144,13 @@ struct CloudFiles: View {
             
             let str3 = extended2
             
-            let year = str3.westernArabicNumeralsOnly
+           // let year = str3.westernArabicNumeralsOnly
                         
             VStack {
                 
                 HStack {
                     Text(substring2)
-                    Text(year)
+                    //Text(year)
                     Spacer()
                     Image("Link")
                         .onTapGesture() {
@@ -159,17 +164,17 @@ struct CloudFiles: View {
                 }
                 .padding(16)
                 
-                .frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
+                //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
                 .background(Color(AppColor.Figma.Card))
                 .foregroundColor(Color(AppColor.Figma.TitleText))
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 .cornerRadius(16)
-                .padding(0)
+                //.padding(16)
                 
                 
                 
             }
-            .padding(16)
+            .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)) // Apply custom padding values
             
             .onTapGesture {
                 guard let url = viewModel.getStreamURL(file: data.file) else { return }

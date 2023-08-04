@@ -13,13 +13,18 @@ struct Downloads: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack (alignment: .leading){
+                VStack (alignment: .leading, spacing: 16){
                     NavigationLink(destination: CloudFiles()) {
                         ButtonView()
                     }
-                    Spacer()
-                }
+                   
+                    NavigationLink(destination: WebView()) {
+                        WebLinkButton()
+                    }
+                    
+                }.padding()
             }
+            .background(Color(AppColor.Figma.Background))
             .navigationBarItems(leading:
                                     HStack {
                 Text("Downloads")
@@ -41,8 +46,13 @@ struct Downloads: View {
             }
             )
             .background(Color(AppColor.Figma.Background))
+            
         }
         
+        
+        .navigationViewStyle(StackNavigationViewStyle())
+        .background(Color(AppColor.Figma.Background))
+        //.background(Color(AppColor.Figma.Background))
     }
     
     
@@ -58,14 +68,32 @@ struct ButtonView: View {
         }
         .padding(16)
         
-        .frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
+        //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
         .background(Color(AppColor.Figma.Card))
         .foregroundColor(Color(AppColor.Figma.TitleText))
         .font(.system(size: 18, weight: .bold, design: .rounded))
         .cornerRadius(16)
-        .padding(16)
+        
     }
     
 }
 
+struct WebLinkButton: View {
+    var body: some View {
+        HStack {
+            Text("Chill Institute")
+            Spacer()
+            Image("Link")
+        }
+        .padding(16)
+        
+        //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
+        .background(Color(AppColor.Figma.Card))
+        .foregroundColor(Color(AppColor.Figma.TitleText))
+        .font(.system(size: 18, weight: .bold, design: .rounded))
+        .cornerRadius(16)
+        //.padding(16)
+    }
+    
+}
 

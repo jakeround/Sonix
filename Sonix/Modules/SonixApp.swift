@@ -18,6 +18,7 @@ struct SonixApp: App {
         navbarAppearance()
         tabbarAppearance()
         userManager.readUserData()
+        
     }
 
     var body: some Scene {
@@ -37,7 +38,10 @@ struct SonixApp: App {
         
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
+        
+        
     }
+    
     
     
     
@@ -46,12 +50,20 @@ struct SonixApp: App {
         appearance.titleTextAttributes = [.foregroundColor: AppColor.primaryText]
         
         appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        appearance.backgroundColor = AppColor.BackGround.lightBackground
+        appearance.backgroundColor = AppColor.Figma.searchSheet
+        
+            //.background(content: { Color(AppColor.Figma.searchSheet)
         
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: AppColor.primaryText]
         UINavigationBar.appearance().barTintColor = AppColor.Components.TabBar.tint
         
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        
+        
+        
     }
+    
+    
 }

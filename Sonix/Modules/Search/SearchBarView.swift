@@ -39,9 +39,9 @@ struct SearchBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color(AppColor.Components.SearchBar.background))
+                .background(Color(AppColor.Figma.Card))
             
-         
+                
             
             
             HStack {
@@ -51,7 +51,9 @@ struct SearchBarView: View {
                     .foregroundColor(Color(AppColor.Components.SearchBar.icons))
                 
                 TextField("Search...", text: $vm.searchQuery)
-
+                    .introspectTextField { textField in
+                        textField.becomeFirstResponder()
+                    } // Selects text field without keyboard
                 
                     .onReceive(
                         vm.$searchQuery
@@ -74,13 +76,15 @@ struct SearchBarView: View {
                     vm.searchQuery = ""
                 } label: {
                     Image(systemName: "xmark.circle")
-                        .foregroundColor(Color(AppColor.Components.SearchBar.icons))
+                        .foregroundColor(Color(AppColor.Figma.TitleText))
                 }
                 
                 
             }
-            .foregroundColor(Color(AppColor.Components.SearchBar.text))
-            .padding(13)
+            .background(Color(AppColor.Figma.Card))
+            //.foregroundColor(Color(AppColor.Figma.TitleText))
+            .font(.system(size: 18, weight: .bold, design: .rounded))
+            .padding(16)
             
             
             
@@ -89,8 +93,8 @@ struct SearchBarView: View {
         .frame(height: 40)
         .cornerRadius(13)
         .padding()
-        .navigationBarTitle("")
-        .background(Color(AppColor.Figma.Background))
+        
+        //.background(Color(.systemBlue))
     }
 }
 
