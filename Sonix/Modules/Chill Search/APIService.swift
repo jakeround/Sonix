@@ -68,8 +68,19 @@ class APIService {
 
 //https://next.chill.institute/api/v3/search?keyword=inception&filterNastyResults=false
 
+struct SearchResult: Codable, Identifiable {
+    let id: String
+    let title: String
+    let source: String
+    //let seeders: Int?
+    //let peers: Int?
+    //let size: Int?
+    let link: String
+    let upload_time: String
+}
+
 extension APIService {
-    func performSearch(query: String, completion: @escaping (Data?, Error?) -> Void) {
+    func performSearch(query: String, completion: @escaping ([SearchResult]?, Error?) -> Void) {
         let url = URL(string: "\(baseURL)/search?keyword=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&indexer=bitsearch&filterNastyResults=false")!
 
         var request = URLRequest(url: url)
@@ -79,12 +90,22 @@ extension APIService {
 
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            completion(data, nil)
-        }
-        task.resume()
+                    if let error = error {
+                        completion(nil, error)
+                        return
+                    }
+
+                    if let data = data {
+                        do {
+                            let results = try JSONDecoder().decode([SearchResult].self, from: data)
+                            completion(results, nil)
+                        } catch {
+                            completion(nil, error)
+                        }
+                    }
+                }
+                task.resume()
     }
 }
+
+

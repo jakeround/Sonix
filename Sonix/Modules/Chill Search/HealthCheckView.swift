@@ -7,27 +7,71 @@ struct HealthCheckView: View {
     
     @State private var searchText = ""
     private var apiService = APIService()
-
+    
+    @State private var searchResults: [SearchResult] = []
+    
     var body: some View {
-        VStack {
-            TextField("Search", text: $searchText, onCommit: performSearch)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button("Search", action: performSearch)
-            
-            Text("API Health Check")
-                .font(.headline)
-
-            Text(healthCheckResult)
-                .font(.body)
-                .foregroundColor(isError ? .red : .green)
-                .onAppear(perform: performHealthCheck)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("API Health Check")
+                    .font(.headline)
+                    .padding(.top)
+                
+                Text(healthCheckResult)
+                    .font(.body)
+                    .foregroundColor(isError ? .red : .green)
+                    .padding(.bottom)
+                    .onAppear(perform: performHealthCheck)
+                
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    
+                    TextField("Search", text: $searchText, onCommit: performSearch)
+                    // Searches too quicky, not the best results
+                    //.onChange(of: searchText, perform: { value in
+                    //                  performSearch()
+                    //            })
+                        .disableAutocorrection(true)
+                    if !searchText.isEmpty {
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+                .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                .foregroundColor(.secondary)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(10.0)
+                
+                Button("Search", action: performSearch)
+                    .padding(.bottom)
+                
+                ForEach(searchResults) { result in
+                    VStack(alignment: .leading, spacing: 5) {
+                        //Text(result.id)
+                        Text(result.title)
+                            .frame(maxWidth: .infinity)
+                        //Text(result.source)
+                        //Text(result.link)
+                    }
+                    .onTapGesture {
+                        print("\(result.link)")
+                        }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(8)
+                    
+                }
+            }
+            .padding()
         }
-        
-      
     }
-
+    
     private func performHealthCheck() {
         apiService.performHealthCheck { result, error in
             DispatchQueue.main.async {
@@ -42,17 +86,17 @@ struct HealthCheckView: View {
     }
     
     private func performSearch() {
-        apiService.performSearch(query: searchText) { data, error in
+        apiService.performSearch(query: searchText) { results, error in
             DispatchQueue.main.async {
-                if let data = data {
-                    printResults(data)
+                if let results = results {
+                    self.searchResults = results
                 } else if let error = error {
                     print("Error: \(error.localizedDescription)")
                 }
             }
         }
     }
-
+    
     private func printResults(_ data: Data) {
         if let json = String(data: data, encoding: .utf8) {
             print(json)
