@@ -11,7 +11,7 @@ import BottomSheet
 
 
 struct Genres: View {
-    @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
+    @StateObject var networkingManager = NetworkManager(apiBaseURL: "https://yts.mx/api/v2", shouldLoadData: true)
     @StateObject var searchManager = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]

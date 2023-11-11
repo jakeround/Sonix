@@ -20,11 +20,15 @@ struct SonixApp: App {
         userManager.readUserData()
         
     }
+    
+    var networkManager = NetworkManager(apiBaseURL: "http://jakeround.com", shouldLoadData: true)
 
     var body: some Scene {
         WindowGroup {
             LaunchScreen()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            //Home()
+                .environmentObject(networkManager)
         }
     }
     

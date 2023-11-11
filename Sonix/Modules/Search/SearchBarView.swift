@@ -32,69 +32,50 @@ extension String {
 
 struct SearchBarView: View {
     @ObservedObject var vm: SearchViewModel
-    //@Binding var isShowingSearchView: Bool
-    
     @State private var searchText = ""
-    
+
     var body: some View {
-        ZStack {
-            Rectangle()
-                .background(Color(AppColor.Figma.Card))
-            
-                
-            
-            
+        Spacer()
+        HStack {
             HStack {
-            
-                
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color(AppColor.Components.SearchBar.icons))
+                    .foregroundColor(.gray)
                 
                 TextField("Search...", text: $vm.searchQuery)
                     .introspectTextField { textField in
                         textField.becomeFirstResponder()
-                    } // Selects text field without keyboard
-                
+                    }
+                    .disableAutocorrection(true)
                     .onReceive(
                         vm.$searchQuery
                             .debounce(for: .milliseconds(1500), scheduler: DispatchQueue.main)
-                    ) { guard !$0 .isEmpty else { return }
-                        vm.searchMovies(searchText: $0.trimmed)
-                        print("Searching for '\($0.trimmed)'")
+                    ) { query in
+                        let trimmedQuery = query.trimmed
+                        guard !trimmedQuery.isEmpty else { return }
+                        vm.searchMovies(searchText: trimmedQuery)
+                        print("Searching for '\(trimmedQuery)'")
                     }
-                
                     .onChange(of: vm.searchQuery) { _ in
                         vm.searchResults = []
-                        vm.searchMovies(searchText: vm.searchQuery)
-                        print(vm.searchQuery)
+                        let trimmedQuery = vm.searchQuery.trimmed
+                        vm.searchMovies(searchText: trimmedQuery)
+                        print(trimmedQuery)
                     }
-                
-                Spacer()
-                
-                Button {
-                    //isShowingSearchView = false
-                    vm.searchQuery = ""
-                } label: {
-                    Image(systemName: "xmark.circle")
-                        .foregroundColor(Color(AppColor.Figma.TitleText))
+
+                if !vm.searchQuery.isEmpty {
+                    Button {
+                        vm.searchQuery = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                    }
                 }
-                
-                
             }
-            .background(Color(AppColor.Figma.Card))
-            //.foregroundColor(Color(AppColor.Figma.TitleText))
-            .font(.system(size: 18, weight: .bold, design: .rounded))
-            .padding(16)
-            
-            
-            
-            
+            .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+            .foregroundColor(.secondary)
+            .background(Color(.secondarySystemBackground))
+            .cornerRadius(10.0)
         }
-        .frame(height: 40)
-        .cornerRadius(13)
-        .padding()
-        
-        //.background(Color(.systemBlue))
+        .padding(.horizontal)
     }
 }
-

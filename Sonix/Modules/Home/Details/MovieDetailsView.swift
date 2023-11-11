@@ -28,33 +28,7 @@ struct MovieDetailsView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-//        NavigationView {
-//            ZStack {
-//                BackgroundImage(backgroundImage: movie.backgroundImage.safeUnwrapped)
-//                HStack {
-//                    Button(action: {
-//                        dismiss()
-//                    }, label: {
-//                        Image(systemName: "chevron.left")
-//                        Text("Back")
-//                            .fontWeight(.bold)
-//                    })
-//                    Spacer()
-//                    Text(movie.title!)
-//                    Spacer()
-//                    Image(systemName: "chevron.left")
-//                        .opacity(0)
-//                    Text("Back")
-//                        .opacity(0)
-//                    //hack please fix
-//
-//                }
-//                .padding(.trailing, 16)
-//                .padding(.leading, 16)
-//                .frame(width:430)
-//            }
-//            //.navigationBarTitle(movie.title!, displayMode: .inline)
-//        }.frame(height:80)
+        
             
         
         
@@ -449,49 +423,5 @@ struct LoaderView: View {
 
 
 
-extension View {
-    func printUI(_ args: Any..., separator: String = " ", terminator: String = "\n") -> EmptyView {
-        let output = args.map(String.init(describing:)).joined(separator: separator)
-        print(output, terminator: terminator)
-        return EmptyView()
-    }
-}
-
-extension UIScreen{
-    static let screenWidth = UIScreen.main.bounds.size.width
-    static let screenHeight = UIScreen.main.bounds.size.height
-    static let screenSize = UIScreen.main.bounds.size
-}
 
 
-struct CustomNavBar<Content>: View where Content: View {
-    
-    let title: String
-    let content: Content
-    
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationView {
-            ZStack {
-                
-                Button(action: {
-                                dismiss()
-                            }, label: {
-                                Image(systemName: "chevron.left")
-                                Text("back")
-                                    .fontWeight(.bold)
-                            })
-                VStack {
-                    Image("12345")
-                        .resizable()
-                        .frame(height: 135)
-                        .edgesIgnoringSafeArea(.all)
-                    Spacer()
-                }
-                content
-            }
-            .navigationBarTitle(title, displayMode: .inline)
-        }
-    }
-}

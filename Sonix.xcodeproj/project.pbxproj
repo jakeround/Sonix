@@ -20,6 +20,8 @@
 		4024207C284FEF4A00D86024 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4024207B284FEF4A00D86024 /* MovieDetailsView.swift */; };
 		40293507289B34C7003633A1 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 40293506289B34C7003633A1 /* BottomSheet */; };
 		407F7A49283FD626005A64E8 /* Refresher in Frameworks */ = {isa = PBXBuildFile; productRef = 407F7A48283FD626005A64E8 /* Refresher */; };
+		40812E872AFFEB3B00015779 /* HealthCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40812E862AFFEB3B00015779 /* HealthCheckView.swift */; };
+		40812E892AFFEB4200015779 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40812E882AFFEB4200015779 /* APIService.swift */; };
 		4084500F2838184700AA8908 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4084500E2838184600AA8908 /* Downloads.swift */; };
 		40845016283903BA00AA8908 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40845015283903BA00AA8908 /* Home.swift */; };
 		4084501928390A3300AA8908 /* TorrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4084501828390A3300AA8908 /* TorrentView.swift */; };
@@ -148,6 +150,8 @@
 		40242077284FDD5C00D86024 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 		40242079284FDD9400D86024 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = ../NetworkManager.swift; sourceTree = "<group>"; };
 		4024207B284FEF4A00D86024 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
+		40812E862AFFEB3B00015779 /* HealthCheckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCheckView.swift; sourceTree = "<group>"; };
+		40812E882AFFEB4200015779 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4084500E2838184600AA8908 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
 		40845015283903BA00AA8908 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		4084501828390A3300AA8908 /* TorrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentView.swift; sourceTree = "<group>"; };
@@ -297,23 +301,34 @@
 			path = Genres;
 			sourceTree = "<group>";
 		};
-		40845017283903C000AA8908 /* Browse */ = {
+		40812E852AFFEA3700015779 /* Chill Search */ = {
 			isa = PBXGroup;
 			children = (
-				40CB0A8C289AE43700189ED0 /* YouTubeTrailer.swift */,
+				40812E862AFFEB3B00015779 /* HealthCheckView.swift */,
+				40812E882AFFEB4200015779 /* APIService.swift */,
 			);
-			path = Browse;
+			path = "Chill Search";
 			sourceTree = "<group>";
 		};
 		408B2CDC2A7AA29F00FEFFB5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				18242AAD2878D1B800F332FB /* Genres */,
 				40845015283903BA00AA8908 /* Home.swift */,
 				40242075284FDCB900D86024 /* MovieListView.swift */,
-				4024207B284FEF4A00D86024 /* MovieDetailsView.swift */,
 				408B2CD82A7AA18300FEFFB5 /* HomeFilter.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		40C7A02C2A8D235500300CF3 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				4024207B284FEF4A00D86024 /* MovieDetailsView.swift */,
+				40CB0A8C289AE43700189ED0 /* YouTubeTrailer.swift */,
+			);
+			name = Details;
+			path = Home/Details;
 			sourceTree = "<group>";
 		};
 		40CB0A8E289AE6F100189ED0 /* Search */ = {
@@ -406,11 +421,11 @@
 			isa = PBXGroup;
 			children = (
 				408B2CDC2A7AA29F00FEFFB5 /* Home */,
-				18242AAD2878D1B800F332FB /* Genres */,
-				40845017283903C000AA8908 /* Browse */,
+				40C7A02C2A8D235500300CF3 /* Details */,
 				40CB0A8E289AE6F100189ED0 /* Search */,
 				50771120280B19CD003DFA91 /* Downloads */,
 				507710F9280AF603003DFA91 /* Launch */,
+				40812E852AFFEA3700015779 /* Chill Search */,
 				507710EF280AF2D4003DFA91 /* Settings */,
 				507710EE280AF2B5003DFA91 /* Tab */,
 				507710ED280AF2AF003DFA91 /* Login */,
@@ -966,6 +981,7 @@
 				50EDBDA6280EE4A500BF930F /* ImageCacheType.swift in Sources */,
 				50EDBDAE280EE4A500BF930F /* NSCache+Convenience.swift in Sources */,
 				501E71EE280BB18500BEEDD5 /* UserManager.swift in Sources */,
+				40812E892AFFEB4200015779 /* APIService.swift in Sources */,
 				5093658C280C565300F14A1B /* ActivityIndicator.swift in Sources */,
 				50EDBDA1280EE4A500BF930F /* ImageCache.swift in Sources */,
 				501E71FB280C446A00BEEDD5 /* TransferViewModel.swift in Sources */,
@@ -1029,6 +1045,7 @@
 				4024207C284FEF4A00D86024 /* MovieDetailsView.swift in Sources */,
 				4024207A284FDD9400D86024 /* NetworkManager.swift in Sources */,
 				50EDBDA2280EE4A500BF930F /* ImageLoader.swift in Sources */,
+				40812E872AFFEB3B00015779 /* HealthCheckView.swift in Sources */,
 				50EDBDA3280EE4A500BF930F /* ImagePersistence.swift in Sources */,
 				50EDBDC3280EE4A500BF930F /* FriendsService.swift in Sources */,
 				50EDBDAF280EE4A500BF930F /* Swime.swift in Sources */,
@@ -1210,6 +1227,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sonix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sonix;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1244,6 +1263,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sonix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Sonix;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

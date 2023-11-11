@@ -11,7 +11,8 @@ import SwiftUI
 
 
 struct Home: View {
-    @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
+    //@EnvironmentObject var networkManager: NetworkManager
+    @StateObject var networkingManager = NetworkManager(apiBaseURL: "HTTPs://yts.mx/api/v2", shouldLoadData: true)
     @StateObject var searchManager = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
@@ -53,22 +54,22 @@ struct Home: View {
                     HomeFilter(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
                 }
                 
-//                ZStack (alignment: .bottomLeading) {
-//                    Button("") {
-//                        isShowingTravelModes.toggle()
-//                    }
-//                    .buttonStyle(travelModeButton(systemImageName: selectedTravelName))
-//                    .padding(30)
-//                    .sheet(isPresented: $isShowingTravelModes) {
-//                        if #available(iOS 16.0, *) {
-//                            travelOptionView
-//                                .presentationDetents([.medium, .large])
-//                                .presentationDragIndicator(.visible)
-//                        } else {
-//                            // Fallback on earlier versions
-//                        }
-//                    }
-//                }
+                //                ZStack (alignment: .bottomLeading) {
+                //                    Button("") {
+                //                        isShowingTravelModes.toggle()
+                //                    }
+                //                    .buttonStyle(travelModeButton(systemImageName: selectedTravelName))
+                //                    .padding(30)
+                //                    .sheet(isPresented: $isShowingTravelModes) {
+                //                        if #available(iOS 16.0, *) {
+                //                            travelOptionView
+                //                                .presentationDetents([.medium, .large])
+                //                                .presentationDragIndicator(.visible)
+                //                        } else {
+                //                            // Fallback on earlier versions
+                //                        }
+                //                    }
+                //                }
                 
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(filteredResults, id: \.id) { movie in
@@ -150,10 +151,13 @@ struct Home: View {
                     SettingsScreen()
                 }
                 
+                
+                
+                
             }
             )
             
-            
+            //SearchView()
             
             
             //.sheet(isPresented: $showSearchView) {
@@ -181,32 +185,32 @@ struct Home: View {
     }
     
     
-//    var travelOptionView: some View {
-//        VStack (spacing: 20) {
-//            SearchView()
-//        }
-//
-//
-//
-//
-//
-//
-//    }
-//
-//
-//    struct travelModeButton: ButtonStyle {
-//
-//        let systemImageName: String
-//
-//        func makeBody(configuration: Configuration) -> some View {
-//            Image(systemName: systemImageName)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .foregroundColor(.white)
-//                .frame(width: 33, height: 33)
-//                .padding()
-//                .background(Color.pink)
-//                .clipShape(Circle())
-//        }
-//    }
+    //    var travelOptionView: some View {
+    //        VStack (spacing: 20) {
+    //            SearchView()
+    //        }
+    //
+    //
+    //
+    //
+    //
+    //
+    //    }
+    //
+    //
+    //    struct travelModeButton: ButtonStyle {
+    //
+    //        let systemImageName: String
+    //
+    //        func makeBody(configuration: Configuration) -> some View {
+    //            Image(systemName: systemImageName)
+    //                .resizable()
+    //                .aspectRatio(contentMode: .fit)
+    //                .foregroundColor(.white)
+    //                .frame(width: 33, height: 33)
+    //                .padding()
+    //                .background(Color.pink)
+    //                .clipShape(Circle())
+    //        }
+    //    }
 }

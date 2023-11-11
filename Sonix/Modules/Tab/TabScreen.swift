@@ -12,16 +12,11 @@ struct TabScreen: View {
     
     @State private var selectedTab = 0
     
-    
-    
-    
-    
     var body: some View {
 
         TabView(selection: $selectedTab) {
             ZStack {
                 Home()
-                BannerView()
             }
             .tabItem {
                 selectedTab == 0 ? Image("Home.Fill") : Image("Home")
@@ -30,85 +25,39 @@ struct TabScreen: View {
             .tag(0)
             
             ZStack {
-                Downloads()
-                BannerView()
+                SearchView()
             }
             .tabItem {
-                selectedTab == 1 ? Image("Downloads.Fill") : Image("Downloads")
-                Text("Downloads")
+                selectedTab == 1 ? Image("Search.Fill") : Image("Search")
+                Text("Search")
             }
             .tag(1)
-
             
-//            ZStack {
-//                SearchView()
-//                BannerView()
-//            }
-//            .tabItem {
-//                selectedTab == 2 ? Image("Search.Fill") : Image("Search")
-//                Text("Search")
-//            }
-//            .tag(2)
+            ZStack {
+                Downloads()
+            }
+            .tabItem {
+                selectedTab == 2 ? Image("Downloads.Fill") : Image("Downloads")
+                Text("Downloads")
+            }
+            .tag(2)
             
+            ZStack {
+                HealthCheckView()
+            }
+            .tabItem {
+                selectedTab == 3 ? Image("Upcoming.Fill") : Image("Upcoming")
+                Text("New Search")
+            }
+            .tag(3)
+                        
             
         }
         .accentColor(Color(AppColor.Components.TabBar.tint))
 
     }
     
-    struct BannerView : View {
-        
-        //var text : String
-        
-        @State private var isShowingTravelModes = false
-        
-        var body: some View {
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color(AppColor.Components.SearchBar.icons))
-                        Text("Search")
-                            .foregroundColor(.black)
-                        Spacer()
-                    }
-                    
-                    //.padding(12)
-                    .padding()
-                            .frame(maxWidth: .infinity)
-                            .frame(height:40)
-                            .background(Color.blue)
-                            .cornerRadius(16)
-                            .padding(8)
-                            
-                            //.padding()
-                    
-                    .sheet(isPresented: $isShowingTravelModes) {
-                                            if #available(iOS 16.0, *) {
-                                                SearchView()
-                                                    .presentationDetents([.large])
-                                                    .presentationDragIndicator(.visible)
-                                            } else {
-                                                // Fallback on earlier versions
-                                            }
-                                        }
-                    
-                    Spacer()
-                }
-                .frame(height:72)
-                .background(Color(AppColor.Figma.searchSheet), in: RoundedRectangle(cornerRadius: 20))
-                .background(content: { Color(AppColor.Figma.searchSheet).padding(.top, 20) })
-                //.background(Color(AppColor.Figma.searchSheet))
-                
-                   // .accentColor(Color(AppColor.Components.TabBar.tint))
-            }
-            .onTapGesture {
-                isShowingTravelModes.toggle()
-            }
-        }
-    }
+    
     
 }
 

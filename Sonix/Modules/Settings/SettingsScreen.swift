@@ -15,6 +15,9 @@ struct SettingsScreen: View {
         case logout = "Logout"
     }
     
+    @EnvironmentObject var networkManager: NetworkManager
+    @State private var apiBaseURL = "HTTPS://YTS.MX/api/v2"
+    
     let userManager: UserManager = .shared
         
     @StateObject var viewModel = SettingsViewModel()
@@ -55,6 +58,12 @@ struct SettingsScreen: View {
         
         ScrollView {
             
+            TextField("Enter API Base URL", text: $apiBaseURL)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+
+            Button("Save Changes") {
+                networkManager.updateApiBaseURL(to: apiBaseURL)
+            }
             
             HStack {
                 Text("Sonix allows you to browse movies and stream via Put.io")
@@ -137,4 +146,8 @@ struct SettingsScreen_Previews: PreviewProvider {
         SettingsScreen()
     }
 }
+
+
+
+
 

@@ -14,65 +14,50 @@ struct SearchListView: View {
     var body: some View {
         NavigationLink(destination: MovieDetailsView(movie: movie)) {
             HStack(spacing: 10) {
-                if movie.largeCoverImage != nil {
-                    //AsyncImage(url: URL(string: movie.mediumCoverImage!))
-                    
-                    
+                if let imageURL = movie.mediumCoverImage {
                     AsyncImage(
-                                    url: URL(string: movie.mediumCoverImage!),
-                                    content: { image in
-                                        image.resizable()
-                                             .aspectRatio(contentMode: .fit)
-                                             //.resizable()
-                                             .scaledToFit()
-                                             .cornerRadius(16)
-                                             .frame(width: 165)
-                                    },
-                                    placeholder: {
-                                        Image("poster")
-                                            .aspectRatio(contentMode: .fit)
-                                            //.resizable()
-                                            .scaledToFit()
-                                            .cornerRadius(16)
-                                            .frame(width: 165)
-                                    }
-                                )
+                        url: URL(string: imageURL),
+                        content: { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .cornerRadius(16)
+                                .frame(width: 80, height: 120) // Adjust the size as needed
+                        },
+                        placeholder: {
+                            Image("poster")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .cornerRadius(16)
+                                .frame(width: 80, height: 120) // Adjust the size as needed
+                        }
+                    )
                 }
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(movie.title!)
-                        .font(.system(size: 18))
+                    Text(movie.title ?? "")
+                        .font(.title3)
                         .fontWeight(.regular)
                         .foregroundColor(Color(AppColor.Title.defaultType))
-                        .frame(width: 165, alignment: .leading)
-                        .lineLimit(1)
-                        //.background(Color(.blue))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    if movie.yearText != nil {
-                        let year = String(movie.yearText!).replacingOccurrences(of: ",", with: "")
-                        Text(year)
-                            .font(.system(size: 16))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color(AppColor.Title.subType))
-                            .frame(width: 165, alignment: .leading)
-                            
-                        
-                    }
-                        
+                    // Text will wrap automatically when needed
                     
-                   // Spacer()
+                    // if let yearText = movie.yearText {
+                    //     let year = yearText.replacingOccurrences(of: ",", with: "")
+                    //    Text(year)
+                    //       .font(.headline)
+                    //      .fontWeight(.regular)
+                    //      .foregroundColor(Color(AppColor.Title.subType))
+                    //     .frame(maxWidth: .infinity, alignment: .leading)
+                    //   }
                 }
-               // .padding()
-
-               
-                
-                    
-                
-            
-            
+                .padding(.trailing, 10) // Add some trailing padding to the text
+            }
+            .padding(10) // Add padding to the entire HStack
         }
     }
 }
-}
+
 
 

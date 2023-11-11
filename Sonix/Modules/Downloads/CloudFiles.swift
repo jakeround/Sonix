@@ -100,90 +100,77 @@ struct CloudFiles: View {
     
     
     
+    private func processLabel(_ label: String) -> String {
+        var processedLabel = label
+        let replacements = [
+            (".", " "),
+            ("mp4", ""),
+            ("2480p", ""),
+            ("1080p", ""),
+            ("720p", ""),
+            ("[YTS MX]", ""),
+            ("YIFY", ""),
+            ("x264", ""),
+            ("BrRip", ""),
+            ("BluRay", ""),
+            ("AAC5 1", ""),
+            ("WEBRip", ""),
+            ("-", ""),
+            ("[YTS AM]", ""),
+            ("  ", ""),
+            ("Deceit", ""),
+            ("( FIRST TRY)", ""),
+            ("x265R", ""),
+            ("EXTENDED", ""),
+            ("REMASTERED", ""),
+            ("REPACK", ""),
+            ("BRrip", ""),
+            ("1 29G", ""),
+            ("(", ""),
+            (")", ""),
+            ("Extended", ""),
+            ("PROPER", ""),
+            ("ARBG", "")
+        ]
+
+        for (search, replace) in replacements {
+            processedLabel = processedLabel.replacingOccurrences(of: search, with: replace)
+        }
+
+        return processedLabel
+    }
+
     private var listingView: some View {
-        
         ForEach(viewModel.datasource) { data in
+            let processedLabel = processLabel(data.file.name)
+            let substring1 = String(processedLabel.dropLast(4).dropLast())
             
-            let label = data.file.name
-            let editedText = label.replacingOccurrences(of: ".", with: " ")
-            let filetype2 = editedText.replacingOccurrences(of: "mp4", with: "")
-            let qualityhigh = filetype2.replacingOccurrences(of: "2480p", with: "")
-            let qualitymed = qualityhigh.replacingOccurrences(of: "1080p", with: "")
-            let qualitylow = qualitymed.replacingOccurrences(of: "720p", with: "")
-            let yts = qualitylow.replacingOccurrences(of: "[YTS MX]", with: "")
-            let yify = yts.replacingOccurrences(of: "YIFY", with: "")
-            let x264 = yify.replacingOccurrences(of: "x264", with: "")
-            let brrip = x264.replacingOccurrences(of: "BrRip", with: "")
-            let bluray = brrip.replacingOccurrences(of: "BluRay", with: "")
-            let aac5 = bluray.replacingOccurrences(of: "AAC5 1", with: "")
-            let webrip = aac5.replacingOccurrences(of: "WEBRip", with: "")
-            let dash = webrip.replacingOccurrences(of: "-", with: "")
-            let yts1 = dash.replacingOccurrences(of: "[YTS AM]", with: "")
-            let space = yts1.replacingOccurrences(of: "  ", with: "")
-            let deceit1 = space.replacingOccurrences(of: "Deceit", with: "")
-            let firsttry = deceit1.replacingOccurrences(of: "( FIRST TRY)", with: "")
-            let x265 = firsttry.replacingOccurrences(of: "x265R", with: "")
-            let extended = x265.replacingOccurrences(of: "EXTENDED", with: "")
-            let remastered = extended.replacingOccurrences(of: "REMASTERED", with: "")
-            let repack = remastered.replacingOccurrences(of: "REPACK", with: "")
-            let rip = repack.replacingOccurrences(of: "BRrip", with: "")
-            let gb12 = rip.replacingOccurrences(of: "1 29G", with: "")
-            let bracker1 = gb12.replacingOccurrences(of: "(", with: "")
-            let bracker2 = bracker1.replacingOccurrences(of: ")", with: "")
-            let extended12 = bracker2.replacingOccurrences(of: "Extended", with: "")
-            
-            let proper = extended12.replacingOccurrences(of: "PROPER", with: "")
-            let arbg = proper.replacingOccurrences(of: "ARBG", with: "")
-            let extended2 = arbg.replacingOccurrences(of: "ARBG", with: "")
-            
-            //let movieTitle = extended
-            
-            let string = extended2
-            let substring1 = string.dropLast(4)         // removed year from string
-            let substring2 = substring1.dropLast()
-            
-            let str3 = extended2
-            
-           // let year = str3.westernArabicNumeralsOnly
-                        
             VStack {
-                
                 HStack {
-                    Text(substring2)
-                    //Text(year)
+                    Text(substring1)
                     Spacer()
                     Image("Link")
                         .onTapGesture() {
                             print(viewModel.getStreamURL(file: data.file))
                             // Copy to clipboard currently broken
                             //UIPasteboard.general.string = viewModel.getStreamURL(file: data.file)
-
                         }
-                    
-    
                 }
                 .padding(16)
-                
-                //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
                 .background(Color(AppColor.Figma.Card))
                 .foregroundColor(Color(AppColor.Figma.TitleText))
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 .cornerRadius(16)
-                //.padding(16)
-                
-                
-                
             }
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)) // Apply custom padding values
-            
             .onTapGesture {
                 guard let url = viewModel.getStreamURL(file: data.file) else { return }
                 videoURL = url
                 showVideoPlayer = true
             }
-            
         }
     }
+
     
 }
 

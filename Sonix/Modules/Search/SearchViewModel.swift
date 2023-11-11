@@ -1,97 +1,80 @@
-//
-//  YTSSearchViewModel.swift
-//  Sonix
-//
-//  Created by Jake Round on 21/05/2022.
-//
-
 import SwiftUI
 import Combine
-
 
 class SearchViewModel: ObservableObject {
     @Published var searchResults: [Movies] = []
     @Published var categorizedResults: [Movies] = []
     @Published var selectedCategory = ""
     @Published var filterBy = "download_count"
-
     @Published var searchQuery = ""
-    
-    var currentPage = 1
-    
-    
-    
-    //MARK: - PAGINATION
+    @Published var currentPage = 1
+
+    // MARK: - PAGINATION
     func loadMoreSearchContent(currentItem item: Movies) {
-             currentPage += 1
-            searchMovies(searchText: searchQuery)
-     }
-    
+        currentPage += 1
+        searchMovies(searchText: searchQuery)
+    }
+
     func loadMoreCategorizedContent(currentItem item: Movies) {
         currentPage += 1
         searchByCategory()
     }
-    
-    //MARK: - LOAD FILTERED RESULTS
+
+    // MARK: - LOAD FILTERED RESULTS
     func loadFilteredResults() {
+        currentPage = 1 // Reset currentPage when applying filters
         categorizedResults = []
         searchByCategory()
     }
-    
-    
+
     func searchMovies(searchText: String) {
-        let query = searchText.trimmed.urlEncoded ?? searchText.trimmed
-        let urlStr = "https://yts.mx/api/v2/list_movies.json?query_term=\(query)&limit=50&page=1"
-        //\(self.currentPage)"
+        let query = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? searchText
+        let urlStr = "https://yts.mx/api/v2/list_movies.json?query_term=\(query)&limit=50&page=\(currentPage)"
         guard let url = URL(string: urlStr) else {
-            print("invalid URL. No movies found for this title")
+            print("Invalid URL. No movies found for this title")
             return
         }
-        print(url)
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            if(error == nil && data != nil)
-            {
+            if error == nil, let data = data {
                 do {
-                    let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-                    print("result movies count = \(result.data?.movies?.count)")
+                    let result = try JSONDecoder().decode(ApiResponse.self, from: data)
                     DispatchQueue.main.async {
-                        self.searchResults.append(contentsOf: result.data?.movies ?? [])
-                        print("Page: \(self.currentPage)")
+                        // Filter out duplicate movies by checking if they already exist in searchResults
+                        let uniqueMovies = result.data?.movies?.filter { movie in
+                            !self.searchResults.contains { $0.id == movie.id }
+                        }
+                        self.searchResults.append(contentsOf: uniqueMovies ?? [])
                     }
-                    
                 } catch let error {
                     debugPrint(error)
                 }
             }
-            
         }.resume()
     }
-    
+
     func searchByCategory() {
-        let url = URL(string: "https://yts.mx/api/v2/list_movies.json?genre=\(self.selectedCategory)&sort_by=\(filterBy)&limit=50&page=\(self.currentPage)")!
-        print(url)
-           URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let urlStr = "https://yts.mx/api/v2/list_movies.json?genre=\(selectedCategory)&sort_by=\(filterBy)&limit=50&page=\(currentPage)"
+        guard let url = URL(string: urlStr) else {
+            print("Invalid URL")
+            return
+        }
 
-               if(error == nil && data != nil)
-               {
-                   do {
-                       let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-                       print("result movies count = \(result.data?.movies?.count)")
-                       DispatchQueue.main.async {
-                           self.categorizedResults.append(contentsOf: result.data?.movies ?? [])
-                           print("Page: \(self.currentPage)")
-                       }
-
-                   } catch let error {
-
-                       debugPrint(error)
-                   }
-               }
-
-           }.resume()
-        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error == nil, let data = data {
+                do {
+                    let result = try JSONDecoder().decode(ApiResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        // Filter out duplicate movies by checking if they already exist in categorizedResults
+                        let uniqueMovies = result.data?.movies?.filter { movie in
+                            !self.categorizedResults.contains { $0.id == movie.id }
+                        }
+                        self.categorizedResults.append(contentsOf: uniqueMovies ?? [])
+                    }
+                } catch let error {
+                    debugPrint(error)
+                }
+            }
+        }.resume()
     }
-    
-    
 }
