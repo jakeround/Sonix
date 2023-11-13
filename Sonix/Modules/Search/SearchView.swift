@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 struct SearchView: View {
-    @ObservedObject var networkingManager = NetworkManager(apiBaseURL: "https://yts.mx/api/v2", shouldLoadData: true)
+    @ObservedObject var networkingManager = NetworkManager(shouldLoadData: true)
     @StateObject var searchVM = SearchViewModel()
     @State private var showingSheet = false
     

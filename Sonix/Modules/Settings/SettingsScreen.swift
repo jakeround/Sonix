@@ -15,8 +15,9 @@ struct SettingsScreen: View {
         case logout = "Logout"
     }
     
+    @State private var apiUrl: String = UserDefaults.standard.string(forKey: "https://www.yts.mx/api/v2") ?? "https://yts.mx/api/v2/"
     @EnvironmentObject var networkManager: NetworkManager
-    @State private var apiBaseURL = "HTTPS://YTS.MX/api/v2"
+    
     
     let userManager: UserManager = .shared
         
@@ -25,30 +26,36 @@ struct SettingsScreen: View {
 
     var body: some View {
         NavigationView {
-            
-         
-    
-
-            
-            VStack {
-               listingView
-                    .alert("", isPresented: $showLogoutAlert) {
-                        Button(Constants.cancel, role: .cancel) { }
-                        Button(Constants.yes, role: .none) {
-                            self.perfromLogout()
+            ScrollView {
+                VStack {
+                    Form {
+                        TextField("API Base URL", text: $apiUrl)
+                        Button("Save") {
+                            UserDefaults.standard.set(self.apiUrl, forKey: "https://www.yts.mx/api/v2")
+                            networkManager.updateApiBaseURL(to: self.apiUrl)
                         }
-                    } message: {
-                        Text(Constants.logoutMessage)
+                    }.frame(height:300)
+                    
+                    
+                    VStack {
+                        listingView
+                            .alert("", isPresented: $showLogoutAlert) {
+                                Button(Constants.cancel, role: .cancel) { }
+                                Button(Constants.yes, role: .none) {
+                                    self.perfromLogout()
+                                }
+                            } message: {
+                                Text(Constants.logoutMessage)
+                            }
+                            .frame(minWidth: 350, maxWidth: 700)
                     }
-                    .frame(minWidth: 350, maxWidth: 700)
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(Constants.title)
+                    .errorAlert(error: $viewModel.error)
+                }
             }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(AppColor.BackGround.darkBackground))
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(Constants.title)
-            .errorAlert(error: $viewModel.error)
-            
         }
         .navigationViewStyle(.stack)
 
@@ -58,28 +65,9 @@ struct SettingsScreen: View {
         
         ScrollView {
             
-            TextField("Enter API Base URL", text: $apiBaseURL)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-            Button("Save Changes") {
-                networkManager.updateApiBaseURL(to: apiBaseURL)
-            }
+           
             
-            HStack {
-                Text("Sonix allows you to browse movies and stream via Put.io")
-                    .multilineTextAlignment(.leading)
-            }
-            .frame(
-                  minWidth: 0,
-                  maxWidth: .infinity,
-                  minHeight: 0,
-                  maxHeight: .infinity,
-                  alignment: .topLeading
-                )
-            .padding()
-            .background(Color(AppColor.BackGround.cardColour))
-            .cornerRadius(10)
-            
+        
             
             ForEach(0 ..< SettingsType.allCases.count) { index in
                 

@@ -1,10 +1,3 @@
-//
-//  NetworkManager.swift
-//  Sonix
-//
-//  Created by Jake Round on 07/06/2022.
-//
-
 import Combine
 import SwiftUI
 
@@ -14,11 +7,11 @@ class NetworkManager: ObservableObject {
     @Published var sortby: String = "download_count"
     @Published var category: String = ""
 
-    // Make apiBaseURL a published property
     @Published var apiBaseURL: String
 
-    init(apiBaseURL: String, shouldLoadData: Bool) {
-        self.apiBaseURL = apiBaseURL
+    init(shouldLoadData: Bool) {
+        // Fetch the API base URL from UserDefaults or use a default value
+        self.apiBaseURL = UserDefaults.standard.string(forKey: "apiBaseURL") ?? "https://yts.mx/api/v2/"
 
         if shouldLoadData {
             self.loadData()
@@ -33,7 +26,6 @@ class NetworkManager: ObservableObject {
 
     // MARK: - API CALL
     func loadData() {
-        // Construct the full URL using the API base URL
         let fullURLString = "\(apiBaseURL)/list_movies.json?genre=\(category)&sort_by=\(self.sortby)&limit=50&page=\(self.currentPage)"
         
         guard let url = URL(string: fullURLString) else {
@@ -41,33 +33,35 @@ class NetworkManager: ObservableObject {
             return
         }
 
-        print(url)
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error == nil, let data = data {
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let self = self else { return }
+
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data else { return }
+
+            DispatchQueue.global(qos: .userInitiated).async {
                 do {
                     let result = try JSONDecoder().decode(ApiResponse.self, from: data)
-                    print("result movies count = \(result.data?.movies?.count)")
                     DispatchQueue.main.async {
                         self.movies.append(contentsOf: result.data?.movies ?? [])
                         print("Page: \(self.currentPage)")
                     }
-                } catch let error {
-                    debugPrint(error)
+                } catch {
+                    print("Error parsing data: \(error.localizedDescription)")
                 }
-            } else {
-                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
             }
         }.resume()
     }
 
-    // Method to update the API base URL
     func updateApiBaseURL(to newURL: String) {
-        // Here you can add validation for the URL
+        UserDefaults.standard.set(newURL, forKey: "apiBaseURL")
         self.apiBaseURL = newURL
-        // Reset page count and reload data
         self.currentPage = 1
         self.movies.removeAll()
         loadData()
     }
 }
-

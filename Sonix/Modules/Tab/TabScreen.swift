@@ -43,7 +43,7 @@ struct TabScreen: View {
             .tag(2)
             
             ZStack {
-                HealthCheckView()
+                ChillSearch()
             }
             .tabItem {
                 selectedTab == 3 ? Image("Upcoming.Fill") : Image("Upcoming")

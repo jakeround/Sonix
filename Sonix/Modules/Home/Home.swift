@@ -7,132 +7,38 @@
 
 import SwiftUI
 
-//import BottomSheet
-
-
 struct Home: View {
-    //@EnvironmentObject var networkManager: NetworkManager
-    @StateObject var networkingManager = NetworkManager(apiBaseURL: "HTTPs://yts.mx/api/v2", shouldLoadData: true)
+    @StateObject var networkingManager = NetworkManager(shouldLoadData: true)
     @StateObject var searchManager = SearchViewModel()
     
     let columns = [GridItem(.adaptive(minimum: 160))]
     
-    @State var showList = false
-    @State var showMapSetting = false
-    
-    @State private var showDetails = false
-    
-    @State var showSheetView = false
-    @State var showSearchView = false
+    @State private var showingSheet = false
     
     @State private var selectedCategory = ""
     
     var filteredResults: [Movies] {
-        if selectedCategory == "" {
-            return networkingManager.movies
-        } else {
-            return searchManager.categorizedResults
-        }
+        selectedCategory.isEmpty ? networkingManager.movies : searchManager.categorizedResults
     }
-    
-    @State private var showingSheet = false
-    
-    @State private var isShowingTravelModes = false
-    @State private var selectedTravelName = "car.fill"
-    
-    
     
     var body: some View {
         NavigationView {
-            
-            
-            
-            
-            ScrollView (.vertical, showsIndicators: false) {
-                
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     HomeFilter(networkManager: networkingManager, searchVM: searchManager, selectedCategory: $selectedCategory)
                 }
                 
-                //                ZStack (alignment: .bottomLeading) {
-                //                    Button("") {
-                //                        isShowingTravelModes.toggle()
-                //                    }
-                //                    .buttonStyle(travelModeButton(systemImageName: selectedTravelName))
-                //                    .padding(30)
-                //                    .sheet(isPresented: $isShowingTravelModes) {
-                //                        if #available(iOS 16.0, *) {
-                //                            travelOptionView
-                //                                .presentationDetents([.medium, .large])
-                //                                .presentationDragIndicator(.visible)
-                //                        } else {
-                //                            // Fallback on earlier versions
-                //                        }
-                //                    }
-                //                }
-                
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(filteredResults, id: \.id) { movie in
-                        
+                    ForEach(filteredResults) { movie in
                         MovieListView(movie: movie)
-                        
-                            .onAppear() {
-                                if networkingManager.movies.last?.id == movie.id {
-                                    networkingManager.loadMoreContent(currentItem: movie)
-                                }
-                                if searchManager.categorizedResults.last?.id == movie.id {
-                                    searchManager.loadMoreCategorizedContent(currentItem: movie)
-                                }
-                                
-                                networkingManager.loadData()
-                                
-                                
-                                
+                            .onAppear {
+                                handleLastItemAppearance(movie: movie)
                             }
-                        
-                        
-                        
-                        
-                    }// Close LazyVGrid
-                    
-                    
+                    }
                 }
-                
                 .padding(16)
-                
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .padding(0)
             .background(Color(AppColor.Figma.Background))
-            
-            
-            
-            // Content isn't refreshed when just using filter option (have to select category then filter)
-            .onChange(of: searchManager.filterBy, perform: { _ in
-                searchManager.loadFilteredResults()
-                
-                print(networkingManager.sortby)
-            })
-            
-            .onChange(of: selectedCategory, perform: { _ in
-                searchManager.categorizedResults = []
-                searchManager.selectedCategory = selectedCategory
-                searchManager.searchByCategory()
-            })
-            
-            
-            
-            
-            //
-            ////             Redundant
-            .onAppear {
-                networkingManager.loadData()
-                
-            }
-            .sheet(isPresented: $showSheetView) {
-                SettingsScreen()
-            }
-            
             .navigationBarItems(leading:
                                     HStack {
                 Text("Home")
@@ -151,66 +57,28 @@ struct Home: View {
                     SettingsScreen()
                 }
                 
-                
-                
-                
             }
             )
-            
-            //SearchView()
-            
-            
-            //.sheet(isPresented: $showSearchView) {
-            //     SearchView(searchVM: searchManager, isShowingSearch: $showSearchView)
-            // }
+            .onChange(of: searchManager.filterBy) { _ in
+                searchManager.loadFilteredResults()
+            }
+            .onChange(of: selectedCategory) {
+                searchManager.categorizedResults = []
+                searchManager.selectedCategory = $0
+                searchManager.searchByCategory()
+            }
         }
-        
-        
-        
-        
-        
-        //        .navigationViewStyle(StackNavigationViewStyle())
-        //
-        //        .onChange(of: networkingManager.sortby) { newValue in
-        //            networkingManager.movies = []
-        //            networkingManager.loadData()
-        //        }
-        //
-        //        .onAppear {
-        //            print("ContentView appeared!")
-        //        }
-        
-        
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    private func handleLastItemAppearance(movie: Movies) {
+        if networkingManager.movies.last?.id == movie.id {
+            networkingManager.loadMoreContent(currentItem: movie)
+        }
+        if searchManager.categorizedResults.last?.id == movie.id {
+            searchManager.loadMoreCategorizedContent(currentItem: movie)
+        }
+    }
     
-    //    var travelOptionView: some View {
-    //        VStack (spacing: 20) {
-    //            SearchView()
-    //        }
-    //
-    //
-    //
-    //
-    //
-    //
-    //    }
-    //
-    //
-    //    struct travelModeButton: ButtonStyle {
-    //
-    //        let systemImageName: String
-    //
-    //        func makeBody(configuration: Configuration) -> some View {
-    //            Image(systemName: systemImageName)
-    //                .resizable()
-    //                .aspectRatio(contentMode: .fit)
-    //                .foregroundColor(.white)
-    //                .frame(width: 33, height: 33)
-    //                .padding()
-    //                .background(Color.pink)
-    //                .clipShape(Circle())
-    //        }
-    //    }
 }
+

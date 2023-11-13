@@ -19,28 +19,25 @@ struct PutioKitSearchFile: Identifiable {
 
 final class TransferViewModel: ObservableObject {
     
-    private var bag = Set<AnyCancellable>()
+     private var bag = Set<AnyCancellable>()
         
-    var putioKitClient: ApiClientModel!
+     var putioKitClient: ApiClientModel!
     
-    @Published var error: Error?
-    @Published var isLoading: Bool = false
-    @Published var isUploading: Bool = false
+     @Published var error: Error?
+     @Published var isLoading: Bool = false
+     @Published var isUploading: Bool = false
     
-    @Published var datasource: [PutioKitSearchFile] = []
+     @Published var datasource: [PutioKitSearchFile] = []
     
-    @Published var showVideoPlayer: Bool = false
+     @Published var showVideoPlayer: Bool = false
     
-    @Published var progress: CGFloat = 0.0
+     @Published var progress: CGFloat = 0.0
     
     let userManager: UserManager = .shared
     
     let size: Int = 20
     var cursor: String = ""
     var hasMore: Bool = true
-    
-    let fileType: String = "mkv" //+ "mkv" // supports MKV need to figure out how to allow both
-    
     
     init() {
         putioKitClient = ApiClientModel(id: Global.clientID, secret: Global.clientSecret, name: "")
@@ -50,17 +47,18 @@ final class TransferViewModel: ObservableObject {
        debugPrint("Deint: \(String(describing: self))")
     }
     
-    func fetchData()  {
+    
+    func fetchData() {
         guard hasMore else { return }
         
         let fileService = FilesService.Searching(clientModel: putioKitClient, networkHandler: URLSession.shared, credentialsStore: userManager.getCredential())
         
         if cursor.isEmpty {
-            
             isLoading = true
             
-            let searchParams = FilesService.Model.SearchParameters(query: fileType, perPage: size)
-            fileService.searchFiles(parameters: searchParams) { [weak self] result in
+            
+        let searchParameters = FilesService.Model.SearchParameters(query: "mp4", perPage: size)
+            fileService.searchFiles(parameters: searchParameters) { [weak self] result in // Use the variable here
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     
@@ -93,8 +91,10 @@ final class TransferViewModel: ObservableObject {
                 }
             }?.store(in: &bag)
         }
-        
     }
+    
+    
+    
     
     func refreshData()  {
         datasource = []
@@ -152,10 +152,10 @@ final class TransferViewModel: ObservableObject {
     }
     
     
-    var timer: Timer?
-    var transferId: Int?
-    var transferCompletion: DownloadURLCompletion?
-    var progressCompletion: DownloadProgressCompletion?
+     var timer: Timer?
+     var transferId: Int?
+     var transferCompletion: DownloadURLCompletion?
+     var progressCompletion: DownloadProgressCompletion?
 }
 
 public typealias DownloadURLCompletion = (Result<URL, Error>) -> Void

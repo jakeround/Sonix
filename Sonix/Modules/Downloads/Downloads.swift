@@ -6,94 +6,115 @@
 //
 
 import SwiftUI
+import Foundation
+import Refresher
 
 struct Downloads: View {
     @State private var showingSheet = false
+    @StateObject var viewModel = TransferViewModel()
+    @State var showVideoPlayer: Bool = false
+    @State var videoURL: URL? = nil
     
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack (alignment: .leading, spacing: 16){
-                    NavigationLink(destination: CloudFiles()) {
-                        ButtonView()
-                    }
-                   
-                    NavigationLink(destination: WebView()) {
-                        WebLinkButton()
-                    }
-                    
-                }.padding()
-            }
-            .background(Color(AppColor.Figma.Background))
-            .navigationBarItems(leading:
-                                    HStack {
-                Text("Downloads")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                
-                
-            }, trailing:
-                                    HStack {
-                Button(action: {
-                    showingSheet.toggle()
-                }) {
-                    Image("Settings")
-                        .renderingMode(Image.TemplateRenderingMode?.init(Image.TemplateRenderingMode.original))
+                VStack(alignment: .leading, spacing: 16) {
+                    listingView
                 }
-                .sheet(isPresented: $showingSheet) {
-                    SettingsScreen()
+                .padding(.top, 16)
+                .onAppear {
+                    viewModel.fetchData()
                 }
                 
             }
-            )
             .background(Color(AppColor.Figma.Background))
-            
+            .navigationBarTitle("Downloads", displayMode: .inline)
+            .navigationBarItems(trailing: settingsButton)
+            .fullScreenCover(isPresented: $showVideoPlayer) {
+                AVPlayerView(videoURL: $videoURL)
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
-        
-        
         .navigationViewStyle(StackNavigationViewStyle())
         .background(Color(AppColor.Figma.Background))
-        //.background(Color(AppColor.Figma.Background))
     }
     
-    
-    
-}
-
-struct ButtonView: View {
-    var body: some View {
-        HStack {
-            Text("Files")
-            Spacer()
-            Image("File")
+    private var settingsButton: some View {
+        Button(action: {
+            showingSheet.toggle()
+        }) {
+            Image(systemName: "gear")
+                .imageScale(.large)
+                .foregroundColor(.primary)
         }
-        .padding(16)
-        
-        //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
-        .background(Color(AppColor.Figma.Card))
-        .foregroundColor(Color(AppColor.Figma.TitleText))
-        .font(.system(size: 18, weight: .bold, design: .rounded))
-        .cornerRadius(16)
-        
-    }
-    
-}
-
-struct WebLinkButton: View {
-    var body: some View {
-        HStack {
-            Text("Chill Institute")
-            Spacer()
-            Image("Link")
+        .sheet(isPresented: $showingSheet) {
+            SettingsScreen()
         }
-        .padding(16)
+    }
+    
+    private var listingView: some View {
+        ForEach(viewModel.datasource) { data in
+            let processedLabel = processLabel(data.file.name)
+            VStack {
+                HStack {
+                    Text(processedLabel)
+                    Spacer()
+                    Image("Link")
+                        .onTapGesture {
+                            // Handle tap gesture
+                        }
+                }
+                .padding()
+                .background(Color(AppColor.Figma.Card))
+                .cornerRadius(16)
+                .onTapGesture {
+                    guard let url = viewModel.getStreamURL(file: data.file) else { return }
+                    videoURL = url
+                    showVideoPlayer = true
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private func processLabel(_ label: String) -> String {
+        var processedLabel = label
+        let replacements = [
+            (".", " "),
+            ("mp4", ""),
+            ("2480p", ""),
+            ("1080p", ""),
+            ("720p", ""),
+            ("[YTS MX]", ""),
+            ("YIFY", ""),
+            ("x264", ""),
+            ("BrRip", ""),
+            ("BluRay", ""),
+            ("AAC5 1", ""),
+            ("WEBRip", ""),
+            ("-", ""),
+            ("[YTS AM]", ""),
+            ("  ", ""),
+            ("Deceit", ""),
+            ("( FIRST TRY)", ""),
+            ("x265R", ""),
+            ("EXTENDED", ""),
+            ("REMASTERED", ""),
+            ("REPACK", ""),
+            ("BRrip", ""),
+            ("1 29G", ""),
+            ("(", ""),
+            (")", ""),
+            ("Extended", ""),
+            ("PROPER", ""),
+            ("ARBG", "")
+        ]
         
-        //.frame(minWidth: 375, maxWidth: 430, minHeight: 60, maxHeight: 60, alignment: .leading)
-        .background(Color(AppColor.Figma.Card))
-        .foregroundColor(Color(AppColor.Figma.TitleText))
-        .font(.system(size: 18, weight: .bold, design: .rounded))
-        .cornerRadius(16)
-        //.padding(16)
+        for (search, replace) in replacements {
+            processedLabel = processedLabel.replacingOccurrences(of: search, with: replace)
+        }
+        
+        return processedLabel // Ensure this return statement is present
     }
     
 }
-
